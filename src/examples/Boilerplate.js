@@ -10,7 +10,7 @@ import {
   // Alert,
 } from "react-native"; // Just leaving this whole mess of imports, it seems like RN has a lot of prebuilt Components you can use to just wrap app stuff for yourself.
 
-const Example = ({ navigation}) => {
+const Example = ({ navigation }) => {
   // view is the default container for keeping stuff in in React Naitive
   return (
   <View>
