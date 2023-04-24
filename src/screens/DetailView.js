@@ -19,14 +19,10 @@ height: 300;
 
 const staticArtwork = data[3]
 
-const SwipeStack = ({ navigation }) => {
+const DetailView = ({ navigation }) => {
   return (
     <View>
-      <Text>Swipestack will go here</Text>
-      <Button
-        title="Pretend that this links to a detail page"
-        onPress={() => navigation.navigate('DetailView')}
-      />
+      <Text>This is a detail page</Text>
       <StyledImage
         source={{
           uri: staticArtwork.image,
@@ -37,8 +33,8 @@ const SwipeStack = ({ navigation }) => {
     </View>);
 };
 
-SwipeStack.propTypes = {
+DetailView.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default SwipeStack;
+export default DetailView;

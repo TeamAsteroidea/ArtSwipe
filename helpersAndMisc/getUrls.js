@@ -1,5 +1,8 @@
 const axios = require("axios");
 const fsp = require("node:fs/promises")
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 var artists = [
   "Guay",
   "Nils Hamm",
@@ -24,43 +27,75 @@ var artists = [
   "Kev Walker"
 
 ]
-var query = `https://api.scryfall.com/cards/random?format=image&version=art_crop&q=(${artists.map((value) => `a:"${value}"`).join(' or ')} or is:masterpiece)`;
+var query = `https://api.scryfall.com/cards/search?q=(${artists.map((value) => `a:"${value}"`).join(' or ')} or is:masterpiece)`;
 console.log(query)
 
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-var getArtUrl = async (loops) => {
-
-  var axiosPromises = []
-  for (let i = 1; i <= loops; i++) {
-    console.log(`${i}...`)
-    axiosPromises.push(axios.get(query).catch((err) => {console.log(err.name, err.message)}))
-    await sleep(150)
-
-
-
-    // let result = await axios.get(query)
-    // console.log(result.request.res.responseUrl)
-    // resultsArray.push(result.request.res.responseUrl)
-    // await sleep(50)
+var results = []
+var id = 0
+var getUrl = async(url) => {
+  var result = await axios.get(url).catch((err) => {console.log(err.name, err.message)})
+  // console.log(result.data)
+  for (let card of result.data.data) {
+    results.push({
+      id: id,
+      bidders: [],
+      bidIncrementPrice: 1,
+      bidStartingPrice: 1,
+      artist: card.artist,
+      name: card.name,
+      currentOwner: 'Nobody',
+      image: card.image_uris ? card.image_uris.art_crop: card.card_faces[0].image_uris.art_crop,
+      date_auctioned: 0,
+      bidDuration: 0
+    })
   }
-  console.log(axiosPromises.length)
-
-  var resultsArray = []
-  for (let thisPromise of axiosPromises) {
-    var result = await thisPromise
-    if (result === undefined) {
-      continue
-    }
-
-    console.log(result.request.res.responseUrl)
-    resultsArray.push(result.request.res.responseUrl)
-
+  console.log(result.data.next_page)
+  console.log(result.data.has_more)
+  await sleep(150)
+  if (result.data.has_more) {
+    getUrl(result.data.next_page)
   }
-  return resultsArray
+  else {
+    console.log(results.length)
+    fsp.writeFile('dummyData/artUrlArray.txt', JSON.stringify(results))
+  }
 }
 
-getArtUrl(2000).then((resultsArray) => {
-  fsp.writeFile('dummyData/artUrlArray.txt', JSON.stringify(resultsArray))
-})
+getUrl(query)
+
+
+
+// var getArtUrl = async (loops) => {
+
+//   var axiosPromises = []
+//   for (let i = 1; i <= loops; i++) {
+//     console.log(`${i}...`)
+//     axiosPromises.push(axios.get(query).catch((err) => {console.log(err.name, err.message)}))
+//     await sleep(150)
+
+
+
+//     // let result = await axios.get(query)
+//     // console.log(result.request.res.responseUrl)
+//     // resultsArray.push(result.request.res.responseUrl)
+//     // await sleep(50)
+//   }
+//   console.log(axiosPromises.length)
+
+//   var resultsArray = []
+//   for (let thisPromise of axiosPromises) {
+//     var result = await thisPromise
+//     if (result === undefined) {
+//       continue
+//     }
+
+//     console.log(result.request.res.responseUrl)
+//     resultsArray.push(result.request.res.responseUrl)
+
+//   }
+//   return resultsArray
+// }
+
+// getArtUrl(2000).then((resultsArray) => {
+//   fsp.writeFile('dummyData/artUrlArray.txt', JSON.stringify(resultsArray))
+// })
