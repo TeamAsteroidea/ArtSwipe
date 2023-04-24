@@ -6,14 +6,15 @@ import {
   Button,
   View,
   // SafeAreaView,
-  Text,
+  // Text,
   // Alert,
 } from "react-native";
+import Content from '../components/swipestack.index.jsx';
 
 const SwipeStack = ({ navigation }) => {
   return (
     <View>
-      <Text>Swipestack will go here</Text>
+      <Content />
       <Button
         title="Pretend that this links to a detail page"
         onPress={() => navigation.navigate('Example')}
