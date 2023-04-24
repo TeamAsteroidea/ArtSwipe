@@ -1,24 +1,41 @@
 import * as React from "react";
 import PropTypes from 'prop-types';
-// import { store } from '/redux/store';
+import { useSelector } from "react-redux";
+
 import {
   // StyleSheet,
   Button,
+  ScrollView,
   View,
+  Image,
   // SafeAreaView,
   Text,
   // Alert,
 } from "react-native";
 
-const ArtistAlley = ({ navigation}) => {
+const ArtistAlley = ({ navigation }) => {
+  const images = useSelector((state) => state.images.imagesArray);
+  console.log(images[0])
   return (
-    <View>
+    <ScrollView>
+      <View>
+        <Text>Some more text</Text>
+        <Image
+          source={{
+            uri: images[0],
+          }}
+          style={{ width: 200, height: 200 }}
+        />
+      </View>
+
       <Text>Artist Alley will go here</Text>
-    <Button
+      <Button
         title="Pretend this links to an artist"
         onPress={() => navigation.navigate('ArtistPage')}
       />
-    </View>);
+
+    </ScrollView>
+  );
 };
 
 
