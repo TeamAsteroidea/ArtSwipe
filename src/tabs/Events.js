@@ -52,16 +52,16 @@ const eventDummyData = [
   },
 ];
 
-// id (string)
-// userId (User who created Event) (number) (Should match Users Collection)
-// userName
+// id (String)
+// userId (User who created Event) (String) (Should match Users Collection)
+// userName (String)
 // title (String)
 // venue (String)
 // eventDate (in seconds–String or Number?)
 // websiteUrl (String)
 // contactInfo email (string)
 // description (String)
-// shortDescription (Optional ?)
+// shortDescription (Optional String ?)
 // imageUrl (String)
 
 
