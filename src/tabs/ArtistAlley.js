@@ -14,16 +14,16 @@ import {
 } from "react-native";
 
 const ArtistAlley = ({ navigation }) => {
-  const images = useSelector((state) => state.images.imagesArray);
+  const imageObjs = useSelector((state) => state.images.imagesArray);
   return (
     <ScrollView>
-      { images.length > 0 && images.map((image, idx) => {
+      { imageObjs.length > 0 && imageObjs.map((imageObj) => {
         return (
-          <View key={image + idx}>
+          <View key={imageObj.id}>
             <Text>Some more text</Text>
             <Image
               source={{
-                uri: image,
+                uri: imageObj.image,
               }}
               style={{ width: 200, height: 200 }}
             />

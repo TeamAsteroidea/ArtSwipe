@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import artUrlArray from '../../dummyData/artUrlArray.js';
 
 const initialState = {
-  imagesArray: artUrlArray,
+  imagesArrayObj: artUrlArray,
 };
 
 export const imageSlice = createSlice({
@@ -10,7 +10,7 @@ export const imageSlice = createSlice({
   initialState,
   reducers: {
     addImages: (state, action) => {
-      state.images = [...state.imagesArray, ...action.payload];
+      state.images = [...state.imagesArrayObj, ...action.payload];
     },
   },
 });
