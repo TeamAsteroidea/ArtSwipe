@@ -1,24 +1,29 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 // import { store } from '/redux/store';
 import {
-  // StyleSheet,
-  Button,
+  StyleSheet,
+  // Button,
   View,
   // SafeAreaView,
   Text,
   // Alert,
 } from "react-native";
 
+import Colors from "constants/Colors.js";
+import MessagesToolbar from "components/Messages/MessagesToolbar.js";
+import MessagesChatList from "components/Messages/MessagesChatList.js";
+
 const Messages = ({ navigation }) => {
-  return(
-  <View>
-    <Text>This is a static messages page asdf</Text>
-    <Button
-      title="This is what a button that goes to another page looksk like"
-      onPress={() => navigation.navigate('Example')}
-    />
-  </View>);
+  return (
+    <View style={styles.container}>
+      <View style={{ height: 65, borderWidth: 1 }}>
+        <Text>Messages Header</Text>
+      </View>
+      <MessagesToolbar navigation={navigation} />
+      <MessagesChatList navigation={navigation} />
+    </View>
+  );
 };
 
 Messages.propTypes = {
@@ -26,3 +31,10 @@ Messages.propTypes = {
 };
 
 export default Messages;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.BGLIGHT,
+  },
+});
