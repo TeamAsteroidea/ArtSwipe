@@ -26,6 +26,7 @@ import SwipeStack from './tabs/SwipeStack.js';
 
 /*~~~~SCREENS GO HERE~~~~*/
 import ArtistPage from './screens/ArtistPage.js';
+import BiddingHistory from './screens/BiddingHistory.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,6 +71,11 @@ function App() {
         <Stack.Screen
           name="ArtistPage"
           component={ArtistPage}
+          options={{ headerShown: false, gestureDirection: 'vertical'}}
+        />
+        <Stack.Screen
+          name="BiddingHistory"
+          component={BiddingHistory}
           options={{ headerShown: false, gestureDirection: 'vertical'}}
         />
       </Stack.Navigator>

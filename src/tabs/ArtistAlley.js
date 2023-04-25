@@ -10,7 +10,7 @@ import {
   // Alert,
 } from "react-native";
 
-const ArtistAlley = ({ navigation}) => {
+const ArtistAlley = ({ navigation }) => {
   return (
     <View>
       <Text>Artist Alley will go here</Text>

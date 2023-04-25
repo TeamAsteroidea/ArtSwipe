@@ -21,14 +21,15 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   container: {
+    padding: 20,
     flex: 1,
-    backgroundColor: '#25292e',
+    // backgroundColor: '#25292e',
     alignItems: 'center',
   },
   imageContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
   },
   profilePicture: {
     width: 200,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   optionsContainer: {
-    backgroundColor: '#ADD8E6',
+    // backgroundColor: '#ADD8E6',
     flex: 2,
     justifyContent: 'center',
   }
@@ -51,10 +52,10 @@ const Profile = ({ navigation }) => {
             style={ styles.profilePicture }
             />
           <View style={ styles.optionsContainer }>
-            <Option option={'Personal Information'}></Option>
-            <Option option={'Bidding History'}></Option>
-            <Option option={'Booking'}></Option>
-            <Option option={'Settings'}></Option>
+            <Option option={'Personal Information'} pageName={ 'PersonalInfo' } navigation={navigation}></Option>
+            <Option option={'Bidding History'} pageName={ 'BiddingHistory' } navigation={navigation}></Option>
+            <Option option={'Bookmarks'} pageName={ 'Bookmarks' } navigation={navigation}></Option>
+            <Option option={'Settings'} pageName={ 'Settings' }navigation={navigation}></Option>
           </View>
         </View>
       </View>
