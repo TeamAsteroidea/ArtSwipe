@@ -6,6 +6,7 @@ import {
   Button,
   View,
   // SafeAreaView,
+  ScrollView,
   Text,
   // Alert,
 } from "react-native";
@@ -13,24 +14,35 @@ import styled from 'styled-components/native';
 import data from '../../dummyData/artUrlArray.js'
 
 const StyledImage = styled.Image`
-width: 300;
-height: 300;
+flex: .603;
+width: null;
+height: null;
+resizeMode: contain;
 `
 
-const staticArtwork = data[3]
+const StyledView = styled.View`
+flex: 1;
+background_color: red;
+`
+
+const staticArtwork = data[2069]
 
 const DetailView = ({ navigation }) => {
   return (
-    <View>
-      <Text>This is a detail page</Text>
-      <StyledImage
-        source={{
-          uri: staticArtwork.image,
-        }}
-      />
+  <>
+    <StyledImage
+      source={{
+        uri: staticArtwork.image,
+      }}
+    />
+    <StyledView>
       <Text>{staticArtwork.name}</Text>
       <Text>{staticArtwork.artist}</Text>
-    </View>);
+    </StyledView>
+
+    {/* <View style={{flex:1}}/> */}
+  </>
+    );
 };
 
 DetailView.propTypes = {
@@ -38,3 +50,19 @@ DetailView.propTypes = {
 };
 
 export default DetailView;
+
+
+{/* <View>
+<View style={{flex: 1, backgroundColor: 'red'}} />
+<Text>This is a detail page</Text>
+<View style={{flex: 1, backgroundColor: 'red'}} />
+<StyledImage
+  source={{
+    uri: staticArtwork.image,
+  }}
+/>
+<View>
+  <Text>{staticArtwork.name}</Text>
+  <Text>{staticArtwork.artist}</Text>
+</View>
+</View> */}

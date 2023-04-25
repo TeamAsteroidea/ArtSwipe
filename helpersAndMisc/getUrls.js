@@ -27,7 +27,7 @@ var artists = [
   "Kev Walker"
 
 ]
-var query = `https://api.scryfall.com/cards/search?q=(${artists.map((value) => `a:"${value}"`).join(' or ')} or is:masterpiece)`;
+var query = `https://api.scryfall.com/cards/search?q=(${artists.map((value) => `a:"${value}"`).join(' or ')} or is:masterpiece) -is:artseries`;
 console.log(query)
 
 var results = []
@@ -48,6 +48,7 @@ var getUrl = async(url) => {
       date_auctioned: 0,
       bidDuration: 0
     })
+    id += 1
   }
   console.log(result.data.next_page)
   console.log(result.data.has_more)

@@ -13,11 +13,11 @@ import styled from 'styled-components/native';
 import data from '../../dummyData/artUrlArray.js'
 
 const StyledImage = styled.Image`
-width: 300;
-height: 300;
+width: 100px;
+height: 100px;
 `
 
-const staticArtwork = data[3]
+const staticArtwork = data[7]
 
 const SwipeStack = ({ navigation }) => {
   return (
