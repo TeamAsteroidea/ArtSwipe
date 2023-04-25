@@ -1,0 +1,30 @@
+export const colorPicker = {
+  BEIGE: "#E2CDC5",
+  BLACK: "#111111",
+  BLUEDARK: "#283872",
+  GOLD: "#D2A93F",
+  GOLDLIGHT: "#D2A93F",
+  GRAY: "#8B8B8B",
+  GRAYDARK: "#232323",
+  GRAYLIGHT: "#D9D9D9",
+  GREY: "#8B8B8B",
+  GREYDARK: "#232323",
+  GREYLIGHT: "#D9D9D9",
+  ROSE: "#B88992",
+  TAN: "#D7AF7F",
+  TEAL: "#034448",
+  TEALLIGHT: "#78BBC0",
+  WHITE: "#FFFFFF",
+  WINE: "#730C2F",
+};
+
+export default {
+  BGLIGHT: colorPicker.WHITE,
+  BGDARK: colorPicker.GREYDARK,
+  PLACEHOLDER: colorPicker.GREY,
+  INPUTS: colorPicker.GREYLIGHT,
+  PRIMARY: colorPicker.TEAL,
+  PRIMARYLIGHT: colorPicker.TEALLIGHT,
+  ACCENT: colorPicker.GOLD,
+  ACCENTLIGHT: colorPicker.GOLDLIGHT,
+};
