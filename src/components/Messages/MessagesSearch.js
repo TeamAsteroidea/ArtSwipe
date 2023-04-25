@@ -7,7 +7,7 @@ import {
   // Button,
   View,
   // SafeAreaView,
-  // Text,
+  Text,
   // Alert,
   TextInput,
 } from "react-native";

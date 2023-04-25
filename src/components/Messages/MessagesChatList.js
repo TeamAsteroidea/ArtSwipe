@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // import { store } from '/redux/store';
 import {
   StyleSheet,
-  // Button,
+  Button,
   View,
   // SafeAreaView,
   Text,
