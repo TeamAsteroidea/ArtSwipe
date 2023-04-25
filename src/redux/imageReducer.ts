@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import artUrlArray from '../../dummyData/artUrlArray.js';
+import artUrlArray from '../../dummyData/artUrlArray';
 
 interface ImageObj {
   id: number;
-  bidders: string[];
+  bidders: string[] | never[];
   bidIncrementPrice: number;
   bidStartingPrice: number;
   artist: string;
