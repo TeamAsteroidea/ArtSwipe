@@ -25,6 +25,7 @@ import SwipeStack from "./tabs/SwipeStack.js";
 
 /*~~~~SCREENS GO HERE~~~~*/
 import ArtistPage from "./screens/ArtistPage.js";
+import ChatPage from "./screens/ChatPage.js";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -59,13 +60,19 @@ function App() {
   return (
     // <Provider store={store}>
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Home} />
+      <Stack.Navigator>
+        {/* <Stack.Navigator screenOptions={{ headerShown: false }}> */}
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="ArtistPage"
           component={ArtistPage}
-          options={{ gestureDirection: "vertical" }}
+          options={{ headerShown: false, gestureDirection: "vertical" }}
         />
+        <Stack.Screen name="ChatPage" component={ChatPage} />
       </Stack.Navigator>
     </NavigationContainer>
     // </Provider>

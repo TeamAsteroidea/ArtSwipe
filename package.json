@@ -15,12 +15,9 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@reduxjs/toolkit": "^1.9.5",
-    "components": "^0.1.0",
     "expo": "~48.0.11",
     "expo-status-bar": "~1.4.4",
-    "install": "^0.13.0",
     "module-resolver": "^1.0.0",
-    "npm": "^9.6.5",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -31,7 +28,7 @@
     "react-native-web": "~0.18.10",
     "react-navigation": "^4.4.4",
     "react-redux": "^8.0.5",
-    "styled": "^1.0.0"
+    "styled-components": "^5.3.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
