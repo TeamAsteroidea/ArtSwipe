@@ -9,16 +9,12 @@ import {
   // Text,
   // Alert,
 } from "react-native";
-import Content from '../components/swipestack.index.jsx';
+import Content from '../components/swipestack/index.js';
 
-const SwipeStack = ({ navigation }) => {
+const SwipeStack = () => {
   return (
     <View>
       <Content />
-      <Button
-        title="Pretend that this links to a detail page"
-        onPress={() => navigation.navigate('Example')}
-      />
     </View>);
 };
 
