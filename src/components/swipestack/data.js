@@ -3,7 +3,7 @@ export const user = {
   username: 'artBuyer',
   bookmarks: [2, 5],
   rejected: [4],
-  activeBids: []
+  activeBids: [],
 };
 
 export const artwork = [
@@ -65,7 +65,7 @@ export const artwork = [
     title: 'Girl with a Pearl Earring',
     image: require('../../../assets/icon.png'),
     dateAuctioned: 1682101964,
-    bidDuration: 604800
+    bidDuration: 500000
   },
   { // second soonest
     id: 6,
@@ -77,6 +77,6 @@ export const artwork = [
     title: 'The Scream',
     image: require('../../../assets/icon.png'),
     dateAuctioned: 1682101964,
-    bidDuration: 604700
+    bidDuration: 600000
   }
 ]

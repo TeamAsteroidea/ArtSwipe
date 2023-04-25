@@ -1,20 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { Text } from 'react-native';
 import PropTypes from 'prop-types';
 
-const styles = {
-  clock: {
-    display: 'flex',
-    position: 'absolute',
-    width: '20%',
-    height: '20%',
-    top: 0,
-    left: 0,
-  }
-}
-
 function Timer ({ remainingTime }) {
-  // console.log(remainingTime)
   const convertTime = () => {
     const date = new Date(remainingTime * 1000);
 
@@ -26,7 +14,7 @@ function Timer ({ remainingTime }) {
   }
 
   return (
-    <Text style={styles.clock}>{convertTime()}</Text>
+    <Text>{convertTime()}</Text>
   )
 }
 

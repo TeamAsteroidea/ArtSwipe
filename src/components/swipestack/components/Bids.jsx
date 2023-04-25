@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
 import PropTypes from 'prop-types';
 
-const Bids = ({ user, setModal }) => {
+const Bids = ({ user }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.centeredView}>
@@ -16,7 +16,7 @@ const Bids = ({ user, setModal }) => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            {user.bids.map((bid) => {
+            {user.activeBids.length > 0 && user.activeBids.map((bid) => {
               return (
                 <View key={bid.artwork.id}>
                   <Text>{bid.artwork.title}</Text>
@@ -28,7 +28,6 @@ const Bids = ({ user, setModal }) => {
               style={[styles.button, styles.buttonClose]}
               onPress={() => {
                 setModalVisible(!modalVisible);
-                setModal(false);
               }}
             >
               <Text style={styles.textStyle}>Hide Modal</Text>
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
 
 Bids.propTypes = {
   user: PropTypes.object.isRequired,
-  setModal: PropTypes.object.isRequired
+  setModal: PropTypes.bool
 };
 
 export default Bids;
