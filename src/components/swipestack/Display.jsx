@@ -19,10 +19,33 @@ const CardContainer = styled.View`
 `;
 
 const Card = styled.View`
-  background-color: red;
+  background-color: white;
   height: 75%;
   border-radius: 20px;
 `;
+
+const CardImage = styled.Image`
+  width: 100%;
+  height: 67%;
+  margin-top: 10%;
+  align-self: center;
+`;
+
+const PriceContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 20%;
+`;
+
+const Bid = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+`
+
+const Info = styled.View`
+display: flex;
+`
 
 const ScreenContainer = styled.View`
   flex: 1;
@@ -124,7 +147,7 @@ function Display ({ user, stack }) {
   return (
     <ScreenContainer>
       {/* if there are no cards left, don't show the timer */}
-      {/* {!lastCardSwiped && <Timer remainingTime={clock}/>} */}
+      {!lastCardSwiped && <Timer remainingTime={clock}/>}
       {/* <View style={styles.cardContainer}>
         {stack.map((art, index) => {
             return <Card key={art.id} index={index} art={art} user={user} handleCardLeftScreen={handleCardLeftScreen}/>
@@ -133,10 +156,24 @@ function Display ({ user, stack }) {
       <CardContainer>
         <Swiper
           containerStyle={{ backgroundColor: 'transparent'}}
+          stackSize={3}
+          cardIndex={0}
+          verticalSwipe={false}
+          animateCardOpacity
           cards={stack}
           renderCard={card => (
             <Card key={card.title}>
-              <Text>{card.title}</Text>
+              <CardImage source={card.image}/>
+              <Info>
+                <PriceContainer>
+                  <Text>Previous Value: {card.bidPrice}</Text>
+                  <Bid>{card.bidPrice + card.bidIncrement}</Bid>
+                </PriceContainer>
+                <View>
+                  <Text>{card.title}</Text>
+                  <Text>{card.artist}</Text>
+                </View>
+              </Info>
             </Card>
           )}
         />
