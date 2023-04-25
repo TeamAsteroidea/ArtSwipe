@@ -16,7 +16,7 @@ const Example = ({ navigation}) => {
   <View>
     <Text>just writing something </Text>
     <Button
-      title="This is what a button that goes to another page looksk like."
+      title="This is what a button that goes to another page looks like."
       onPress={() => navigation.navigate('Example')}
     />
   </View>);
