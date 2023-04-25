@@ -44,7 +44,7 @@ function Home() {
   // this order is suuuuuuper tentative
   return (
     <SafeAreaView style={styles.container}>
-      <Tab.Navigator>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="SwipeStack" component={SwipeStack} />
         {/* <Tab.Screen name="ArtistAlley" component={ArtistAlley} /> */}
         <Tab.Screen name="Events" component={Events} />
@@ -59,16 +59,12 @@ function App() {
   return (
     // <Provider store={store}>
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
           name="ArtistPage"
           component={ArtistPage}
-          options={{ headerShown: false, gestureDirection: "vertical" }}
+          options={{ gestureDirection: "vertical" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
