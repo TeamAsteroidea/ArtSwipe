@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Swiper from 'react-native-deck-swiper';
 import {
+  Button,
   View,
   Text,
 } from "react-native";
-import Bids from './components/Bids.jsx';
 import Timer from './components/Timer.jsx';
 import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
 
 function Display ({ user, stack }) {
-  // use a state to track which index of card the use is currently on
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
   const [lastCardSwiped, setLastCardSwiped] = useState(false);
@@ -34,7 +33,12 @@ function Display ({ user, stack }) {
         {!lastCardSwiped && <Timer remainingTime={clock}/>}
       </TimerContainer>
       <ModalContainer>
-        <Bids user={user}/>
+        <OpenModal
+          onPress={() => {}}>
+          <ModalImage
+            source={require('../../../assets/activebids.png')}
+          />
+        </OpenModal>
       </ModalContainer>
       <CardContainer>
         <Swiper
@@ -89,6 +93,12 @@ function Display ({ user, stack }) {
                   <Text>{card.title}</Text>
                   <Text>{card.artist}</Text>
                 </View>
+                <ButtonWrapper>
+                  <Button
+                    title="i"
+                    color="white"
+                  />
+                </ButtonWrapper>
               </Info>
             </Card>
           )}
@@ -112,7 +122,7 @@ const CardContainer = styled.View`
 
 const Card = styled.View`
   background-color: white;
-  height: 75%;
+  height: 70%;
   border-radius: 20px;
   box-shadow: 0 0 50px #ccc;
 `;
@@ -142,8 +152,9 @@ display: flex;
 
 const ScreenContainer = styled.View`
   flex: 1;
-  background-color: green;
+  background-color: #232323;
   height: 100%;
+  width: 100%;
 `
 
 const TimerContainer = styled.View`
@@ -153,7 +164,37 @@ const TimerContainer = styled.View`
 `
 const ModalContainer = styled.View`
   position: absolute;
-  top: -15px;
+  top: 0px;
   right: 10px;
   z-index: 1;
+`
+
+const OpenModal = styled.Pressable`
+  flex: 1;
+  backgroundColor: #D2A93F;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  padding: 4px;
+  align-items: center;
+  justify-content: center;
+`
+
+const ModalImage = styled.Image`
+  flex: 1;
+  max-width: 100%;
+  max-height: 100%;
+  resize-mode: contain;
+`
+
+const ButtonWrapper = styled.View`
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #034448;
+  align-items: center;
+  justify-content: center;
 `
