@@ -44,14 +44,13 @@ const styles = StyleSheet.create({
 function Home() {
   // this order is suuuuuuper tentative
   return (
-    <SafeAreaView style={styles.container}>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="SwipeStack" component={SwipeStack} />
-        {/* <Tab.Screen name="ArtistAlley" component={ArtistAlley} /> */}
-        <Tab.Screen name="Events" component={Events} />
-        <Tab.Screen name="Messages" component={Messages} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="SwipeStack" component={SwipeStack} />
+      {/* <Tab.Screen name="ArtistAlley" component={ArtistAlley} /> */}
+      <Tab.Screen name="Events" component={Events} />
+      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
   );
 }
 
