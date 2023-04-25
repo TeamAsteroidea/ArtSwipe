@@ -15,18 +15,21 @@ import {
 
 const ArtistAlley = ({ navigation }) => {
   const images = useSelector((state) => state.images.imagesArray);
-  console.log(images[0])
   return (
     <ScrollView>
-      <View>
-        <Text>Some more text</Text>
-        <Image
-          source={{
-            uri: images[0],
-          }}
-          style={{ width: 200, height: 200 }}
-        />
-      </View>
+      { images.length > 0 && images.map((image, idx) => {
+        return (
+          <View key={image + idx}>
+            <Text>Some more text</Text>
+            <Image
+              source={{
+                uri: image,
+              }}
+              style={{ width: 200, height: 200 }}
+            />
+          </View>
+        );
+      })}
 
       <Text>Artist Alley will go here</Text>
       <Button
