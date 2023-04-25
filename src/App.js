@@ -24,8 +24,13 @@ import Profile from "./tabs/Profile.js";
 import SwipeStack from "./tabs/SwipeStack.js";
 
 /*~~~~SCREENS GO HERE~~~~*/
+<<<<<<< HEAD
 import ArtistPage from "./screens/ArtistPage.js";
 import ChatPage from "./screens/ChatPage.js";
+=======
+import ArtistPage from './screens/ArtistPage.js';
+import DetailView from './screens/DetailView.js';
+>>>>>>> main
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -44,15 +49,13 @@ const styles = StyleSheet.create({
 function Home() {
   // this order is suuuuuuper tentative
   return (
-    <SafeAreaView style={styles.container}>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="SwipeStack" component={SwipeStack} />
-        {/* <Tab.Screen name="ArtistAlley" component={ArtistAlley} /> */}
-        <Tab.Screen name="Events" component={Events} />
-        <Tab.Screen name="Messages" component={Messages} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </SafeAreaView>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="SwipeStack" component={SwipeStack} />
+      {/* <Tab.Screen name="ArtistAlley" component={ArtistAlley} /> */}
+      <Tab.Screen name="Events" component={Events} />
+      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
   );
 }
 
@@ -60,8 +63,13 @@ function App() {
   return (
     // <Provider store={store}>
     <NavigationContainer>
+<<<<<<< HEAD
       <Stack.Navigator>
         {/* <Stack.Navigator screenOptions={{ headerShown: false }}> */}
+=======
+    <SafeAreaView style={styles.container}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+>>>>>>> main
         <Stack.Screen
           name="Home"
           component={Home}
@@ -70,10 +78,20 @@ function App() {
         <Stack.Screen
           name="ArtistPage"
           component={ArtistPage}
+<<<<<<< HEAD
           options={{ headerShown: false, gestureDirection: "vertical" }}
+=======
+          options={{ headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailView"
+          component={DetailView}
+          options={{ headerShown: false, gestureDirection: 'vertical'}}
+>>>>>>> main
         />
         <Stack.Screen name="ChatPage" component={ChatPage} />
       </Stack.Navigator>
+    </SafeAreaView>
     </NavigationContainer>
     // </Provider>
   );
