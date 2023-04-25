@@ -2,8 +2,8 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from "expo-status-bar";
-// import { Provider } from 'react-redux';
-// import { store } from './redux/store';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 import {
   StyleSheet,
   // Button,
@@ -60,20 +60,22 @@ function Home() {
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ArtistPage"
-          component={ArtistPage}
-          options={{ headerShown: false, gestureDirection: 'vertical'}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ArtistPage"
+            component={ArtistPage}
+            options={{ headerShown: false, gestureDirection: 'vertical' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
