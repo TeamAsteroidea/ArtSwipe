@@ -24,8 +24,8 @@ import Profile from "./tabs/Profile.js";
 import SwipeStack from "./tabs/SwipeStack.js";
 
 /*~~~~SCREENS GO HERE~~~~*/
-import ArtistPage from './screens/ArtistPage.js';
-import DetailView from './screens/DetailView.js';
+import ArtistPage from "./screens/ArtistPage.js";
+import DetailView from "./screens/DetailView.js";
 import ChatPage from "./screens/ChatPage.js";
 
 const Tab = createBottomTabNavigator();
@@ -58,28 +58,28 @@ function Home() {
 function App() {
   return (
     // <Provider store={store}>
-    <NavigationContainer>
+    <SafeAreaView>
+      <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ArtistPage"
-          component={ArtistPage}
-          options={{ headerShown: false, gestureDirection: "vertical" }}
-          options={{ headerShown: false}}
-        />
-        <Stack.Screen
-          name="DetailView"
-          component={DetailView}
-          options={{ headerShown: false, gestureDirection: 'vertical'}}
-        />
-        <Stack.Screen name="ChatPage" component={ChatPage} />
-      </Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ArtistPage"
+            component={ArtistPage}
+            options={{ headerShown: false, gestureDirection: "vertical" }}
+          />
+          <Stack.Screen
+            name="DetailView"
+            component={DetailView}
+            options={{ headerShown: false, gestureDirection: "vertical" }}
+          />
+          <Stack.Screen name="ChatPage" component={ChatPage} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
-    </NavigationContainer>
     // </Provider>
   );
 }
