@@ -24,7 +24,8 @@ import Profile from "./tabs/Profile.js";
 import SwipeStack from "./tabs/SwipeStack.js";
 
 /*~~~~SCREENS GO HERE~~~~*/
-import ArtistPage from "./screens/ArtistPage.js";
+import ArtistPage from './screens/ArtistPage.js';
+import DetailView from './screens/DetailView.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -43,15 +44,13 @@ const styles = StyleSheet.create({
 function Home() {
   // this order is suuuuuuper tentative
   return (
-    <SafeAreaView style={styles.container}>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="SwipeStack" component={SwipeStack} />
-        {/* <Tab.Screen name="ArtistAlley" component={ArtistAlley} /> */}
-        <Tab.Screen name="Events" component={Events} />
-        <Tab.Screen name="Messages" component={Messages} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </SafeAreaView>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="SwipeStack" component={SwipeStack} />
+      {/* <Tab.Screen name="ArtistAlley" component={ArtistAlley} /> */}
+      <Tab.Screen name="Events" component={Events} />
+      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
   );
 }
 
@@ -59,14 +58,25 @@ function App() {
   return (
     // <Provider store={store}>
     <NavigationContainer>
+    <SafeAreaView style={styles.container}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="ArtistPage"
           component={ArtistPage}
-          options={{ gestureDirection: "vertical" }}
+          options={{ headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailView"
+          component={DetailView}
+          options={{ headerShown: false, gestureDirection: 'vertical'}}
         />
       </Stack.Navigator>
+    </SafeAreaView>
     </NavigationContainer>
     // </Provider>
   );
