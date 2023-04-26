@@ -10,10 +10,12 @@ import {
   // Alert,
 } from "react-native";
 import Content from '../components/swipestack/index';
+import Header from '../components/swipestack/components/Header.jsx';
 
 const SwipeStack = ({ navigation }) => {
   return (
     <SafeAreaView style={{flex: '1'}}>
+      <Header/>
       <Content navigation={navigation}/>
     </SafeAreaView>);
 };
