@@ -6,9 +6,9 @@ import {
   View,
   Text,
 } from "react-native";
-import Timer from './components/Timer.jsx';
+import Timer from './components/Timer';
 import styled from 'styled-components/native';
-import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
+import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions';
 
 function Display ({ user, stack, navigation }) {
   const [currentIndex, setCurrentIndex] = useState(0);
