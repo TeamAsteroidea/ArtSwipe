@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import { debounce } from 'lodash';
 
 import {
   Button,
@@ -58,8 +57,6 @@ const ArtistAlley = React.memo(function ArtistAlley({ navigation }) {
           keyExtractor={extractArtKey}
           initialNumToRender={10}
           onEndReachedThreshold={0.2}
-          // onEndReached={onBottom}
-          // onScroll={handleScroll}
           scrollEventThrottle={16}
         />
         <Text style={{ fontWeight: 'bold' }}>{item.artist}</Text>
