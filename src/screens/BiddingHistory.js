@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, setState } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
@@ -15,14 +16,20 @@ import ArtList from '../components/profile/artList';
 
 const BiddingHistory = ({ navigation }) => {
 
+  const [showCompleted, setShowCompleted] = useState(false);
+
+  const toggleShowCompleted = () => {
+    setShowCompleted(!showCompleted);
+    console.log(showCompleted, 'showCompleted');
+  }
 
   return(
   <View>
     <View>
-      <Pressable title={'pending'}>
+      <Pressable title={'pending'} onPress={toggleShowCompleted}>
         <Text>Pending</Text>
       </Pressable>
-      <Pressable title={'pending'}>
+      <Pressable title={'completed'} onPress={toggleShowCompleted}>
         <Text>Completed</Text>
       </Pressable>
     </View>

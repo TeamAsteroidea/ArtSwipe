@@ -1,6 +1,7 @@
 import * as React from "react";
 import PropTypes from 'prop-types';
 import { store } from '../../redux/store.js';
+import { useSelector } from 'react-redux';
 import {
   Button,
   FlatList,
@@ -14,7 +15,7 @@ import BookmarkCard from './bookmarkCard';
 
 const ArtList = ({ navigation }) => {
 
-  const items = store.images;
+  const items = useSelector((state) => state.images.imagesArrayObj)
 
   const renderItem = ({item}) => (<BookmarkCard item={item} navigation={navigation} />);
 
