@@ -18,6 +18,10 @@ const Events = ({ navigation }) => {
         title="This is what a button that goes to another page looksk like"
         onPress={() => navigation.navigate('Example')}
       />
+      <Button
+        title="Create Event"
+        onPress={() => navigation.navigate('CreateEvent')}
+      />
     </View>);
 };
 

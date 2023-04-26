@@ -26,6 +26,9 @@ import SwipeStack from "./tabs/SwipeStack.js";
 /*~~~~SCREENS GO HERE~~~~*/
 import ArtistPage from './screens/ArtistPage.js';
 import DetailView from './screens/DetailView.js';
+import CreateEvent from './screens/CreateEvent.js'
+import PersonalInfo from './screens/PersonalInfo.js';
+import ProfileSettings from './screens/ProfileSettings.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -75,7 +78,22 @@ function App() {
               component={DetailView}
               options={{ headerShown: false, gestureDirection: 'vertical' }}
             />
-          </Stack.Navigator>
+            <Stack.Screen
+          name="CreateEvent"
+          component={CreateEvent}
+          options={{ headerShown: false, gestureDirection: 'vertical'}}
+        />
+        <Stack.Screen
+          name="PersonalInfo"
+          component={PersonalInfo}
+          options={{ headerShown: false, gestureDirection: 'vertical'}}
+        />
+        <Stack.Screen
+          name="ProfileSettings"
+          component={ProfileSettings}
+          options={{ headerShown: false, gestureDirection: 'vertical'}}
+        />
+      </Stack.Navigator>
         </SafeAreaView>
       </NavigationContainer>
     </Provider>

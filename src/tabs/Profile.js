@@ -18,6 +18,14 @@ const Profile = ({ navigation }) => {
       title="This is what a button that goes to another page looksk like"
       onPress={() => navigation.navigate('Example')}
     />
+    <Button
+      title="Personal Info"
+      onPress={() => navigation.navigate('PersonalInfo')}
+    />
+    <Button
+      title="Profile Settings"
+      onPress={() => navigation.navigate('ProfileSettings')}
+    />
   </View>);
 };
 
