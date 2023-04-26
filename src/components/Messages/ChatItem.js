@@ -8,47 +8,54 @@ import {
   // SafeAreaView,
   Text,
   // Alert,
-  Pressable,
+  // Pressable,
 } from "react-native";
 
-import Colors from "constants/Colors.js";
-import Fonts from "constants/Fonts.js";
+// import Colors from "constants/Colors.js";
+// import Fonts from "constants/Fonts.js";
 
-const MessagesChatItem = ({
-  chat_id,
-  message_id,
-  user_id,
-  message_date,
-  message_body,
-}) => {
+const MessagesChatItem = ({ chat_id, message_id, user_id, date, body }) => {
+  let isSenderUser = false;
+  if (user_id === 1) {
+    isSenderUser = true;
+  }
   return (
-    <View style={styles.chatItem}>
-      <View style={styles.chatText}>
-        <Text>{message_body}</Text>
+    <View
+      style={{
+        alignItems: isSenderUser ? "flex-end" : "flex-start",
+      }}
+    >
+      <View style={styles.chatItem}>
+        <View style={styles.chatText}>
+          <Text>{body}</Text>
+        </View>
       </View>
     </View>
   );
 };
 
 MessagesChatItem.propTypes = {
-  navigation: PropTypes.object.isRequired,
   chat_id: PropTypes.number.isRequired,
   message_id: PropTypes.number.isRequired,
   user_id: PropTypes.number.isRequired,
-  message_date: PropTypes.string.isRequired,
-  message_body: PropTypes.string.isRequired,
+  date: PropTypes.number.isRequired,
+  body: PropTypes.string.isRequired,
 };
 
 export default MessagesChatItem;
 
 const styles = StyleSheet.create({
   chatItem: {
-    height: 70,
+    width: 250,
+    paddingVertical: 12,
+    paddingHorizontal: 6,
     marginVertical: 6,
+    marginHorizontal: 45,
     borderWidth: 1,
+    borderRadius: 8,
   },
   chatText: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: "center",
     paddingHorizontal: 15,
     gap: 5,

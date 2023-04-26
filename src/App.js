@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { Provider } from "react-redux";
 // import { store } from "./redux/store";
 import {
-  StyleSheet,
+  // StyleSheet,
   // Button,
   // View,
   SafeAreaView,
@@ -31,19 +31,7 @@ import ChatPage from "./screens/ChatPage.js";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// dummy tab style
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 25,
-    fontWeight: "500",
-  },
-});
-
 function Home() {
-  // this order is suuuuuuper tentative
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="SwipeStack" component={SwipeStack} />
@@ -58,9 +46,9 @@ function Home() {
 function App() {
   return (
     // <Provider store={store}>
-    <SafeAreaView>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <NavigationContainer>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack.Navigator>
           <Stack.Screen
             name="Home"
             component={Home}
@@ -76,10 +64,14 @@ function App() {
             component={DetailView}
             options={{ headerShown: false, gestureDirection: "vertical" }}
           />
-          <Stack.Screen name="ChatPage" component={ChatPage} />
+          <Stack.Screen
+            name="ChatPage"
+            component={ChatPage}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+      </SafeAreaView>
+    </NavigationContainer>
     // </Provider>
   );
 }
