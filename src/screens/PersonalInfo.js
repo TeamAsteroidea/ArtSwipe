@@ -49,6 +49,8 @@ const PersonalInfo = ({ navigation }) => {
       number: number,
     }
 
+    console.log(formData)
+
   axios.post('/personalinformation', formData)
     .then(data => {
       console.log('Post success data: ', data);

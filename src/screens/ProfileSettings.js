@@ -52,6 +52,8 @@ const ProfileSettings = ({ navigation }) => {
       email: email,
     }
 
+    console.log(formData)
+
   axios.post('/profilesettings', formData)
     .then(data => {
       console.log('Post success data: ', data);

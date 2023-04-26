@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Button, View } from "react-native";
+import { Button, Text, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const StartDatePicker = () => {
+const DatePicker = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  let selectedDate = '';
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -15,19 +15,26 @@ const StartDatePicker = () => {
   };
 
   const handleConfirm = (date) => {
-    selectedDate = date;
-    console.warn("A date has been picked: ", date);
+    const dateOptions = {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    }
+    const timeOptions = {
+      timeStyle: "short",
+    }
+
+    const dateString = date.toLocaleString("en-US", dateOptions);
+    const timeString = date.toLocaleString("en-US", timeOptions);
+    setSelectedDate(`${dateString} @ ${timeString}`);
     hideDatePicker();
   };
 
   return (
     <View>
-      {/* {if (selectedDate !== '') {
-        return (
-          <Text>{selectedDate}</Text>
-        )
-      }} */}
-      <Button title="Select start date" onPress={showDatePicker} />
+      {selectedDate !== null ? <Text>{selectedDate}</Text> : null }
+      <Button title="Select date & time" onPress={showDatePicker} />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="datetime"
@@ -39,4 +46,4 @@ const StartDatePicker = () => {
   );
 };
 
-export default StartDatePicker;
+export default DatePicker;

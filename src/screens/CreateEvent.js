@@ -12,7 +12,7 @@ import {
   // Alert,
 } from "react-native";
 import axios from 'axios';
-import StartDatePicker from "../components/Events/EventsPickers.js"
+import DatePicker from "../components/Events/EventsPickers.js"
 
 /*
 id (String)
@@ -52,6 +52,8 @@ const CreateEvent = ({ navigation }) => {
       eventZipCode: eventZipCode,
     }
 
+    console.log(formData)
+
   axios.post('/createevent', formData)
     .then(data => {
       console.log('Post success data: ', data);
@@ -80,18 +82,18 @@ const CreateEvent = ({ navigation }) => {
         />
 
         <Text>Start Date</Text>
-        <StartDatePicker
+        <DatePicker
           onChangeText={setEventStart}
         />
 
         <Text>End Date</Text>
-        <TextInput
+        <DatePicker
           onChangeText={setEventEnd}
         />
 
         <Text>Street Address</Text>
         <TextInput
-          placeholder="MM / DD / YYYY"
+          placeholder="44 Tehama St"
           onChangeText={setEventAddress}
         />
 
@@ -103,13 +105,13 @@ const CreateEvent = ({ navigation }) => {
 
         <Text>State</Text>
         <TextInput
-          placeholder="janesmith7@email.com"
+          placeholder="CA"
           onChangeText={setEventState}
         />
 
         <Text>Zip Code</Text>
         <TextInput
-          placeholder="555-555-1234"
+          placeholder="94105"
           onChangeText={setEventZipCode}
         />
 
