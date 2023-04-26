@@ -21,6 +21,7 @@ const ArtistAlley = React.memo(function ArtistAlley({ navigation }) {
     }
     return acc;
   }, {});
+
   const artistData = Object.entries(artistObjs).map(([artist, data]) => ({
     artist: artist,
     data,
