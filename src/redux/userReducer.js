@@ -5,16 +5,29 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    // displayName: "display name",
-    // email: "email",
-    // photoURL: "photo URL",
-    // uid: 1234,
     loggedIn: false,
+    user: {
+      displayName: '',
+      email: '',
+      photoURL: '',
+      uid: '',
+    },
   },
   reducers: {
-    setLoginStatus: (state, action) => {
-      state.loggedIn = action.payload;
-    }
+    loginUser: (state, action) => {
+      console.log('loginUser', action.payload)
+      state.user = action.payload;
+      state.loggedIn = true;
+    },
+    logoutUser: (state) => {
+      state.loggedIn = false;
+      state.user = {
+        displayName: '',
+        email: '',
+        photoURL: '',
+        uid: '',
+      };
+    },
   },
   // extraReducers: {
   //   [createUser.fulfilled]: (state, action) => {
@@ -26,5 +39,5 @@ const userSlice = createSlice({
   // },
 })
 
-export const {} = userSlice.actions
+export const { loginUser, logoutUser } = userSlice.actions
 export default userSlice.reducer
