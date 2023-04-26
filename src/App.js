@@ -33,6 +33,37 @@ import ChatPage from "./screens/ChatPage.jsx";
 import BiddingHistory from './screens/BiddingHistory.js';
 import Bookmarks from './screens/Bookmarks.js';
 
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+
+// Optionally import the services that you want to use
+// import {...} from "firebase/auth";
+// import {...} from "firebase/database";
+// import {...} from "firebase/firestore";
+// import {...} from "firebase/functions";
+// import {...} from "firebase/storage";
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: 'api-key',
+  authDomain: 'project-id.firebaseapp.com',
+  databaseURL: 'https://project-id.firebaseio.com',
+  projectId: 'project-id',
+  storageBucket: 'project-id.appspot.com',
+  messagingSenderId: 'sender-id',
+  appId: 'app-id',
+  measurementId: 'G-measurement-id',
+};
+
+const fbase = initializeApp(firebaseConfig);
+console.log(typeof fbase)
+const auth = getAuth(fbase);
+console.log(auth)
+signInWithEmailAndPassword(auth, 'dummymail', 'dummypw').then(() => {
+  console.log('how did I make it here')
+})
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
