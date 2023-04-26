@@ -16,9 +16,17 @@ interface ImageObj {
 
 interface ImageState {
   imagesArrayObj: ImageObj[];
+  rendered: ImageObj[];
+  filtered: ImageObj[];
+  completed: ImageObj[];
 }
+
+
 const initialState: ImageState = {
   imagesArrayObj: artUrlArray,
+  rendered: [],
+  filtered: [],
+  completed: artUrlArray.filter(art => art.bidDuration === 0),
 };
 
 export const imageSlice = createSlice({
