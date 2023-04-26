@@ -19,7 +19,6 @@
     "expo": "~48.0.11",
     "expo-status-bar": "~1.4.4",
     "firebase": "^9.20.0",
-    "install": "^0.13.0",
     "module-resolver": "^1.0.0",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
