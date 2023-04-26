@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, Ref } from "react";
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
@@ -8,16 +8,17 @@ import {
   ScrollView,
   View,
   Image,
-  // SafeAreaView,
   Text,
   // Alert,
 } from "react-native";
 
 const ArtistAlley = ({ navigation }) => {
-  const imageObjs = useSelector((state) => state.images.imagesArray);
+  const imageObjs = useSelector((state) => state.images.imagesArrayObj);
+  const [renderedImages, setRenderedImages] = useState([...imageObjs.slice(0, 10)]);
+
   return (
     <ScrollView>
-      { imageObjs.length > 0 && imageObjs.map((imageObj) => {
+      {renderedImages.length > 0 && renderedImages.map((imageObj) => {
         return (
           <View key={imageObj.id}>
             <Text>Some more text</Text>
@@ -27,15 +28,14 @@ const ArtistAlley = ({ navigation }) => {
               }}
               style={{ width: 200, height: 200 }}
             />
+            <Button
+              title="Pretend this links to an artist"
+              onPress={() => navigation.navigate('ArtistPage')}
+            />
           </View>
         );
       })}
 
-      <Text>Artist Alley will go here</Text>
-      <Button
-        title="Pretend this links to an artist"
-        onPress={() => navigation.navigate('ArtistPage')}
-      />
 
     </ScrollView>
   );
