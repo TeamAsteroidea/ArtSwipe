@@ -10,7 +10,7 @@ import {
   // Alert,
 } from "react-native";
 
-import MessagesRecItem from "./MessagesRecItem.js";
+import MessagesRecItem from "./MessagesRecItem.jsx";
 
 const MessagesChatRecs = ({ navigation }) => {
   return (
