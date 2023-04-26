@@ -16,7 +16,9 @@ const SwipeStack = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header/>
-      <Content navigation={navigation} />
+      <View style={styles.container}>
+        <Content navigation={navigation} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -30,6 +32,10 @@ export default SwipeStack;
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#232323',
+    backgroundColor: '#034448',
   },
+  container: {
+    flex: 1,
+    backgroundColor: '#232323'
+  }
 });

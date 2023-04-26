@@ -44,7 +44,7 @@ export function sortArtwork (user, listOfArt) {
     const newArt = {...art}
     newArt.bidders = [...newArt.bidders]
     newArt.auctionTimeLeft = timeRemaining(art);
-    console.log(newArt)
+    // console.log(newArt)
     return newArt;
   })
   // filter artwork in which the user is the last person to bid, it's been rejected, or there is no more time left on the auction

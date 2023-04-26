@@ -108,7 +108,9 @@ function Display ({ user, stack, navigation }) {
                 </TitleContainer>
                 <ButtonWrapper>
                   <Button
-                    onPress={() => navigation.navigate('DetailView')}
+                    onPress={() => navigation.navigate('DetailView', {
+                      art: card,
+                    })}
                     title="i"
                     color="white"
                   />
