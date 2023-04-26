@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
-  Button,
+  // Button,
   View,
   // SafeAreaView,
   Text,
   // Alert,
-  ScrollView,
+  // ScrollView,
 } from "react-native";
 
 // {
@@ -24,16 +24,16 @@ import {
 //   imageUrl: 'website.com/image3.png',
 // }
 
-const EventCreation = ({ route }) => {
+const EventEdit = ({ route }) => {
   const { eventData } = route.params;
   return (
     <View>
-      <Text>EventCreation</Text>
+      <Text>Event Edit Form</Text>
     </View>);
 };
 
-EventCreation.propTypes = {
+EventEdit.propTypes = {
   route: PropTypes.object.isRequired,
 };
 
-export default EventCreation;
+export default EventEdit;

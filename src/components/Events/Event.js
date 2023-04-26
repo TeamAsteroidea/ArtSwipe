@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
-  Button,
+  // Button,
   View,
   // SafeAreaView,
   Text,
   // Alert,
   Image,
-  ScrollView,
+  // ScrollView,
+  Pressable,
 } from "react-native";
+// import { useNavigation } from '@react-navigation/native';
 
 // {
 //   id: '12347',
@@ -25,24 +27,31 @@ import {
 //   imageUrl: 'website.com/image3.png',
 // }
 
-const Event = ({ eventData }) => {
+const Event = ({ eventData, navigation }) => {
+
   const imgObj = {
     uri: eventData.imageUrl,
   };
+
   return (
-    <View>
+    <Pressable onPress={() => {
+      navigation.navigate('EventDescription', {
+        eventData,
+      })
+    }}>
       <Image
-          style={{width: '50%', height: '50%', justifyContent: 'center'}}
-          source={imgObj}
+        style={{ width: '100%', height: 100 }}
+        source={imgObj}
       />
       <Text>{eventData.eventDate}</Text>
       <Text>{eventData.title}</Text>
       <Text>{eventData.venue}</Text>
-    </View>);
+    </Pressable>);
 };
 
 Event.propTypes = {
   eventData: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default Event;

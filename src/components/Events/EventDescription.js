@@ -8,7 +8,8 @@ import {
   // SafeAreaView,
   Text,
   // Alert,
-  ScrollView,
+  // ScrollView,
+  Image,
 } from "react-native";
 
 // {
@@ -24,20 +25,40 @@ import {
 //   imageUrl: 'website.com/image3.png',
 // }
 
-const EventDescription = ({ eventData }) => {
+const EventDescription = ({ route, navigation }) => {
+  const { eventData } = route.params;
+  const imgObj = {
+    uri: eventData.imageUrl,
+  };
+
   return (
     <View>
-      <Text>{eventData.imageUrl}</Text>
+       {/* <Button
+        title="Back to EventsList Button"
+        onPress={() => navigation.navigate('EventsList')}
+      /> */}
+      <Button
+        title="Event Edit Button"
+        onPress={() => navigation.navigate('EventEdit', {
+          eventData: eventData,
+        })}
+      />
+      <Image
+        style={{ width: '100%', height: 100 }}
+        source={imgObj}
+      />
       <Text>{eventData.eventDate}</Text>
       <Text>{eventData.title}</Text>
       <Text>{eventData.venue}</Text>
       <Text>{eventData.description}</Text>
       <Text>{eventData.contactInfo}</Text>
+
     </View>);
 };
 
 EventDescription.propTypes = {
-  eventData: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default EventDescription;
