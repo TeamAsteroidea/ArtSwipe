@@ -3,17 +3,32 @@ import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
-  // Button,
+  Button,
+  Pressable,
   View,
   // SafeAreaView,
   Text,
   // Alert,
 } from "react-native";
 
+import ArtList from '../components/profile/artList';
+
 const BiddingHistory = ({ navigation }) => {
+
+
   return(
   <View>
-    <Text>Pretend this is Arty Artersons profile</Text>
+    <View>
+      <Pressable title={'pending'}>
+        <Text>Pending</Text>
+      </Pressable>
+      <Pressable title={'pending'}>
+        <Text>Completed</Text>
+      </Pressable>
+    </View>
+    <View>
+      <ArtList navigation={navigation}/>
+    </View>
   </View>);
 };
 
