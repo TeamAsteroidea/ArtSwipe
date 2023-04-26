@@ -2,7 +2,8 @@ export const user = {
   userId: 1,
   username: 'artBuyer',
   bookmarks: [2, 5],
-  rejected: [4]
+  rejected: [4],
+  activeBids: [],
 };
 
 export const artwork = [
@@ -10,11 +11,11 @@ export const artwork = [
     id: 1,
     bidders: ['artBuyer'],
     bidIncrement: 1000,
-    bidStartingPrice: 100000,
+    bidPrice: 100000,
     artist: 'Van Gogh',
     currentOwner: 'artOwner',
     title: 'The Starry Night',
-    image: null,
+    image: require('../../../assets/icon.png'),
     dateAuctioned: 1682361164,
     bidDuration: 604800
   },
@@ -22,11 +23,11 @@ export const artwork = [
     id: 2,
     bidders: [],
     bidIncrement: 2000,
-    bidStartingPrice: 150000,
+    bidPrice: 150000,
     artist: 'Henri Matisse',
     currentOwner: 'artOwner',
     title: 'Cat With Red Fish',
-    image: null,
+    image: require('../../../assets/icon.png'),
     dateAuctioned: 1682015564,
     bidDuration: 604800
   },
@@ -34,11 +35,11 @@ export const artwork = [
     id: 3,
     bidders: ['artBuyer'],
     bidIncrement: 5000,
-    bidStartingPrice: 30000,
+    bidPrice: 30000,
     artist: 'Alfred R. Mitchell',
     currentOwner: 'artOwner',
     title: 'La Jolla Cove',
-    image: null,
+    image: require('../../../assets/icon.png'),
     dateAuctioned: 1682188364,
     bidDuration: 604800
   },
@@ -46,11 +47,11 @@ export const artwork = [
     id: 4,
     bidders: [],
     bidIncrement: 10000,
-    bidStartingPrice: 500000,
+    bidPrice: 500000,
     artist: 'Rembrandt Harmenszoon van Rijn',
     currentOwner: 'artOwner',
     title: 'Landscape with the Rest on the Flight into Egypt',
-    image: null,
+    image: require('../../../assets/icon.png'),
     dateAuctioned: 1682274764,
     bidDuration: 604800
   },
@@ -58,24 +59,24 @@ export const artwork = [
     id: 5,
     bidders: [],
     bidIncrement: 1500,
-    bidStartingPrice: 200000,
+    bidPrice: 200000,
     artist: 'Johannes Vermeer',
     currentOwner: 'artOwner',
     title: 'Girl with a Pearl Earring',
-    image: null,
+    image: require('../../../assets/icon.png'),
     dateAuctioned: 1682101964,
-    bidDuration: 604800
+    bidDuration: 500000
   },
   { // second soonest
     id: 6,
     bidders: [],
     bidIncrement: 1500,
-    bidStartingPrice: 200000,
-    artist: 'Johannes Vermeer',
+    bidPrice: 200000,
+    artist: '	Edvard Munch',
     currentOwner: 'artOwner',
-    title: 'Girl with a Pearl Earring',
-    image: null,
+    title: 'The Scream',
+    image: require('../../../assets/icon.png'),
     dateAuctioned: 1682101964,
-    bidDuration: 604700
+    bidDuration: 600000
   }
 ]

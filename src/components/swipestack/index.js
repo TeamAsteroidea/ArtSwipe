@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
-import {
-  // StyleSheet,
-  // Button,
-  View,
-  // SafeAreaView,
-  // Text,
-  // Alert,
-} from "react-native";
 import { user, artwork } from './data.js';
-import { sortArtwork } from './helperFunctions/helperFunctions.js';
+import { View } from 'react-native';
+import { sortArtwork } from './helperFunctions/sortHelperFunctions.js';
+import Display from './Display.jsx';
+// import styled from 'styled-components/native';
 
-function Content () {
-  const [stack, setStack] = useState(sortArtwork(user, artwork));
+function Content ({ navigation }) {
+  const [stack] = useState(sortArtwork(user, artwork));
 
   return (
-    <View>Place Holder</View>
+    <View>
+        <Display stack={stack} user={user} navigation={navigation}/>
+    </View>
   );
 }
 
