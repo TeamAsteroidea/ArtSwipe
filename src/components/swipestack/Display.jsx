@@ -15,6 +15,13 @@ function Display ({ user, stack }) {
   const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
   const [lastCardSwiped, setLastCardSwiped] = useState(false);
 
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
   useEffect(() => {
     const interval = setInterval(() => {
       setClock(clock - 1);
@@ -30,7 +37,12 @@ function Display ({ user, stack }) {
     <ScreenContainer>
       {/* if there are no cards left, don't show the timer */}
       <TimerContainer>
-        {!lastCardSwiped && <Timer remainingTime={clock}/>}
+        {!lastCardSwiped &&
+          <View>
+            <Text>Bidding ends in:</Text>
+            <Timer remainingTime={clock}/>
+          </View>
+        }
       </TimerContainer>
       <ModalContainer>
         <OpenModal
@@ -86,13 +98,14 @@ function Display ({ user, stack }) {
               <CardImage source={card.image}/>
               <Info>
                 <PriceContainer>
-                  <Text>Previous Value: {card.bidPrice}</Text>
-                  <Bid>{card.bidPrice + card.bidIncrement}</Bid>
+                  <PreviousBid>Previous Value:</PreviousBid>
+                  <Text>{USDollar.format(card.bidPrice)}</Text>
                 </PriceContainer>
-                <View>
-                  <Text>{card.title}</Text>
-                  <Text>{card.artist}</Text>
-                </View>
+                <Bid>{USDollar.format(card.bidPrice + card.bidIncrement)}</Bid>
+                <TitleContainer>
+                  <Title>{card.title}</Title>
+                  <Artist>{card.artist}</Artist>
+                </TitleContainer>
                 <ButtonWrapper>
                   <Button
                     title="i"
@@ -115,6 +128,11 @@ Display.propTypes = {
 
 export default Display;
 
+const ScreenContainer = styled.View`
+  flex: 1;
+  background-color: #232323;
+`
+
 const CardContainer = styled.View`
   flex: 1;
   margin-top: -6px;
@@ -122,9 +140,9 @@ const CardContainer = styled.View`
 
 const Card = styled.View`
   background-color: white;
-  height: 70%;
+  height: 75%;
   border-radius: 20px;
-  box-shadow: 0 0 50px #ccc;
+  box-shadow: 0 0 20px #ccc;
 `;
 
 const CardImage = styled.Image`
@@ -132,35 +150,59 @@ const CardImage = styled.Image`
   height: 67%;
   margin-top: 10%;
   align-self: center;
+  padding: 20px;
 `;
 
 const PriceContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-end;
   width: 100%;
   height: 20%;
 `;
 
+const PreviousBid = styled.Text`
+  font-size: 12px;
+  color: #666;
+`
+
 const Bid = styled.Text`
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 30px;
+  position: absolute;
+  color: #000;
+  top: 20px;
+  right: 20px;
 `
 
 const Info = styled.View`
-display: flex;
+  display: flex;
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 `
 
-const ScreenContainer = styled.View`
+const TitleContainer = styled.View`
   flex: 1;
-  background-color: #232323;
-  height: 100%;
-  width: 100%;
+  padding-top: 20px;
+`
+
+const Title = styled.Text`
+  flex: 1;
+  font-weight: bold;
+  font-size: 20px;;
+`
+
+const Artist = styled.Text`
+  flex: 1;
+  font-style: italic;
+  font-size: 15px;
 `
 
 const TimerContainer = styled.View`
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 30px;
+  justify-content: center;
+  align-content: center;
 `
 const ModalContainer = styled.View`
   position: absolute;

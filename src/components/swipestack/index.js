@@ -5,7 +5,7 @@ import { user, artwork } from './data.js';
 import { View } from 'react-native';
 import { sortArtwork } from './helperFunctions/sortHelperFunctions.js';
 import Display from './Display.jsx';
-import styled from 'styled-components/native';
+// import styled from 'styled-components/native';
 
 function Content () {
   const [stack] = useState(sortArtwork(user, artwork));

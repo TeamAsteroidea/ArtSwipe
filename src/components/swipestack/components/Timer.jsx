@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 import PropTypes from 'prop-types';
+import styled from 'styled-components/native';
 
 function Timer ({ remainingTime }) {
   const convertTime = () => {
@@ -14,7 +15,7 @@ function Timer ({ remainingTime }) {
   }
 
   return (
-    <Text>{convertTime()}</Text>
+    <Time>{convertTime()}</Time>
   )
 }
 
@@ -25,3 +26,7 @@ Timer.propTypes = {
 
 
 export default Timer;
+
+const Time = styled.Text`
+  font-weight: bold;
+`
