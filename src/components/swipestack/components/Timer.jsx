@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 function Timer ({ remainingTime }) {
   const convertTime = () => {
-    const date = new Date(remainingTime * 1000);
+    const date = new Date(remainingTime);
 
     let seconds = date.getSeconds();
     let minutes = date.getMinutes();

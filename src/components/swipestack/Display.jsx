@@ -24,7 +24,7 @@ function Display ({ user, stack, navigation }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setClock(clock - 1);
+      setClock(clock - 1000);
     }, 1000);
     return () => clearInterval(interval);
   }, [clock]);

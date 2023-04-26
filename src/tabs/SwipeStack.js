@@ -5,7 +5,7 @@ import {
   // StyleSheet,
   // Button,
   View,
-  // SafeAreaView,
+  SafeAreaView,
   // Text,
   // Alert,
 } from "react-native";
@@ -13,9 +13,9 @@ import Content from '../components/swipestack/index';
 
 const SwipeStack = ({ navigation }) => {
   return (
-    <View>
+    <SafeAreaView style={{flex: '1'}}>
       <Content navigation={navigation}/>
-    </View>);
+    </SafeAreaView>);
 };
 
 SwipeStack.propTypes = {

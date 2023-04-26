@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from "expo-status-bar";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { store } from "./redux/store";
 import {
   StyleSheet,
   // Button,
@@ -44,8 +44,20 @@ const styles = StyleSheet.create({
 function Home() {
   // this order is suuuuuuper tentative
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="SwipeStack" component={SwipeStack} />
+    <Tab.Navigator>
+      <Tab.Screen
+        name="SwipeStack"
+        component={SwipeStack}
+        options={{
+          title: 'ArtSwipe',
+          headerTitleStyle: {
+            color: 'white',
+          },
+          headerStyle: {
+            backgroundColor: '#034448',
+          }
+        }}
+      />
       <Tab.Screen name="ArtistAlley" component={ArtistAlley} />
       <Tab.Screen name="Events" component={Events} />
       <Tab.Screen name="Messages" component={Messages} />
@@ -54,12 +66,14 @@ function Home() {
   );
 }
 
+// screenOptions={{ headerShown: false }}
+
 function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
         <SafeAreaView style={styles.container}>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Navigator>
             <Stack.Screen
               name="Home"
               component={Home}

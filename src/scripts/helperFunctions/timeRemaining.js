@@ -1,7 +1,7 @@
 // this function takes a single art object
 export const timeRemaining = (art) => {
   // get today's date in UNIX format (seconds)
-  const today = Math.floor((new Date().getTime()) / 1000);
+  const today = new Date().getTime();
   // subtract todays date from the dateAuctioned
   const timeSpent = today - art.dateAuctioned;
   // if the timeSpent is equal to or less than 0, return 0
