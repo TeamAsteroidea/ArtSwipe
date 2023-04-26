@@ -12,7 +12,10 @@ module.exports = function (api) {
             src: "./src",
             components: "./src/components",
             constants: "./src/constants",
+<<<<<<< HEAD
             // redux: "./src/redux",
+=======
+>>>>>>> origin
             screens: "./src/screens",
             tabs: "./src/tabs",
           },
