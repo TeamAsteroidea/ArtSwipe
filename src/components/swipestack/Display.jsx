@@ -10,7 +10,7 @@ import Timer from './components/Timer.jsx';
 import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
 
-function Display ({ user, stack }) {
+function Display ({ user, stack, navigation }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
   const [lastCardSwiped, setLastCardSwiped] = useState(false);
@@ -46,7 +46,7 @@ function Display ({ user, stack }) {
       </TimerContainer>
       <ModalContainer>
         <OpenModal
-          onPress={() => {}}>
+          onPress={() => navigation.navigate('')}>
           <ModalImage
             source={require('../../../assets/activebids.png')}
           />
@@ -108,6 +108,7 @@ function Display ({ user, stack }) {
                 </TitleContainer>
                 <ButtonWrapper>
                   <Button
+                    onPress={() => navigation.navigate('DetailView')}
                     title="i"
                     color="white"
                   />
@@ -123,7 +124,8 @@ function Display ({ user, stack }) {
 
 Display.propTypes = {
   user: PropTypes.object.isRequired,
-  stack: PropTypes.array.isRequired
+  stack: PropTypes.array.isRequired,
+  navigation: PropTypes.object.isRequired
 };
 
 export default Display;

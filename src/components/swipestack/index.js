@@ -7,12 +7,12 @@ import { sortArtwork } from './helperFunctions/sortHelperFunctions.js';
 import Display from './Display.jsx';
 // import styled from 'styled-components/native';
 
-function Content () {
+function Content ({ navigation }) {
   const [stack] = useState(sortArtwork(user, artwork));
 
   return (
     <View>
-        <Display stack={stack} user={user}/>
+        <Display stack={stack} user={user} navigation={navigation}/>
     </View>
   );
 }

@@ -11,10 +11,10 @@ import {
 } from "react-native";
 import Content from '../components/swipestack/index.js';
 
-const SwipeStack = () => {
+const SwipeStack = ({ navigation }) => {
   return (
     <View>
-      <Content />
+      <Content navigation={navigation}/>
     </View>);
 };
 
