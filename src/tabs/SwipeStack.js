@@ -16,8 +16,9 @@ const SwipeStack = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header/>
-      <Content navigation={navigation}/>
-    </SafeAreaView>);
+      <Content navigation={navigation} />
+    </SafeAreaView>
+  );
 };
 
 SwipeStack.propTypes = {

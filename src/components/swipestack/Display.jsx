@@ -95,7 +95,7 @@ function Display ({ user, stack, navigation }) {
           cards={stack}
           renderCard={card => (
             <Card key={card.title}>
-              <CardImage source={card.image}/>
+              <CardImage source={{uri: card.image}}/>
               <Info>
                 <PriceContainer>
                   <PreviousBid>Previous Value:</PreviousBid>
@@ -103,7 +103,7 @@ function Display ({ user, stack, navigation }) {
                 </PriceContainer>
                 <Bid>{USDollar.format(card.bidPrice + card.bidIncrement)}</Bid>
                 <TitleContainer>
-                  <Title>{card.title}</Title>
+                  <Title>{card.name}</Title>
                   <Artist>{card.artist}</Artist>
                 </TitleContainer>
                 <ButtonWrapper>

@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
-import { user, artwork } from './data.js';
+import { user } from './data.js';
 import { View } from 'react-native';
 import { sortArtwork } from './helperFunctions/sortHelperFunctions.js';
 import Display from './Display.jsx';
 import styled from 'styled-components/native';
+import { useSelector } from "react-redux";
 
 function Content ({ navigation }) {
-  const [stack] = useState(sortArtwork(user, artwork));
+  const artwork = useSelector((state) => state.images.imagesArrayObj);
+  const sortedArtwork = sortArtwork(user, artwork)
+  const [stack] = useState(sortedArtwork);
 
   return (
     <Swiper style={{}}>
-        <Display stack={stack} user={user} navigation={navigation}/>
+      {stack.length > 0 && <Display stack={stack} user={user} navigation={navigation}/>}
     </Swiper>
   );
 }
