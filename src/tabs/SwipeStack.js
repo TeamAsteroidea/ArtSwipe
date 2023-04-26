@@ -3,37 +3,18 @@ import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
-  Button,
+  // Button,
   View,
   // SafeAreaView,
-  Text,
+  // Text,
   // Alert,
 } from "react-native";
-import styled from 'styled-components/native';
-import data from '../../dummyData/artUrlArray.js'
-
-const StyledImage = styled.Image`
-width: 100px;
-height: 100px;
-`
-
-const staticArtwork = data[7]
+import Content from '../components/swipestack/index';
 
 const SwipeStack = ({ navigation }) => {
   return (
     <View>
-      <Text>Swipestack will go here</Text>
-      <Button
-        title="Pretend that this links to a detail page"
-        onPress={() => navigation.navigate('DetailView')}
-      />
-      <StyledImage
-        source={{
-          uri: staticArtwork.image,
-        }}
-      />
-      <Text>{staticArtwork.name}</Text>
-      <Text>{staticArtwork.artist}</Text>
+      <Content navigation={navigation}/>
     </View>);
 };
 
