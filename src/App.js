@@ -35,39 +35,6 @@ import Bookmarks from './screens/Bookmarks.js';
 import LoginScreen from './screens/LoginScreen.js';
 
 
-/*~~~~FIREBASE GOES HERE~~~~*/
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-
-// Optionally import the services that you want to use
-// import {...} from "firebase/auth";
-// import {...} from "firebase/database";
-// import {...} from "firebase/firestore";
-// import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
-
-// Initialize Firebase
-console.log(process.env.API_KEY)
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: 'artswipe-b2bc3.firebaseapp.com',
-  databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
-  projectId: 'artswipe-b2bc3',
-  storageBucket: 'artswipe-b2bc3.appspot.com',
-  messagingSenderId: 'sender-id',
-  appId: process.env.APP_ID,
-  measurementId: 'G-measurement-id',
-};
-
-const fbase = initializeApp(firebaseConfig);
-console.log(typeof fbase)
-const auth = getAuth(fbase);
-console.log(auth)
-createUserWithEmailAndPassword(auth, 'dummymail@yeet.com', 'dummypw').then(() => {
-  console.log('how did I make it here')
-})
-
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
