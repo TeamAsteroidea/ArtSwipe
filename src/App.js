@@ -34,7 +34,7 @@ import BiddingHistory from './screens/BiddingHistory.js';
 import Bookmarks from './screens/Bookmarks.js';
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 // Optionally import the services that you want to use
@@ -46,13 +46,13 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 // Initialize Firebase
 const firebaseConfig = {
-  apiKey: 'api-key',
-  authDomain: 'project-id.firebaseapp.com',
-  databaseURL: 'https://project-id.firebaseio.com',
-  projectId: 'project-id',
-  storageBucket: 'project-id.appspot.com',
+  apiKey: 'AIzaSyDWBSu8t-d4dX-5ZQRdJbQRy7Fv4FDusL4',
+  authDomain: 'artswipe-b2bc3.firebaseapp.com',
+  databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
+  projectId: 'artswipe-b2bc3',
+  storageBucket: 'artswipe-b2bc3.appspot.com',
   messagingSenderId: 'sender-id',
-  appId: 'app-id',
+  appId: '1:298048017254:ios:f3ff0ff40bd9f487722ea7',
   measurementId: 'G-measurement-id',
 };
 
@@ -60,7 +60,7 @@ const fbase = initializeApp(firebaseConfig);
 console.log(typeof fbase)
 const auth = getAuth(fbase);
 console.log(auth)
-signInWithEmailAndPassword(auth, 'dummymail', 'dummypw').then(() => {
+createUserWithEmailAndPassword(auth, 'dummymail@test.com', 'dummypw').then(() => {
   console.log('how did I make it here')
 })
 
