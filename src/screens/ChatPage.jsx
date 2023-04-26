@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 // import { store } from '/redux/store';
@@ -18,7 +17,6 @@ import {
   TextInput,
 } from "react-native";
 
-import { setBgColor } from "src/redux/bgColorReducer.ts";
 import Colors from "constants/Colors.js";
 import Fonts from "constants/Fonts.js";
 import Subheader from "components/modular/Subheader.jsx";
@@ -34,15 +32,10 @@ const dummyData = {
 };
 
 const ChatPage = ({ navigation }) => {
-  const dispatch = useDispatch();
   const scrollViewRef = useRef();
   const [chats, setChats] = useState([].concat(...Array(100).fill(dummyData)));
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
-
-  useEffect(() => {
-    dispatch(setBgColor(Colors.BGLIGHT));
-  }, []);
 
   const handleViewableItemsChanged = useRef(({ viewableItems, changed }) => {
     setBottom(false);
