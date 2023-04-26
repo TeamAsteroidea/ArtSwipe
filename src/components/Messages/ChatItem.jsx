@@ -11,10 +11,18 @@ import {
   // Pressable,
 } from "react-native";
 
-// import Colors from "constants/Colors.js";
+import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
 
-const MessagesChatItem = ({ chat_id, message_id, user_id, date, body }) => {
+const MessagesChatItem = ({
+  chat_id,
+  message_id,
+  user_id,
+  isContinueAbove,
+  isContinueBelow,
+  date,
+  body,
+}) => {
   let isSenderUser = false;
   if (user_id === 1) {
     isSenderUser = true;
@@ -25,7 +33,20 @@ const MessagesChatItem = ({ chat_id, message_id, user_id, date, body }) => {
         alignItems: isSenderUser ? "flex-end" : "flex-start",
       }}
     >
-      <View style={styles.chatItem}>
+      <View
+        style={{
+          ...styles.chatItem,
+          backgroundColor: isSenderUser
+            ? Colors.PRIMARYLIGHT
+            : colorPicker.GREYLIGHT,
+          borderTopLeftRadius: isContinueAbove && !isSenderUser ? 4 : 16,
+          borderTopRightRadius: isContinueAbove && isSenderUser ? 4 : 16,
+          borderBottomLeftRadius: isContinueBelow && !isSenderUser ? 4 : 16,
+          borderBottomRightRadius: isContinueBelow && isSenderUser ? 4 : 16,
+          marginTop: isContinueAbove ? 3 : 6,
+          marginBottom: isContinueBelow ? 3 : 6,
+        }}
+      >
         <View style={styles.chatText}>
           <Text>{body}</Text>
         </View>
@@ -40,6 +61,8 @@ MessagesChatItem.propTypes = {
   user_id: PropTypes.number.isRequired,
   date: PropTypes.number.isRequired,
   body: PropTypes.string.isRequired,
+  isContinueAbove: PropTypes.bool.isRequired,
+  isContinueBelow: PropTypes.bool.isRequired,
 };
 
 export default MessagesChatItem;
@@ -49,10 +72,7 @@ const styles = StyleSheet.create({
     width: 250,
     paddingVertical: 12,
     paddingHorizontal: 6,
-    marginVertical: 6,
     marginHorizontal: 45,
-    borderWidth: 1,
-    borderRadius: 8,
   },
   chatText: {
     flexGrow: 1,

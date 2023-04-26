@@ -10,8 +10,10 @@ module.exports = function (api) {
           root: [".src"],
           alias: {
             src: "./src",
+            server: "./src/server",
             components: "./src/components",
             constants: "./src/constants",
+            // redux: "./src/redux",
             screens: "./src/screens",
             tabs: "./src/tabs",
           },

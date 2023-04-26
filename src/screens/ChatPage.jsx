@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 // import { store } from '/redux/store';
@@ -10,19 +10,27 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
-  Text,
+  // Text,
   // Alert,
   // ScrollView,
   FlatList,
   TextInput,
 } from "react-native";
 
-import Colors from "constants/Colors.js";
-import Fonts from "constants/Fonts.js";
+import Colors, { colorPicker } from "constants/Colors.js";
+// import Fonts from "constants/Fonts.js";
 import Subheader from "components/modular/Subheader.jsx";
 import ChatItem from "components/Messages/ChatItem.jsx";
+import { getMessagesByRoom } from "server/fs-messages.js";
 
-const dummyData = {
+const isSenderSame = (currentMessage, prevMessage) => {
+  if (currentMessage && prevMessage) {
+    return currentMessage.user_id === prevMessage.user_id;
+  }
+  return false;
+};
+
+const dummyMessage = {
   chat_id: 1,
   message_id: 1,
   user_id: 2,
@@ -32,10 +40,26 @@ const dummyData = {
 };
 
 const ChatPage = ({ navigation }) => {
+  const dummyData = [].concat(...Array(100).fill(dummyMessage));
+  const dummyData2 = dummyData.map((message, index) => {
+    const isContinueAbove = isSenderSame(message, dummyData[index + 1]);
+    const isContinueBelow = isSenderSame(message, dummyData[index - 1]);
+    return { ...message, isContinueAbove, isContinueBelow };
+  });
+  // console.log(dummyData);
+
   const scrollViewRef = useRef();
-  const [chats, setChats] = useState([].concat(...Array(100).fill(dummyData)));
+  const [chats, setChats] = useState(dummyData2);
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
+
+  useEffect(() => {
+    const getMessageList = async () => {
+      const roomData = await getMessagesByRoom();
+      // console.log(roomData);
+    };
+    getMessageList();
+  }, []);
 
   const handleViewableItemsChanged = useRef(({ viewableItems, changed }) => {
     setBottom(false);
@@ -47,18 +71,18 @@ const ChatPage = ({ navigation }) => {
   });
 
   const handleSendChat = () => {
-    console.log(bodyText);
-    setChats((chats) =>
-      [
-        {
-          chat_id: 1,
-          message_id: Math.round(Math.random() * 10000),
-          user_id: 1,
-          message_date: Date.now(),
-          message_body: bodyText,
-        },
-      ].concat(chats)
-    );
+    setChats((prevchats) => {
+      const message = {
+        chat_id: 1,
+        message_id: Math.round(Math.random() * 10000),
+        user_id: 1,
+        message_date: Date.now(),
+        message_body: bodyText.trim(),
+      };
+      message.isContinueAbove = isSenderSame(message, prevchats[0]);
+      prevchats[0].isContinueBelow = isSenderSame(message, prevchats[0]);
+      return [message].concat(prevchats);
+    });
     setBodyText("");
   };
 
@@ -66,7 +90,6 @@ const ChatPage = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.BGLIGHT }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={60}
         style={styles.container}
       >
         <Subheader navigation={navigation} title="Background Character A" />
@@ -84,6 +107,8 @@ const ChatPage = ({ navigation }) => {
                 chat_id={item.chat_id}
                 message_id={item.message_id}
                 user_id={item.user_id}
+                isContinueAbove={item.isContinueAbove}
+                isContinueBelow={item.isContinueBelow}
                 date={item.message_date}
                 body={item.message_body}
               />
@@ -100,9 +125,20 @@ const ChatPage = ({ navigation }) => {
               });
             }}
           >
-            <Text style={{ ...Fonts.TEXT, textAlign: "center" }}>
-              scroll to bottom
-            </Text>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <FontAwesome
+                name={"chevron-down"}
+                size={25}
+                color={colorPicker.GREY}
+                light={true}
+              />
+            </View>
           </TouchableOpacity>
         )}
         <View style={styles.chatInputBar}>
@@ -110,7 +146,7 @@ const ChatPage = ({ navigation }) => {
             style={{
               flex: 1,
               borderRadius: 8,
-              maxHeight: 100,
+              maxHeight: 50,
               marginHorizontal: 10,
               backgroundColor: Colors.INPUTS,
             }}
@@ -124,7 +160,20 @@ const ChatPage = ({ navigation }) => {
             ></TextInput>
           </View>
           <TouchableOpacity title="New Chat" onPress={handleSendChat}>
-            <Text>New Chat</Text>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <FontAwesome
+                name={"paper-plane"}
+                size={25}
+                color={Colors.PRIMARY}
+                solid={true}
+              />
+            </View>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
