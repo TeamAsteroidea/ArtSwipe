@@ -6,7 +6,7 @@ import Fonts from "constants/Fonts.js";
 function Header () {
   return (
     <View style={styles.container}>
-      <Text style={Fonts.HEADER}>
+      <Text style={styles.title}>
         ArtSwipe
       </Text>
     </View>
@@ -19,10 +19,15 @@ const styles = StyleSheet.create({
   container: {
     height: 65,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: 'center',
     alignItems: "center",
     paddingHorizontal: 20,
     gap: 20,
     backgroundColor: '#034448'
   },
+  title: {
+    fontSize: 30,
+    color: 'white',
+    textAlign: 'center',
+  }
 });

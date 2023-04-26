@@ -29,4 +29,5 @@ export default Timer;
 
 const Time = styled.Text`
   font-weight: bold;
+  color: white;
 `

@@ -39,7 +39,7 @@ function Display ({ user, stack, navigation }) {
       <TimerContainer>
         {!lastCardSwiped &&
           <View>
-            <Text>Bidding ends in:</Text>
+            <BiddingEnds>Bidding ends in:</BiddingEnds>
             <Timer remainingTime={clock}/>
           </View>
         }
@@ -144,7 +144,7 @@ const Card = styled.View`
   background-color: white;
   height: 75%;
   border-radius: 20px;
-  box-shadow: 0 0 20px #ccc;
+  box-shadow: 0 0 5px #ccc;
 `;
 
 const CardImage = styled.Image`
@@ -241,4 +241,8 @@ const ButtonWrapper = styled.View`
   background-color: #034448;
   align-items: center;
   justify-content: center;
+`
+
+const BiddingEnds = styled.Text`
+  color: white;
 `
