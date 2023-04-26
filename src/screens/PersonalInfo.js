@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
@@ -11,8 +11,8 @@ import {
   TextInput,
   // Alert,
 } from "react-native";
-import { SelectList } from 'react-native-dropdown-select-list'
 import axios from 'axios';
+import { GenderPicker } from '../components/Profile/ProfilePickers.js';
 
 /*
 First Name
@@ -25,7 +25,7 @@ Email
 Phone Number
 */
 
-const PersonalInfo = () => {
+const PersonalInfo = ({ navigation }) => {
   const [ firstName, setFirstName ] = useState('');
   const [ lastName, setLastName ] = useState('');
   const [ username, setUsername ] = useState('');
@@ -56,29 +56,9 @@ const PersonalInfo = () => {
     .catch(err => {
       console.log('We were unable to process your submission: ', err);
     })
-  }
 
-  const GenderPicker = () => {
-    const [ selected, setSelected ] = useState('');
-    const data = [
-        {key:'1', value:'Female'},
-        {key:'2', value:'Trans Female'},
-        {key:'3', value:'Male'},
-        {key:'4', value:'Trans Male'},
-        {key:'5', value:'Genderqueer'},
-        {key:'6', value:'Non-Binary'},
-        {key:'7', value:'Prefer not to say'},
-    ];
-    return(
-      <SelectList
-          setSelected={(val) => setSelected(val)}
-          data={data}
-          save="value"
-          boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-          dropdownStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-      />
-    )
-  };
+  navigation.navigate('Profile')
+  }
 
   return (
     <View>
@@ -140,8 +120,8 @@ const PersonalInfo = () => {
     </View>);
 };
 
-// PersonalInfo.propTypes = {
-//   navigation: PropTypes.object.isRequired,
-// };
+PersonalInfo.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default PersonalInfo;

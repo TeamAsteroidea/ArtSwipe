@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
@@ -11,8 +11,8 @@ import {
   TextInput,
   // Alert,
 } from "react-native";
-import { SelectList, MultipleSelectList } from 'react-native-dropdown-select-list'
 import axios from 'axios';
+import { DarkModePicker, LanguagePicker, ShowMePicker } from '../components/Profile/ProfilePickers.js';
 
 /*
 Dark Mode
@@ -26,7 +26,7 @@ Email
 Phone Number
 */
 
-const ProfileSettings = () => {
+const ProfileSettings = ({ navigation }) => {
   const [ darkMode, setDarkMode ] = useState('On');
   const [ language, setLanguage ] = useState('English (US)');
   const [ priceMin, setPriceMin ] = useState('');
@@ -59,79 +59,15 @@ const ProfileSettings = () => {
     .catch(err => {
       console.log('We were unable to process your submission: ', err);
     })
+
+  navigation.navigate('Profile')
   }
-
-  const ModePicker = () => {
-    const [ modeValue, setModeValue ] = useState('');
-    const data = [
-        {key:'1', value:'On'},
-        {key:'2', value:'Off'}
-    ];
-    return(
-      <SelectList
-          setSelected={(val) => setModeValue(val)}
-          data={data}
-          save="value"
-          search={false}
-          defaultOption={{key:'1', value:'On'}}
-          boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-          dropdownStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-      />
-    )
-  };
-
-  const LanguagePicker = () => {
-    const [ langValue, setLangValue ] = useState('');
-    const data = [
-        {key:'1', value:'English (US)'},
-        {key:'2', value:'Spanish'},
-        {key:'3', value:'French'},
-    ];
-    return(
-      <SelectList
-          setSelected={(val) => setLangValue(val)}
-          data={data}
-          save="value"
-          search={false}
-          defaultOption={{key:'1', value:'English (US)'}}
-          boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-          dropdownStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-      />
-    )
-  };
-
-  const ShowMePicker = () => {
-    const [ artTypeValue, setArtTypeValue ] = useState([]);
-    const data = [
-      {key:'1', value:'Paintings'},
-      {key:'2', value:'Ceramics'},
-      {key:'3', value:'Sculptures'},
-      {key:'4', value:'Jewelry'},
-      {key:'5', value:'Photography'},
-      {key:'6', value:'Glass'},
-      {key:'7', value:'Prints'},
-      {key:'8', value:'Drawings & Illustrations'},
-      {key:'9', value:'Sculptures'},
-      {key:'10', value:'Fiber Arts'},
-      {key:'11', value:'Paper Craft'},
-    ];
-    return(
-      <MultipleSelectList
-        setSelected={(val) => setArtTypeValue(val)}
-        data={data}
-        save="value"
-        label="Categories"
-        boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-        dropdownStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-      />
-    )
-  };
 
   return (
     <View>
       <View>
         <Text>Dark Mode</Text>
-        <ModePicker
+        <DarkModePicker
           selectedValue={darkMode}
           onValueChange={(modeVal) => setDarkMode(modeVal)}
         />
@@ -188,15 +124,15 @@ const ProfileSettings = () => {
         />
 
         <Button
-          onPress={handleSubmit}
           title="Save Changes"
+          onPress={handleSubmit}
         />
       </View>
     </View>);
 };
 
-// PersonalInfo.propTypes = {
-//   navigation: PropTypes.object.isRequired,
-// };
+ProfileSettings.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default ProfileSettings;

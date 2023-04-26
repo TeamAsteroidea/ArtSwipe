@@ -79,21 +79,21 @@ function App() {
               options={{ headerShown: false, gestureDirection: 'vertical' }}
             />
             <Stack.Screen
-          name="CreateEvent"
-          component={CreateEvent}
-          options={{ headerShown: false, gestureDirection: 'vertical'}}
-        />
-        <Stack.Screen
-          name="PersonalInfo"
-          component={PersonalInfo}
-          options={{ headerShown: false, gestureDirection: 'vertical'}}
-        />
-        <Stack.Screen
-          name="ProfileSettings"
-          component={ProfileSettings}
-          options={{ headerShown: false, gestureDirection: 'vertical'}}
-        />
-      </Stack.Navigator>
+              name="CreateEvent"
+              component={CreateEvent}
+              options={{ headerShown: false, gestureDirection: 'vertical'}}
+            />
+            <Stack.Screen
+              name="PersonalInfo"
+              component={PersonalInfo}
+              options={{ headerShown: false, gestureDirection: 'vertical'}}
+            />
+            <Stack.Screen
+              name="ProfileSettings"
+              component={ProfileSettings}
+              options={{ headerShown: false, gestureDirection: 'vertical'}}
+            />
+          </Stack.Navigator>
         </SafeAreaView>
       </NavigationContainer>
     </Provider>

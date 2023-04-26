@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
@@ -11,8 +11,8 @@ import {
   TextInput,
   // Alert,
 } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
+import StartDatePicker from "../components/Events/EventsPickers.js"
 
 /*
 id (String)
@@ -28,7 +28,7 @@ shortDescription (Optional String ?)
 imageUrl (String)
 */
 
-const CreateEvent = () => {
+const CreateEvent = ({ navigation }) => {
   const [ eventName, setEventName ] = useState('');
   const [ eventDescription, setEventDescription ] = useState('');
   const [ eventStart, setEventStart ] = useState('');
@@ -59,6 +59,7 @@ const CreateEvent = () => {
     .catch(err => {
       console.log('We were unable to process your submission: ', err);
     })
+  navigation.navigate('Events')
   }
 
   return (
@@ -66,7 +67,7 @@ const CreateEvent = () => {
       <View>
         <Text>Event Name</Text>
         <TextInput
-          placeholder="Patrick's 21st Birthday Bash"
+          placeholder="Patrick's Graduation"
           onChangeText={setEventName}
         />
 
@@ -79,14 +80,12 @@ const CreateEvent = () => {
         />
 
         <Text>Start Date</Text>
-        <TextInput
-          placeholder="janesmith123"
+        <StartDatePicker
           onChangeText={setEventStart}
         />
 
         <Text>End Date</Text>
         <TextInput
-          placeholder="janesmith123"
           onChangeText={setEventEnd}
         />
 
@@ -122,8 +121,8 @@ const CreateEvent = () => {
     </View>);
 };
 
-// PersonalInfo.propTypes = {
-//   navigation: PropTypes.object.isRequired,
-// };
+CreateEvent.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default CreateEvent;
