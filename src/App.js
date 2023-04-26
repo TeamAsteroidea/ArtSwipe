@@ -33,6 +33,8 @@ import ChatPage from "./screens/ChatPage.jsx";
 import BiddingHistory from './screens/BiddingHistory.js';
 import Bookmarks from './screens/Bookmarks.js';
 
+
+/*~~~~FIREBASE GOES HERE~~~~*/
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
@@ -45,14 +47,15 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 // import {...} from "firebase/storage";
 
 // Initialize Firebase
+console.log(process.env.API_KEY)
 const firebaseConfig = {
-  apiKey: 'AIzaSyDWBSu8t-d4dX-5ZQRdJbQRy7Fv4FDusL4',
+  apiKey: process.env.API_KEY,
   authDomain: 'artswipe-b2bc3.firebaseapp.com',
   databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
   projectId: 'artswipe-b2bc3',
   storageBucket: 'artswipe-b2bc3.appspot.com',
   messagingSenderId: 'sender-id',
-  appId: '1:298048017254:ios:f3ff0ff40bd9f487722ea7',
+  appId: process.env.APP_ID,
   measurementId: 'G-measurement-id',
 };
 
@@ -60,7 +63,7 @@ const fbase = initializeApp(firebaseConfig);
 console.log(typeof fbase)
 const auth = getAuth(fbase);
 console.log(auth)
-createUserWithEmailAndPassword(auth, 'dummymail@test.com', 'dummypw').then(() => {
+createUserWithEmailAndPassword(auth, 'dummymail@yeet.com', 'dummypw').then(() => {
   console.log('how did I make it here')
 })
 
