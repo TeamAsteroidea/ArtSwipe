@@ -8,6 +8,7 @@ import {
   // SafeAreaView,
   Text,
   // Alert,
+  Image,
   ScrollView,
 } from "react-native";
 
@@ -25,9 +26,15 @@ import {
 // }
 
 const Event = ({ eventData }) => {
+  const imgObj = {
+    uri: eventData.imageUrl,
+  };
   return (
     <View>
-      <Text>{eventData.imageUrl}</Text>
+      <Image
+          style={{width: '50%', height: '50%', justifyContent: 'center'}}
+          source={imgObj}
+      />
       <Text>{eventData.eventDate}</Text>
       <Text>{eventData.title}</Text>
       <Text>{eventData.venue}</Text>

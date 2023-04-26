@@ -1,6 +1,7 @@
 import * as React from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
+import styled from 'styled-components/native';
 import {
   // StyleSheet,
   Button,
@@ -9,9 +10,10 @@ import {
   Text,
   // Alert,
   ScrollView,
+  FlatList,
 } from "react-native";
 
-import Event from '../components/Event.js';
+import Event from '../components/Events/Event.js';
 
 const eventDummyData = [
   {
@@ -24,7 +26,7 @@ const eventDummyData = [
     websiteUrl: 'eventWeb@web.com',
     contactInfo: 'user@user.com',
     description: 'Art description here',
-    imageUrl: 'website.com/image.png',
+    imageUrl: 'https://www.cdm.org/wp-content/uploads/2023/02/2023_Muneeba-Zeeshan-Gallery-01.png',
   },
   {
     id: '12346',
@@ -36,7 +38,7 @@ const eventDummyData = [
     websiteUrl: 'eventWeb@web.com',
     contactInfo: 'user@user.com',
     description: 'Art description here 2',
-    imageUrl: 'website.com/image2.png',
+    imageUrl: 'https://www.cdm.org/wp-content/uploads/2023/02/2023_Muneeba-Zeeshan-Gallery-01.png',
   },
   {
     id: '12347',
@@ -48,7 +50,7 @@ const eventDummyData = [
     websiteUrl: 'eventWeb@web.com',
     contactInfo: 'user@user.com',
     description: 'Art description here 3',
-    imageUrl: 'website.com/image3.png',
+    imageUrl: 'https://media.istockphoto.com/id/1218961153/photo/art-museum.jpg?s=612x612&w=0&k=20&c=9fK54fu1mjzFjDOSqg_jfrMy4Hkp8vsmImB7rLrbhJs=',
   },
 ];
 
@@ -67,6 +69,13 @@ const eventDummyData = [
 
 
 const Events = ({ navigation }) => {
+  // const eventsList = [];
+
+  // eventDummyData.forEach((eventData) => (
+  //   <Event key={eventData.id} eventData={eventData}/>
+  // ));
+
+
   return (
     <View>
       <Text>Event Page</Text>
@@ -74,9 +83,11 @@ const Events = ({ navigation }) => {
         title="This is what a button that goes to another page looksk like"
         onPress={() => navigation.navigate('Example')}
       />
-      {eventDummyData.map((eventData) => (
-        <Event key={eventData.id} eventData={eventData}/>
-      ))}
+      <FlatList>
+        data={eventDummyData}
+        keyExtractor={({ id }) => id.toString()}
+        renderItem={({ item }) => <Text>Hello World</Text>}
+      </FlatList>
     </View>);
 };
 
