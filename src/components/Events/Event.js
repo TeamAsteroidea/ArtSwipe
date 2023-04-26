@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   // StyleSheet,
   // Button,
-  View,
+  // View,
   // SafeAreaView,
   Text,
   // Alert,
@@ -46,7 +46,8 @@ const Event = ({ eventData, navigation }) => {
       <Text>{eventData.eventDate}</Text>
       <Text>{eventData.title}</Text>
       <Text>{eventData.venue}</Text>
-    </Pressable>);
+    </Pressable>
+  );
 };
 
 Event.propTypes = {

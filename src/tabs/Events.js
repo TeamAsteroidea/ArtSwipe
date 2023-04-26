@@ -148,7 +148,6 @@ const EventsList = ({ navigation }) => {
         renderItem={renderEvent}
         keyExtractor={(item) => item.id}
       />
-
     </View>);
 };
 
