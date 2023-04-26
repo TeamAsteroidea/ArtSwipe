@@ -96,11 +96,11 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Login"
             component={LoginScreen}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen
             name="Home"
             component={Home}
