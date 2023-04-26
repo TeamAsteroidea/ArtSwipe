@@ -10,8 +10,8 @@ import {
   // Alert,
 } from "react-native";
 
-import MessagesSearch from "./MessagesSearch.js";
-import MessagesChatRecs from "./MessagesChatRecs.js";
+import MessagesSearch from "./MessagesSearch.jsx";
+import MessagesChatRecs from "./MessagesChatRecs.jsx";
 
 const MessagesToolbar = ({ navigation }) => {
   return (
