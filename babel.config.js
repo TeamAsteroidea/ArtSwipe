@@ -13,10 +13,7 @@ module.exports = function (api) {
             server: "./src/server",
             components: "./src/components",
             constants: "./src/constants",
-<<<<<<< HEAD
             // redux: "./src/redux",
-=======
->>>>>>> origin
             screens: "./src/screens",
             tabs: "./src/tabs",
           },
