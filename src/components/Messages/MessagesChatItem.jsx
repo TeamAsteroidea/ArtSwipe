@@ -20,7 +20,7 @@ const MessagesChatItem = ({ navigation, image, name, recentMessage }) => {
       <Pressable
         style={styles.chatButton}
         onPress={() => {
-          console.log("clicked");
+          navigation.navigate("ChatPage");
         }}
       >
         <View style={styles.chatIcon}></View>

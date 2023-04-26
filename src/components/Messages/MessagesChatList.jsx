@@ -14,7 +14,7 @@ import {
 
 // import Colors from "constants/Colors.js";
 import Fonts from "constants/Fonts.js";
-import MessagesChatItem from "./MessagesChatItem.js";
+import MessagesChatItem from "./MessagesChatItem.jsx";
 
 const MessagesChatList = ({ navigation }) => {
   const dummyData = [

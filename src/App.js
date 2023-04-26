@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import {
-  StyleSheet,
+  // StyleSheet,
   // Button,
   // View,
   SafeAreaView,
@@ -16,52 +16,74 @@ import {
 import registerRootComponent from "expo/build/launch/registerRootComponent";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import Colors from "constants/Colors.js";
+import StackScreenOptions from "components/modular/StackScreenOptions.jsx";
+
 /*~~~~TABS GO HERE~~~~*/
 import ArtistAlley from "./tabs/ArtistAlley.js";
 import Events from "./tabs/Events.js";
-import Messages from "./tabs/Messages.js";
+import Messages from "./tabs/Messages.jsx";
 import Profile from "./tabs/Profile.js";
 import SwipeStack from "./tabs/SwipeStack.js";
 
 /*~~~~SCREENS GO HERE~~~~*/
-import ArtistPage from './screens/ArtistPage.js';
-import DetailView from './screens/DetailView.js';
+import ArtistPage from "./screens/ArtistPage.js";
+import DetailView from "./screens/DetailView.js";
+import ChatPage from "./screens/ChatPage.jsx";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// dummy tab style
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 25,
-    fontWeight: "500",
-  },
-});
-
 function Home() {
-  // this order is suuuuuuper tentative
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          height: 90,
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: Colors.PRIMARY,
+          paddingTop: 10,
+          shadowRadius: 15,
+          shadowColor: "#000000",
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 0.2,
+          elevation: 5,
+        },
+      }}
+    >
       <Tab.Screen
+        key={1}
+        name="Events"
+        component={Events}
+        options={StackScreenOptions("calendar", 40)}
+      />
+
+      <Tab.Screen
+        key={2}
+        name="ArtistAlley"
+        component={ArtistAlley}
+        options={StackScreenOptions("store", 35)}
+      />
+      <Tab.Screen
+        key={3}
         name="SwipeStack"
         component={SwipeStack}
-        options={{
-          title: 'ArtSwipe',
-          headerTitleStyle: {
-            color: 'white',
-          },
-          headerStyle: {
-            backgroundColor: '#034448',
-          }
-        }}
+        options={StackScreenOptions("gavel", 42)}
       />
-      <Tab.Screen name="ArtistAlley" component={ArtistAlley} />
-      <Tab.Screen name="Events" component={Events} />
-      <Tab.Screen name="Messages" component={Messages} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen
+        key={4}
+        name="Messages"
+        component={Messages}
+        options={StackScreenOptions("comment", 42)}
+      />
+      <Tab.Screen
+        key={5}
+        name="Profile"
+        component={Profile}
+        options={StackScreenOptions("user-circle", 44, "solid")}
+      />
     </Tab.Navigator>
   );
 }
@@ -72,25 +94,30 @@ function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <SafeAreaView style={styles.container}>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ArtistPage"
-              component={ArtistPage}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="DetailView"
-              component={DetailView}
-              options={{ headerShown: false, gestureDirection: 'vertical' }}
-            />
-          </Stack.Navigator>
-        </SafeAreaView>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ArtistPage"
+            component={ArtistPage}
+            options={{ headerShown: false, gestureDirection: "vertical" }}
+          />
+          <Stack.Screen
+            name="DetailView"
+            component={DetailView}
+            options={{ headerShown: false, gestureDirection: "vertical" }}
+          />
+          <Stack.Screen
+            name="ChatPage"
+            component={ChatPage}
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );
