@@ -36,13 +36,9 @@ export const imageSlice = createSlice({
     addImages: (state, action: PayloadAction<ImageObj>) => {
       state.imagesArrayObj = [...state.imagesArrayObj, action.payload];
     },
-    getImages: (state, action) => {
-      [state.imagesArrayObj] = action.payload;
-      state.rendered = state.imagesArrayObj
-    }
   },
 });
 
-export const { addImages, getImages } = imageSlice.actions;
+export const { addImages } = imageSlice.actions;
 
 export default imageSlice.reducer;

@@ -20,17 +20,16 @@ const Bookmarks = ({ navigation }) => {
 
   const showCompleted = () => {
     setOnCompleted(true);
-    console.log(onCompleted, 'showCompleted');
   }
 
   const showPending = () => {
     setOnCompleted(false);
-    // console.log(showCompleted, 'showCompleted');
   }
 
   return(
   <View>
     <View>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
       <Pressable title={'pending'} onPress={showPending}>
         <Text>Pending</Text>
       </Pressable>

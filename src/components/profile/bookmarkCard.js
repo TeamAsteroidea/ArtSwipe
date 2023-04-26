@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Button,
   View,
+  Image,
   // SafeAreaView,
   Text,
   // Alert,
@@ -22,6 +23,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     width: 75,
     height: 75,
+  },
+  image: {
+    flex: 1
   }
 })
 
@@ -29,7 +33,10 @@ const BookmarkCard = ({ item, navigation }) => {
   return(
   <View style={styles.cardContainer}>
     <View style={styles.iconContainer}>
-       {/* <View style={styles.iconPlaceholder} /> */}
+      <Image
+        style={styles.image}
+        source={{uri: item.image,}}
+      />
     </View>
     <View>
       <Text>{item.name}</Text>
