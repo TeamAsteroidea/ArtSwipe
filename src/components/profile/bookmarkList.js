@@ -1,6 +1,6 @@
 import * as React from "react";
 import PropTypes from 'prop-types';
-// import { store } from '../../redux/store.js';
+import { store } from '../../redux/store.js';
 import { useSelector } from 'react-redux';
 import {
   Button,
@@ -13,7 +13,7 @@ import {
 
 import BookmarkCard from './bookmarkCard';
 
-const ArtList = ({ navigation, onCompleted }) => {
+const BookmarkList = ({ navigation, onCompleted }) => {
 
   const items = useSelector((state) => {
     // return showCompleted ? state.images.completed : state.images.imagesArrayObj
@@ -37,7 +37,7 @@ const ArtList = ({ navigation, onCompleted }) => {
   </View>);
 };
 
-ArtList.propTypes = {
+BookmarkList.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
-export default ArtList
+export default BookmarkList

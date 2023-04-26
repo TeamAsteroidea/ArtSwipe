@@ -25,8 +25,6 @@ const styles = StyleSheet.create({
   }
 })
 
-// const items = [{"id":0,"bidders":[],"bidIncrementPrice":1,"bidStartingPrice":1,"artist":"Zoltan Boros","name":"Abandon the Post","currentOwner":"Nobody","image":"https://cards.scryfall.io/art_crop/front/9/8/983da138-f0f5-46c4-90c2-d3c34cc37d1f.jpg?1634350355","date_auctioned":0,"bidDuration":0}];
-
 const BookmarkCard = ({ item, navigation }) => {
   return(
   <View style={styles.cardContainer}>

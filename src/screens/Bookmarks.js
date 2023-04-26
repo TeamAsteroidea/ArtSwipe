@@ -12,9 +12,9 @@ import {
   // Alert,
 } from "react-native";
 
-import ArtList from '../components/profile/artList';
+import BookmarkList from '../components/profile/bookmarkList';
 
-const BiddingHistory = ({ navigation }) => {
+const Bookmarks = ({ navigation }) => {
 
   const [onCompleted, setOnCompleted] = useState(false);
 
@@ -39,12 +39,12 @@ const BiddingHistory = ({ navigation }) => {
       </Pressable>
     </View>
     <View>
-      <ArtList navigation={navigation} onCompleted={onCompleted}/>
+      <BookmarkList navigation={navigation} onCompleted={onCompleted}/>
     </View>
   </View>);
 };
 
-BiddingHistory.propTypes = {
+Bookmarks.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
-export default BiddingHistory
+export default Bookmarks;
