@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
@@ -11,8 +11,8 @@ import {
   TextInput,
   // Alert,
 } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
+import DatePicker from "../components/Events/EventsPickers.js"
 
 /*
 id (String)
@@ -28,7 +28,7 @@ shortDescription (Optional String ?)
 imageUrl (String)
 */
 
-const CreateEvent = () => {
+const CreateEvent = ({ navigation }) => {
   const [ eventName, setEventName ] = useState('');
   const [ eventDescription, setEventDescription ] = useState('');
   const [ eventStart, setEventStart ] = useState('');
@@ -52,6 +52,8 @@ const CreateEvent = () => {
       eventZipCode: eventZipCode,
     }
 
+    console.log(formData)
+
   axios.post('/createevent', formData)
     .then(data => {
       console.log('Post success data: ', data);
@@ -59,6 +61,7 @@ const CreateEvent = () => {
     .catch(err => {
       console.log('We were unable to process your submission: ', err);
     })
+  navigation.navigate('Events')
   }
 
   return (
@@ -66,7 +69,7 @@ const CreateEvent = () => {
       <View>
         <Text>Event Name</Text>
         <TextInput
-          placeholder="Patrick's 21st Birthday Bash"
+          placeholder="Patrick's Graduation"
           onChangeText={setEventName}
         />
 
@@ -79,20 +82,18 @@ const CreateEvent = () => {
         />
 
         <Text>Start Date</Text>
-        <TextInput
-          placeholder="janesmith123"
+        <DatePicker
           onChangeText={setEventStart}
         />
 
         <Text>End Date</Text>
-        <TextInput
-          placeholder="janesmith123"
+        <DatePicker
           onChangeText={setEventEnd}
         />
 
         <Text>Street Address</Text>
         <TextInput
-          placeholder="MM / DD / YYYY"
+          placeholder="44 Tehama St"
           onChangeText={setEventAddress}
         />
 
@@ -104,13 +105,13 @@ const CreateEvent = () => {
 
         <Text>State</Text>
         <TextInput
-          placeholder="janesmith7@email.com"
+          placeholder="CA"
           onChangeText={setEventState}
         />
 
         <Text>Zip Code</Text>
         <TextInput
-          placeholder="555-555-1234"
+          placeholder="94105"
           onChangeText={setEventZipCode}
         />
 
@@ -122,8 +123,8 @@ const CreateEvent = () => {
     </View>);
 };
 
-// PersonalInfo.propTypes = {
-//   navigation: PropTypes.object.isRequired,
-// };
+CreateEvent.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default CreateEvent;
