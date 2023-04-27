@@ -10,6 +10,7 @@ module.exports = function (api) {
           root: [".src"],
           alias: {
             src: "./src",
+            server: "./src/server",
             components: "./src/components",
             constants: "./src/constants",
             screens: "./src/screens",
@@ -17,6 +18,14 @@ module.exports = function (api) {
           },
         },
       ],
+      ["module:react-native-dotenv", {
+        "moduleName": "@env",
+        "path": ".env",
+        "blacklist": null,
+        "whitelist": null,
+        "safe": true,
+        "allowUndefined": true
+      }],
     ],
   };
 };
