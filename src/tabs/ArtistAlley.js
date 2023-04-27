@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import {
   View,
   FlatList,
+  SafeAreaView,
 } from "react-native";
 
 import Header from 'components/ArtistAlley/Header'
@@ -31,7 +32,7 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
   const extractArtistKey = (item) => item.artist.toString();
 
   return (
-    <>
+    <SafeAreaView>
       <Header />
       <View style={styles.container}>
         <FlatList
@@ -43,7 +44,7 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
           scrollEventThrottle={16}
         />
       </View >
-    </>
+    </SafeAreaView>
   );
 });
 

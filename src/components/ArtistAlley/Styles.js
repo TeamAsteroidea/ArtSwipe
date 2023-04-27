@@ -6,6 +6,7 @@ import Colors from "constants/Colors";
 export default StyleSheet.create({
   container: {
     flex: 1,
+    zIndex: 2,
     backgroundColor: Colors.BGLIGHT,
   },
   artist: {
@@ -64,14 +65,11 @@ export default StyleSheet.create({
     color: Colors.PRIMARYLIGHT,
   },
   filter: {
-    alignSelf: "end",
-    marginBottom: 15
-  },
-  filterIcon: {
-    marginRight: 5,
+    alignSelf: "flex-end",
   },
   filterDropdown: {
     position: "relative",
+    marginTop: 25,
   },
   filterText: {
     textAlign: 'justify',
@@ -80,6 +78,8 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   optionsContainer: {
+    flexDirection: "column",
+    alignItems: "center",
     position: "absolute",
     top: 40,
     right: 0,
@@ -87,11 +87,25 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: "#e3e3e3",
     borderRadius: 5,
-    padding: 10,
+    // margin: 1,
+    marginTop: "auto",
+    marginBottom: 2,
+    marginLeft: 2,
+    marginRight: 2,
     zIndex: 999,
+    padding: 6,
+
   },
   optionText: {
-    fontSize: 16,
+    padding: 6,
+    borderWidth: 1,
+    marginTop: 5,
+    marginLeft: 2,
+    marginRight: 2,
+    borderColor: "#e3e3e3",
+    borderRadius: 5,
+    width: '100%',
+    fontSize: 20,
     color: "#333",
     fontWeight: "bold",
     paddingVertical: 5,

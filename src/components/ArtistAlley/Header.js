@@ -8,7 +8,7 @@ const FilterDropdown = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
-  const options = ["Option 1", "Option 2", "Option 3"];
+  const options = ["Option 1", "Option 2", "Option 3", "Option 1", "Option 2", "Option 3"];
 
   const handleOptionClick = (option) => {
 
@@ -26,10 +26,10 @@ const FilterDropdown = () => {
     <View style={styles.filterDropdown}>
       <TouchableOpacity
         onPress={() => setShowDropdown(!showDropdown)}
-        activeOpacity={0.8}F
+        activeOpacity={0.8} F
       >
         <Text style={styles.filterText}>
-        <FontAwesomeIcon icon={faFilter} style={styles.filterIcon} />
+          <FontAwesomeIcon icon={faFilter} style={styles.filterIcon} />
           {selectedOption ? selectedOption : "Filter"}
         </Text>
       </TouchableOpacity>
@@ -37,6 +37,9 @@ const FilterDropdown = () => {
         <View style={styles.optionsContainer}>
           {options.map((option, index) => (
             <TouchableOpacity
+              style={{
+                height: 45,
+              }}
               key={index}
               onPress={() => handleOptionPress(option)}
               activeOpacity={0.8}
@@ -54,9 +57,7 @@ const Header = () => {
   return (
     <View style={styles.headerContainer}>
       <Text style={styles.title}>Artist Alley</Text>
-      <View style={styles.filter}>
-        <FilterDropdown />
-      </View>
+      <FilterDropdown style={styles.filter} />
     </View>
   );
 }
