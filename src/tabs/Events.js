@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import styled from 'styled-components/native';
@@ -20,6 +20,8 @@ import Event from '../components/Events/Event.js';
 import EventDescription from '../components/Events/EventDescription.js';
 import EventCreation from '../components/Events/EventCreation.js';
 import EventEdit from '../components/Events/EventEdit.js';
+import { getAllEvents } from '../server/fs-events.js';
+
 
 const eventDummyData = [
   {
@@ -128,7 +130,17 @@ const Stack = createNativeStackNavigator();
 // }
 
 const EventsList = ({ navigation }) => {
-  const [eData, setEData] = useState(eventDummyData);
+  const [eData, setEData] = useState([]);
+
+  useEffect(() => {
+    getAllEvents()
+      .then((fsData) => {
+        setEData(fsData);
+      })
+      .catch((err) => {
+        console.log('Error initializing art event data:', err);
+      })
+  }, []);
 
   const renderEvent = ({ item }) => (
     <Event eventData={item} navigation={navigation}/>

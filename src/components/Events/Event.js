@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from 'prop-types';
+import styled from 'styled-components/native';
 // import { store } from '/redux/store';
 import {
   // StyleSheet,
@@ -28,10 +29,12 @@ import {
 // }
 
 const Event = ({ eventData, navigation }) => {
-
+  console.log('eventData is', eventData);
   const imgObj = {
-    uri: eventData.imageUrl,
+    uri: eventData.imageurl,
   };
+
+  console.log(imgObj.uri);
 
   return (
     <Pressable onPress={() => {
