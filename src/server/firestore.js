@@ -14,7 +14,7 @@ const firebaseConfig = {
   storageBucket: 'artswipe-b2bc3.appspot.com',
   messagingSenderId: 'sender-id',
   appId: "1:298048017254:web:afadfc7da1ad1e00722ea7",
-  measurementId: 'G-measurement-id',
+  measurementId: "G-48R5S5D0J1",
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
