@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
 import {
-  Button,
   View,
-  Image,
-  Text,
   FlatList,
+  StyleSheet
 } from "react-native";
+
+import Colors from "constants/Colors.js";
+import ArtistTile from "components/ArtistAlley/ArtistTile.js";
 
 const ArtistAlley = React.memo(function ArtistAlley({ navigation }) {
   const imageObjs = useSelector((state) => state.images.imagesArrayObj);
@@ -28,55 +29,18 @@ const ArtistAlley = React.memo(function ArtistAlley({ navigation }) {
   }));
 
   const extractArtistKey = (item) => item.artist.toString();
-  const extractArtKey = (item) => item.id.toString();
-
-  const renderArt = ({ item }) => {
-    return (
-      <View key={item.id}>
-        <Image
-          source={{
-            uri: item.image,
-          }}
-          style={{ width: 200, height: 200 }}
-        />
-        <Text>{item.name}</Text>
-        <Button
-          title="Pretend this links to an artist"
-          onPress={() => navigation.navigate('ArtistPage')}
-        />
-      </View>
-    );
-  };
-
-  const renderArtist = ({ item }) => {
-    return (
-      <View key={item.artist}>
-        <FlatList
-          horizontal={true}
-          data={item.data}
-          renderItem={renderArt}
-          keyExtractor={extractArtKey}
-          initialNumToRender={10}
-          onEndReachedThreshold={0.2}
-          scrollEventThrottle={16}
-        />
-        <Text style={{ fontWeight: 'bold' }}>{item.artist}</Text>
-        <Text style={{ fontWeight: '200', fontStyle: 'italic' }}>{item.artist}'s Location</Text>
-      </View>
-    );
-  };
 
   return (
-    <FlatList
-      data={artistData}
-      renderItem={renderArtist}
-      keyExtractor={extractArtistKey}
-      initialNumToRender={10}
-      onEndReachedThreshold={0.2}
-      // onEndReached={onBottom}
-      // onScroll={handleScroll}
-      scrollEventThrottle={16}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={artistData}
+        renderItem={({ item }) => <ArtistTile navigation={navigation} item={item} />}
+        keyExtractor={extractArtistKey}
+        initialNumToRender={10}
+        onEndReachedThreshold={0.2}
+        scrollEventThrottle={16}
+      />
+    </View >
   );
 });
 
@@ -85,3 +49,10 @@ ArtistAlley.propTypes = {
 };
 
 export default ArtistAlley;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.BGLIGHT,
+  },
+});
