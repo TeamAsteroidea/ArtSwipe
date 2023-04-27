@@ -19,7 +19,7 @@ import data from '../../dummyData/artUrlArray.js'
 
 
 
-const DetailView = ({ navigation, route }) => { //route.params.piece
+const DetailView = ({ navigation, route }) => {
   return (
   <SafeWrapper>
     <ScrollList contentContainerStyle={{ flexGrow: 1}}
