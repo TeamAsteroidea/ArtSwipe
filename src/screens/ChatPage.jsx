@@ -21,42 +21,19 @@ import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
 import Subheader from "components/modular/Subheader.jsx";
 import ChatItem from "components/Messages/ChatItem.jsx";
-import { getMessagesByRoom } from "server/fs-messages.js";
-
-const isSenderSame = (currentMessage, prevMessage) => {
-  if (currentMessage && prevMessage) {
-    return currentMessage.user_id === prevMessage.user_id;
-  }
-  return false;
-};
-
-const dummyMessage = {
-  chat_id: 1,
-  message_id: 1,
-  user_id: 2,
-  message_date: 1682447971,
-  message_body:
-    "Hey, my name is John. I'm interested in your art. Can you tell me more about it?",
-};
+import { getMessagesByRoom, postMessage } from "server/fs-messages.js";
 
 const ChatPage = ({ navigation }) => {
-  const dummyData = [].concat(...Array(100).fill(dummyMessage));
-  const dummyData2 = dummyData.map((message, index) => {
-    const isContinueAbove = isSenderSame(message, dummyData[index + 1]);
-    const isContinueBelow = isSenderSame(message, dummyData[index - 1]);
-    return { ...message, isContinueAbove, isContinueBelow };
-  });
-  // console.log(dummyData);
-
   const scrollViewRef = useRef();
-  const [chats, setChats] = useState(dummyData2);
+  const [chats, setChats] = useState([]);
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
+  const [inputBoxHeight, setInputBoxHeight] = useState(50);
 
   useEffect(() => {
     const getMessageList = async () => {
-      const roomData = await getMessagesByRoom();
-      // console.log(roomData);
+      const messageData = await getMessagesByRoom("dR4tIvfPCFdhXihkLEZX");
+      setChats(messageData);
     };
     getMessageList();
   }, []);
@@ -70,20 +47,15 @@ const ChatPage = ({ navigation }) => {
     });
   });
 
-  const handleSendChat = () => {
-    setChats((prevchats) => {
-      const message = {
-        chat_id: 1,
-        message_id: Math.round(Math.random() * 10000),
-        user_id: 1,
-        message_date: Date.now(),
-        message_body: bodyText.trim(),
-      };
-      message.isContinueAbove = isSenderSame(message, prevchats[0]);
-      prevchats[0].isContinueBelow = isSenderSame(message, prevchats[0]);
-      return [message].concat(prevchats);
-    });
+  const handleSendChat = async () => {
+    await postMessage({ chat_id: "dR4tIvfPCFdhXihkLEZX" }, bodyText.trim());
     setBodyText("");
+    const messageData = await getMessagesByRoom("dR4tIvfPCFdhXihkLEZX");
+    setChats(messageData);
+  };
+
+  const onTextChange = ({ contentSize }) => {
+    setInputBoxHeight(contentSize.height > 30 ? 90 : 50);
   };
 
   return (
@@ -146,15 +118,24 @@ const ChatPage = ({ navigation }) => {
             style={{
               flex: 1,
               borderRadius: 8,
-              maxHeight: 50,
+              maxHeight: inputBoxHeight,
               marginHorizontal: 10,
               backgroundColor: Colors.INPUTS,
             }}
           >
             <TextInput
-              style={{ marginHorizontal: 20, marginVertical: 12 }}
+              style={{
+                flexGrow: 1,
+                marginHorizontal: 20,
+                marginVertical: 12,
+              }}
               placeholder="write your message..."
-              onChangeText={(text) => setBodyText(text)}
+              onChangeText={(text) => {
+                setBodyText(text);
+              }}
+              onContentSizeChange={(event) => {
+                onTextChange(event.nativeEvent);
+              }}
               value={bodyText}
               multiline
             ></TextInput>
@@ -209,7 +190,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
   chatInputBar: {
-    flexGrow: 1,
+    minHeight: 80,
+    maxHeight: 90,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

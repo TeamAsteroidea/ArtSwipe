@@ -56,10 +56,10 @@ const MessagesChatItem = ({
 };
 
 MessagesChatItem.propTypes = {
-  chat_id: PropTypes.number.isRequired,
+  chat_id: PropTypes.string.isRequired,
   message_id: PropTypes.number.isRequired,
   user_id: PropTypes.number.isRequired,
-  date: PropTypes.number.isRequired,
+  date: PropTypes.object.isRequired,
   body: PropTypes.string.isRequired,
   isContinueAbove: PropTypes.bool.isRequired,
   isContinueBelow: PropTypes.bool.isRequired,
