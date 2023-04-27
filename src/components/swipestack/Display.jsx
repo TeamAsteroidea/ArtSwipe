@@ -112,7 +112,7 @@ function Display ({ user, stack, navigation }) {
                 <ButtonWrapper>
                   <Button
                     onPress={() => navigation.navigate('DetailView', {
-                      art: card,
+                      card: card,
                     })}
                     title="i"
                     color="white"
