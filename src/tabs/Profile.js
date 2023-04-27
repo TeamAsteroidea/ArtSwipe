@@ -5,12 +5,13 @@ import {
   StyleSheet,
   Button,
   View,
-  // SafeAreaView,
+  SafeAreaView,
   Text,
   // Alert,
   Image,
 } from "react-native";
 
+import Header from '../components/modular/Header';
 import Option from '../components/profile/option';
 
 const ProfilePhoto = require('../../dummyData/dummy-profile-photo.jpeg');
@@ -45,7 +46,8 @@ const styles = StyleSheet.create({
 
 const Profile = ({ navigation }) => {
   return (
-      <View style={ styles.container }>
+      <SafeAreaView style={ styles.container }>
+        <Header navigation={navigation} title={"Profile"} />
         <View style={ styles.imageContainer }>
           <Image
             source={ ProfilePhoto }
@@ -58,7 +60,7 @@ const Profile = ({ navigation }) => {
             <Option option={'Settings'} pageName={ 'Settings' }navigation={navigation}></Option>
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     );
 };
 

@@ -7,7 +7,7 @@ import {
   Button,
   Pressable,
   View,
-  // SafeAreaView,
+  SafeAreaView,
   Text,
   // Alert,
 } from "react-native";
@@ -27,9 +27,12 @@ const Bookmarks = ({ navigation }) => {
   }
 
   return(
-  <View>
+  <SafeAreaView>
     <View>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <View>
+        <Button title="Go back" onPress={() => navigation.goBack()} />
+        <SubHeader navigation={ navigation } title={"Bidding History"} />
+      </View>
       <Pressable title={'pending'} onPress={showPending}>
         <Text>Pending</Text>
       </Pressable>
@@ -40,7 +43,7 @@ const Bookmarks = ({ navigation }) => {
     <View>
       <BookmarkList navigation={navigation} onCompleted={onCompleted}/>
     </View>
-  </View>);
+  </SafeAreaView>);
 };
 
 Bookmarks.propTypes = {

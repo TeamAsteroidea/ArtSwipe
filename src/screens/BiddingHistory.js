@@ -7,12 +7,13 @@ import {
   Button,
   Pressable,
   View,
-  // SafeAreaView,
+  SafeAreaView,
   Text,
   // Alert,
 } from "react-native";
 
 import ArtList from '../components/profile/artList';
+import SubHeader from '../components/modular/Subheader';
 
 const BiddingHistory = ({ navigation }) => {
 
@@ -28,9 +29,12 @@ const BiddingHistory = ({ navigation }) => {
   }
 
   return(
-  <View>
+  <SafeAreaView>
     <View>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <View>
+        {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
+        <SubHeader navigation={ navigation } title={"Bidding History"} />
+      </View>
       <Pressable title={'pending'} onPress={showPending}>
         <Text>Pending</Text>
       </Pressable>
@@ -41,7 +45,7 @@ const BiddingHistory = ({ navigation }) => {
     <View>
       <ArtList navigation={navigation} onCompleted={onCompleted}/>
     </View>
-  </View>);
+  </SafeAreaView>);
 };
 
 BiddingHistory.propTypes = {
