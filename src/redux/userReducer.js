@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-// move this to examples once we have actual reducers
+import { createSlice } from "@reduxjs/toolkit"
 
 
 const userSlice = createSlice({
@@ -12,6 +11,7 @@ const userSlice = createSlice({
       photoURL: '',
       uid: '',
       bookmarks: [],
+      idToken: ''
     },
   },
   reducers: {
@@ -27,6 +27,7 @@ const userSlice = createSlice({
         email: '',
         photoURL: '',
         uid: '',
+        idToken: '' //this is for API calls
       };
     },
   },

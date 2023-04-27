@@ -21,7 +21,7 @@ import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
 import Subheader from "components/modular/Subheader.jsx";
 import ChatItem from "components/Messages/ChatItem.jsx";
-import { getMessagesByRoom } from "server/fs-messages.js";
+import { getMessagesByRoom } from "src/server/fs-messages.js";
 
 const isSenderSame = (currentMessage, prevMessage) => {
   if (currentMessage && prevMessage) {
