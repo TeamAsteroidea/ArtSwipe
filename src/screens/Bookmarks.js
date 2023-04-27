@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 import BookmarkList from '../components/profile/bookmarkList';
+import SubHeader from '../components/modular/Subheader';
 
 const Bookmarks = ({ navigation }) => {
 
@@ -30,8 +31,7 @@ const Bookmarks = ({ navigation }) => {
   <SafeAreaView>
     <View>
       <View>
-        <Button title="Go back" onPress={() => navigation.goBack()} />
-        <SubHeader navigation={ navigation } title={"Bidding History"} />
+        <SubHeader navigation={ navigation } title={"Bookmarks"} />
       </View>
       <Pressable title={'pending'} onPress={showPending}>
         <Text>Pending</Text>
