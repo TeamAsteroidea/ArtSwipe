@@ -45,6 +45,7 @@ const LoginScreen = ({ navigation }) => {
       } else {
         const savedUser = await AsyncStorage.getItem('currentUser');
         if (savedUser) {
+          console.log('useEffect ', JSON.parse(savedUser))
           passToDispatch(JSON.parse(savedUser));
         }
       }
@@ -59,11 +60,12 @@ const LoginScreen = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         if (Platform.OS === 'web') {
-          localStorage.setItem('currentUser', JSON.stringify(res));
+          localStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         } else {
-          await AsyncStorage.setItem('currentUser', JSON.stringify(res));
+          await AsyncStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         }
         passToDispatch(res)
+        enter();
       })
       .catch((err) => {
         alert(`${err.name}: ${err.message}`);
@@ -75,11 +77,13 @@ const LoginScreen = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
         if (Platform.OS === 'web') {
-          localStorage.setItem('currentUser', JSON.stringify(res));
+          localStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         } else {
-          await AsyncStorage.setItem('currentUser', JSON.stringify(res));
+          console.log('handleSignIn ', JSON.parse(JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken})))
+          await AsyncStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         }
         passToDispatch(res)
+        enter();
       })
       .catch((err) => {
         alert(`${err.name}: ${err.message}`);
@@ -88,15 +92,20 @@ const LoginScreen = ({ navigation }) => {
 
   // just added this for dryness, it's the same content that was originally in handleSignIn
   const passToDispatch = (res) => {
+    console.log('passToDispatch ', res)
     const user = res.user;
     // If successful, update the user's login state and display a success message
     const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };
     // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
     dispatch(loginUser(loginData));
-    navigation.navigate('Home');
   }
 
-  const logOut = () => {
+  const logOut = async () => {
+    if (Platform.OS === 'web') {
+      localStorage.removeItem('currentUser');
+    } else {
+      await AsyncStorage.removeItem('currentUser');
+    }
     dispatch(logoutUser());
   }
 

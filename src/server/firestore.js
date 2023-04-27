@@ -6,7 +6,7 @@ import { getFirestore } from "firebase/firestore/lite";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import {API_KEY, APP_ID} from '@env'
 
-console.log(API_KEY)
+// console.log(API_KEY)
 const firebaseConfig = {
   apiKey: API_KEY, //process.env.API_KEY,
   authDomain: 'artswipe-b2bc3.firebaseapp.com',
