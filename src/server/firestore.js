@@ -20,10 +20,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-createUserWithEmailAndPassword(auth, 'fff@yeet.com', 'dummypw').then((result) => {
-  console.log('how did I make it here')
-  console.log(result)
-})
+// createUserWithEmailAndPassword(auth, 'fff@yeet.com', 'dummypw').then((result) => {
+//   console.log('how did I make it here')
+//   console.log(result)
+// })
 
 export { auth, db };
 
