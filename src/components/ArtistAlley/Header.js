@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
+import styles from './Styles';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
 
 const FilterDropdown = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -23,9 +26,10 @@ const FilterDropdown = () => {
     <View style={styles.filterDropdown}>
       <TouchableOpacity
         onPress={() => setShowDropdown(!showDropdown)}
-        activeOpacity={0.8}
+        activeOpacity={0.8}F
       >
         <Text style={styles.filterText}>
+        <FontAwesomeIcon icon={faFilter} style={styles.filterIcon} />
           {selectedOption ? selectedOption : "Filter"}
         </Text>
       </TouchableOpacity>
@@ -56,50 +60,5 @@ const Header = () => {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
-    height: 80,
-    paddingHorizontal: 20,
-    borderBottomColor: "#e3e3e3",
-    borderBottomWidth: 1,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  filter: {
-    alignItems: "baseline",
-  },
-  filterDropdown: {
-    position: "relative",
-  },
-  filterText: {
-    fontSize: 16,
-    color: "#333",
-    fontWeight: "bold",
-  },
-  optionsContainer: {
-    position: "absolute",
-    top: 40,
-    right: 0,
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#e3e3e3",
-    borderRadius: 5,
-    padding: 10,
-    zIndex: 999,
-  },
-  optionText: {
-    fontSize: 16,
-    color: "#333",
-    fontWeight: "bold",
-    paddingVertical: 5,
-  },
-});
 
 export default Header;

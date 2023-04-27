@@ -5,11 +5,10 @@ import { useSelector } from "react-redux";
 import {
   View,
   FlatList,
-  StyleSheet
 } from "react-native";
 
-import Colors from "constants/Colors";
 import Header from 'components/ArtistAlley/Header'
+import styles from 'components/ArtistAlley/Styles';
 import ArtistTile from "components/ArtistAlley/ArtistTile";
 
 const ArtistAlley = memo(function ArtistAlley({ navigation }) {
@@ -53,10 +52,3 @@ ArtistAlley.propTypes = {
 };
 
 export default ArtistAlley;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.BGLIGHT,
-  },
-});

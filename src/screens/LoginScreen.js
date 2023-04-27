@@ -5,6 +5,7 @@ import {
   View,
   Text,
   TextInput,
+  Platform,
 } from "react-native";
 import {
   // GoogleAuthProvider,
@@ -15,10 +16,11 @@ import {
 } from 'firebase/auth';
 import * as React from "react";
 import PropTypes from 'prop-types';
-import { auth } from "../server/firestore";
 import { useState, useEffect } from "react";
+import { auth } from "../server/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "../redux/userReducer.js";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,7 +36,20 @@ const LoginScreen = ({ navigation }) => {
   const loggedIn = useSelector((state) => state.user.loggedIn);
 
   useEffect(() => {
-    if (loggedIn) enter();
+    async function fetchData() {
+      if (Platform.OS === 'web') {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+          passToDispatch(JSON.parse(savedUser));
+        }
+      } else {
+        const savedUser = await AsyncStorage.getItem('currentUser');
+        if (savedUser) {
+          passToDispatch(JSON.parse(savedUser));
+        }
+      }
+    }
+    fetchData();
   }, [loggedIn]);
 
   const [email, setEmail] = useState('');
@@ -42,7 +57,12 @@ const LoginScreen = ({ navigation }) => {
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
+      .then(async (res) => {
+        if (Platform.OS === 'web') {
+          localStorage.setItem('currentUser', JSON.stringify(res));
+        } else {
+          await AsyncStorage.setItem('currentUser', JSON.stringify(res));
+        }
         passToDispatch(res)
       })
       .catch((err) => {
@@ -53,16 +73,17 @@ const LoginScreen = ({ navigation }) => {
   const handleSignIn = () => {
     // Try to sign in with the email and password entered
     signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
+      .then(async (res) => {
+        if (Platform.OS === 'web') {
+          localStorage.setItem('currentUser', JSON.stringify(res));
+        } else {
+          await AsyncStorage.setItem('currentUser', JSON.stringify(res));
+        }
         passToDispatch(res)
       })
       .catch((err) => {
         alert(`${err.name}: ${err.message}`);
       });
-  }
-
-  const logOut = () => {
-    dispatch(logoutUser());
   }
 
   // just added this for dryness, it's the same content that was originally in handleSignIn
@@ -72,7 +93,11 @@ const LoginScreen = ({ navigation }) => {
     const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };
     // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
     dispatch(loginUser(loginData));
-    enter();
+    navigation.navigate('Home');
+  }
+
+  const logOut = () => {
+    dispatch(logoutUser());
   }
 
   const enter = () => { navigation.navigate('Home'); }
@@ -102,7 +127,7 @@ const LoginScreen = ({ navigation }) => {
           <>
             <TouchableOpacity
               onPress={logOut}
-              style={{marginTop: 20, backgroundColor: 'lightcoral'}}
+              style={{ marginTop: 20, backgroundColor: 'lightcoral' }}
               // value={}
               // onChangeText={}
               secureTextEntry
@@ -111,7 +136,7 @@ const LoginScreen = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={enter}
-              style={{marginTop: 20, backgroundColor: 'lightblue'}}
+              style={{ marginTop: 20, backgroundColor: 'lightblue' }}
               // value={ }
               // onChangeText={ }
               secureTextEntry
