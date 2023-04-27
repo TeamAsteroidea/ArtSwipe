@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useRef, useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../server/firestore";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -20,6 +20,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
+
 import { loginUser, logoutUser, UserState } from "../redux/userReducer.js";
 
 const styles = StyleSheet.create({
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
@@ -47,7 +48,6 @@ const LoginScreen = () => {
         dispatch(loginUser(loginData));
       })
       .catch((err) => {
-        // If there's an error, display an error message
         alert(`${err.name}: ${err.message}`);
       });
   }
@@ -59,7 +59,6 @@ const LoginScreen = () => {
         // If successful, update the user's login state and display a success message
         const user = res.user;
         const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true };
-        // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
         dispatch(loginUser(loginData));
       })
       .catch((err) => {
@@ -96,7 +95,7 @@ const LoginScreen = () => {
           <Text>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={()=> {handleSignUp}}
+          onPress={handleSignUp}
           // value={}
           // onChangeText={}
           secureTextEntry
