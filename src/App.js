@@ -47,25 +47,25 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 // import {...} from "firebase/storage";
 
 // Initialize Firebase
-console.log(process.env.API_KEY)
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: 'artswipe-b2bc3.firebaseapp.com',
-  databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
-  projectId: 'artswipe-b2bc3',
-  storageBucket: 'artswipe-b2bc3.appspot.com',
-  messagingSenderId: 'sender-id',
-  appId: process.env.APP_ID,
-  measurementId: 'G-measurement-id',
-};
+// console.log('process.env', process.env.API_KEY)
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDWBSu8t-d4dX-5ZQRdJbQRy7Fv4FDusL4',
+//   authDomain: 'artswipe-b2bc3.firebaseapp.com',
+//   databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
+//   projectId: 'artswipe-b2bc3',
+//   storageBucket: 'artswipe-b2bc3.appspot.com',
+//   messagingSenderId: 'sender-id',
+//   appId: '1:298048017254:ios:f3ff0ff40bd9f487722ea7',
+//   measurementId: 'G-measurement-id',
+// };
 
-const fbase = initializeApp(firebaseConfig);
-console.log(typeof fbase)
-const auth = getAuth(fbase);
-console.log(auth)
-createUserWithEmailAndPassword(auth, 'dummymail@yeet.com', 'dummypw').then(() => {
-  console.log('how did I make it here')
-})
+// const fbase = initializeApp(firebaseConfig);
+// console.log(typeof fbase)
+// const auth = getAuth(fbase);
+// console.log(auth)
+// createUserWithEmailAndPassword(auth, 'dummymail@yeet.com', 'dummypw').then(() => {
+//   console.log('how did I make it here')
+// })
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

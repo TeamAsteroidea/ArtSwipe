@@ -46,7 +46,7 @@ function Display ({ user, stack, navigation }) {
       </TimerContainer>
       <ModalContainer>
         <OpenModal
-          onPress={() => navigation.navigate('')}>
+          onPress={() => navigation.navigate('BiddingHistory')}>
           <ModalImage
             source={require('../../../assets/activebids.png')}
           />
