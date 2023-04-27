@@ -9,10 +9,13 @@ import {
 import Timer from './components/Timer.jsx';
 import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
+import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
 
 function Display ({ user, stack, navigation }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
+  const [clock, setClock] = useState(timeRemaining(stack[currentIndex]));
+  // Might be able to get rid of timeRemaining in the helper functions
+  // const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
   const [lastCardSwiped, setLastCardSwiped] = useState(false);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -30,7 +33,7 @@ function Display ({ user, stack, navigation }) {
   }, [clock]);
 
   useEffect(() => {
-    setClock(stack[currentIndex].auctionTimeLeft)
+    setClock(timeRemaining(stack[currentIndex]))
   }, [currentIndex])
 
   return (
