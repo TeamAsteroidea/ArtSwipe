@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from 'react-redux';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from "expo-status-bar";
@@ -34,6 +35,7 @@ import ChatPage from "./screens/ChatPage.jsx";
 import BiddingHistory from './screens/BiddingHistory.js';
 import Bookmarks from './screens/Bookmarks.js';
 import LoginScreen from './screens/LoginScreen.js';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -98,15 +100,15 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen
+          <Stack.Screen
             name="Login"
             component={LoginScreen}
-            options={{ headerShown: false }}
-          /> */}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
           <Stack.Screen
             name="Home"
             component={Home}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, gestureEnabled: false }}
           />
           <Stack.Screen
             name="ArtistPage"

@@ -42,6 +42,7 @@ const LoginScreen = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         passToDispatch(res)
+        navigation.navigate('Home')
       })
       .catch((err) => {
         alert(`${err.name}: ${err.message}`);
@@ -53,6 +54,7 @@ const LoginScreen = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
         passToDispatch(res)
+        navigation.navigate('Home')
       })
       .catch((err) => {
           alert(`${err.name}: ${err.message}`);
