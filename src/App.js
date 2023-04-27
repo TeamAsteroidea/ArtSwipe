@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Colors from "constants/Colors.js";
 import StackScreenOptions from "components/modular/StackScreenOptions.jsx";
+import * as firestore from "server/firestore.js"
 
 /*~~~~TABS GO HERE~~~~*/
 import ArtistAlley from "./tabs/ArtistAlley.js";

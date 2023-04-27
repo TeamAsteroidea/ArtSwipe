@@ -41,11 +41,7 @@ const LoginScreen = ({ navigation }) => {
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        // If successful, update the user's login state and display a success message
-        const user = res.user;
-        const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true };
-        // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
-        dispatch(loginUser(loginData));
+        passToDispatch(res)
       })
       .catch((err) => {
         alert(`${err.name}: ${err.message}`);
@@ -56,14 +52,20 @@ const LoginScreen = ({ navigation }) => {
     // Try to sign in with the email and password entered
     signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
-        // If successful, update the user's login state and display a success message
-        const user = res.user;
-        const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true };
-        dispatch(loginUser(loginData));
+        passToDispatch(res)
       })
       .catch((err) => {
           alert(`${err.name}: ${err.message}`);
       });
+  }
+
+// just added this for dryness, it's the same content that was originally in handleSignIn
+  const passToDispatch = (res) => {
+    // If successful, update the user's login state and display a success message
+    const user = res.user;
+    const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };
+    // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
+    dispatch(loginUser(loginData));
   }
 
   return (
