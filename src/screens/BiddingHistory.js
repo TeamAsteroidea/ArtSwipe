@@ -3,7 +3,7 @@ import { useState, setState } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
-  // StyleSheet,
+  StyleSheet,
   Button,
   Pressable,
   View,
@@ -14,6 +14,15 @@ import {
 
 import ArtList from '../components/profile/artList';
 import SubHeader from '../components/modular/Subheader';
+
+const styles = StyleSheet.create({
+  buttonsContainer: {
+    flexDirection: "row",
+    height: 75,
+    justifyContent: "space-around",
+    alignItems: "center",
+  }
+})
 
 const BiddingHistory = ({ navigation }) => {
 
@@ -32,15 +41,16 @@ const BiddingHistory = ({ navigation }) => {
   <SafeAreaView>
     <View>
       <View>
-        {/* <Button title="Go back" onPress={() => navigation.goBack()} /> */}
         <SubHeader navigation={ navigation } title={"Bidding History"} />
       </View>
-      <Pressable title={'pending'} onPress={showPending}>
-        <Text>Pending</Text>
-      </Pressable>
-      <Pressable title={'completed'} onPress={showCompleted}>
-        <Text>Completed</Text>
-      </Pressable>
+      <View style={styles.buttonsContainer}>
+        <Pressable title={'pending'} onPress={showPending}>
+          <Text>Pending</Text>
+        </Pressable>
+        <Pressable title={'completed'} onPress={showCompleted}>
+          <Text>Completed</Text>
+        </Pressable>
+      </View>
     </View>
     <View>
       <ArtList navigation={navigation} onCompleted={onCompleted}/>

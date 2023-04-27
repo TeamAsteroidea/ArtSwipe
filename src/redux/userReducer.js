@@ -11,6 +11,7 @@ const userSlice = createSlice({
       email: '',
       photoURL: '',
       uid: '',
+      bookmarks: [],
     },
   },
   reducers: {

@@ -11,6 +11,7 @@ import {
   // Alert,
 } from "react-native";
 
+import BookmarkHeart from './bookmarkHeart'
 
 const styles = StyleSheet.create({
   cardContainer:{
@@ -23,9 +24,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     width: 75,
     height: 75,
+    margin: 20,
+    marginRight: 0,
   },
   image: {
     flex: 1
+  },
+  textContainer: {
+    margin: 20,
   }
 })
 
@@ -35,14 +41,17 @@ const BookmarkCard = ({ item, navigation }) => {
     <View style={styles.iconContainer}>
       <Image
         style={styles.image}
-        source={{uri: item.image,}}
+        source={{uri: item.image}}
       />
     </View>
-    <View>
+    <View style={styles.textContainer}>
       <Text>{item.name}</Text>
       <Text>Now: {item.bidStartingPrice}</Text>
       <Text>You bid: {item.bidIncrementPrice}</Text>
       <Text>Time left: {item.bidDuration}</Text>
+    </View>
+    <View>
+      <BookmarkHeart artID={item.id}/>
     </View>
   </View>);
 };
