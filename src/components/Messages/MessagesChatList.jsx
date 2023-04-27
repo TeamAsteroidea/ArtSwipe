@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // import { store } from '/redux/store';
 import {
@@ -15,8 +16,18 @@ import {
 // import Colors from "constants/Colors.js";
 import Fonts from "constants/Fonts.js";
 import MessagesChatItem from "./MessagesChatItem.jsx";
+import { getRooms } from "server/fs-messages.js";
 
 const MessagesChatList = ({ navigation }) => {
+  const [groups, setGroups] = useState([]);
+  useEffect(() => {
+    const getGroupList = async () => {
+      const groupData = await getRooms();
+      setGroups(groupData);
+    };
+    getGroupList();
+  }, []);
+
   const dummyData = [
     {
       image: "",

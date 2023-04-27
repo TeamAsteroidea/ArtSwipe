@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 // import { store } from '/redux/store';
@@ -25,18 +25,25 @@ import { getMessagesByRoom, postMessage } from "server/fs-messages.js";
 
 const ChatPage = ({ navigation }) => {
   const scrollViewRef = useRef();
+  let unsubscribe = () => {};
   const [chats, setChats] = useState([]);
+  const [lastUpdated, setLastUpdated] = useState(0);
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
   const [inputBoxHeight, setInputBoxHeight] = useState(50);
 
-  useEffect(() => {
-    const getMessageList = async () => {
-      const messageData = await getMessagesByRoom("dR4tIvfPCFdhXihkLEZX");
-      setChats(messageData);
-    };
-    getMessageList();
-  }, []);
+  const defineStopListener = async () => {
+    unsubscribe = await getMessagesByRoom(
+      "dR4tIvfPCFdhXihkLEZX",
+      ({ messageData, last_activity_date }) => {
+        if (last_activity_date.seconds > lastUpdated) {
+          setLastUpdated(last_activity_date.seconds);
+          setChats(messageData);
+        }
+      }
+    );
+  };
+  defineStopListener();
 
   const handleViewableItemsChanged = useRef(({ viewableItems, changed }) => {
     setBottom(false);
@@ -50,8 +57,6 @@ const ChatPage = ({ navigation }) => {
   const handleSendChat = async () => {
     await postMessage({ chat_id: "dR4tIvfPCFdhXihkLEZX" }, bodyText.trim());
     setBodyText("");
-    const messageData = await getMessagesByRoom("dR4tIvfPCFdhXihkLEZX");
-    setChats(messageData);
   };
 
   const onTextChange = ({ contentSize }) => {
@@ -64,7 +69,11 @@ const ChatPage = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <Subheader navigation={navigation} title="Background Character A" />
+        <Subheader
+          navigation={navigation}
+          title="Background Character A"
+          backFunction={unsubscribe}
+        />
         <View style={styles.chatStore}></View>
         <FlatList
           ref={scrollViewRef}
