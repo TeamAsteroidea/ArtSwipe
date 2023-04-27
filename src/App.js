@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from 'react-redux';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from "expo-status-bar";
@@ -18,6 +19,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Colors from "constants/Colors.js";
 import StackScreenOptions from "components/modular/StackScreenOptions.jsx";
+import * as firestore from "server/firestore.js"
 
 /*~~~~TABS GO HERE~~~~*/
 import ArtistAlley from "./tabs/ArtistAlley.js";
@@ -32,40 +34,9 @@ import DetailView from "./screens/DetailView.js";
 import ChatPage from "./screens/ChatPage.jsx";
 import BiddingHistory from './screens/BiddingHistory.js';
 import Bookmarks from './screens/Bookmarks.js';
+import LoginScreen from './screens/LoginScreen.js';
 
 
-/*~~~~FIREBASE GOES HERE~~~~*/
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-
-// Optionally import the services that you want to use
-// import {...} from "firebase/auth";
-// import {...} from "firebase/database";
-// import {...} from "firebase/firestore";
-// import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
-
-// Initialize Firebase
-// console.log('process.env', process.env.API_KEY)
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyDWBSu8t-d4dX-5ZQRdJbQRy7Fv4FDusL4',
-//   authDomain: 'artswipe-b2bc3.firebaseapp.com',
-//   databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
-//   projectId: 'artswipe-b2bc3',
-//   storageBucket: 'artswipe-b2bc3.appspot.com',
-//   messagingSenderId: 'sender-id',
-//   appId: '1:298048017254:ios:f3ff0ff40bd9f487722ea7',
-//   measurementId: 'G-measurement-id',
-// };
-
-// const fbase = initializeApp(firebaseConfig);
-// console.log(typeof fbase)
-// const auth = getAuth(fbase);
-// console.log(auth)
-// createUserWithEmailAndPassword(auth, 'dummymail@yeet.com', 'dummypw').then(() => {
-//   console.log('how did I make it here')
-// })
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -132,9 +103,14 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
+          <Stack.Screen
             name="Home"
             component={Home}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, gestureEnabled: false }}
           />
           <Stack.Screen
             name="ArtistPage"

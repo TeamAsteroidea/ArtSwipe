@@ -1,26 +1,26 @@
-import * as React from "react";
-import { useRef, useState } from "react";
-import { auth } from "../firebase";
-import { useSelector, useDispatch } from "react-redux";
-
 import {
   KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
   View,
-  SafeAreaView,
   Text,
   TextInput,
+  Platform,
 } from "react-native";
-
 import {
-  GoogleAuthProvider,
-  GithubAuthProvider,
+  // GoogleAuthProvider,
+  // GithubAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signInWithPopup,
+  // signInWithPopup,
 } from 'firebase/auth';
-import { loginUser, logoutUser, UserState } from "../redux/userReducer.js";
+import * as React from "react";
+import PropTypes from 'prop-types';
+import { useState, useEffect } from "react";
+import { auth } from "../server/firestore";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, logoutUser } from "../redux/userReducer.js";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,24 +30,44 @@ const styles = StyleSheet.create({
   }
 })
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (Platform.OS === 'web') {
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+          passToDispatch(JSON.parse(savedUser));
+        }
+      } else {
+        const savedUser = await AsyncStorage.getItem('currentUser');
+        if (savedUser) {
+          console.log('useEffect ', JSON.parse(savedUser))
+          passToDispatch(JSON.parse(savedUser));
+        }
+      }
+    }
+    fetchData();
+  }, [loggedIn]);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        // If successful, update the user's login state and display a success message
-        const user = res.user;
-        const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true };
-        // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
-        dispatch(loginUser(loginData));
+      .then(async (res) => {
+        if (Platform.OS === 'web') {
+          localStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
+        } else {
+          await AsyncStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
+        }
+        passToDispatch(res)
+        enter();
       })
       .catch((err) => {
-        // If there's an error, display an error message
         alert(`${err.name}: ${err.message}`);
       });
   }
@@ -55,17 +75,41 @@ const LoginScreen = () => {
   const handleSignIn = () => {
     // Try to sign in with the email and password entered
     signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        // If successful, update the user's login state and display a success message
-        const user = res.user;
-        const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true };
-        // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
-        dispatch(loginUser(loginData));
+      .then(async (res) => {
+        if (Platform.OS === 'web') {
+          localStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
+        } else {
+          console.log('handleSignIn ', JSON.parse(JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken})))
+          await AsyncStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
+        }
+        passToDispatch(res)
+        enter();
       })
       .catch((err) => {
-          alert(`${err.name}: ${err.message}`);
+        alert(`${err.name}: ${err.message}`);
       });
   }
+
+  // just added this for dryness, it's the same content that was originally in handleSignIn
+  const passToDispatch = (res) => {
+    console.log('passToDispatch ', res)
+    const user = res.user;
+    // If successful, update the user's login state and display a success message
+    const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };
+    // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
+    dispatch(loginUser(loginData));
+  }
+
+  const logOut = async () => {
+    if (Platform.OS === 'web') {
+      localStorage.removeItem('currentUser');
+    } else {
+      await AsyncStorage.removeItem('currentUser');
+    }
+    dispatch(logoutUser());
+  }
+
+  const enter = () => { navigation.navigate('Home'); }
 
   return (
     <KeyboardAvoidingView
@@ -88,26 +132,55 @@ const LoginScreen = () => {
       </View>
 
       <View>
-        <TouchableOpacity
-          onPress={handleSignIn}
-          // value={}
-          // onChangeText={}
-        >
-          <Text>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={()=> {handleSignUp}}
-          // value={}
-          // onChangeText={}
-          secureTextEntry
-        >
-          <Text>Register</Text>
-        </TouchableOpacity>
+        {loggedIn ? (
+          <>
+            <TouchableOpacity
+              onPress={logOut}
+              style={{ marginTop: 20, backgroundColor: 'lightcoral' }}
+              // value={}
+              // onChangeText={}
+              secureTextEntry
+            >
+              <Text>  Logout  </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={enter}
+              style={{ marginTop: 20, backgroundColor: 'lightblue' }}
+              // value={ }
+              // onChangeText={ }
+              secureTextEntry
+            >
+              <Text>   Enter</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity
+              onPress={handleSignIn}
+            // value={}
+            // onChangeText={}
+            >
+              <Text>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleSignUp}
+              // value={}
+              // onChangeText={}
+              secureTextEntry
+            >
+              <Text>Register</Text>
+            </TouchableOpacity>
+          </>
+        )
+        }
       </View>
 
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView >
   )
 
 }
+LoginScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default LoginScreen;
