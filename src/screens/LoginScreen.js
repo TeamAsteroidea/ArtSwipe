@@ -1,27 +1,24 @@
-import * as React from "react";
-import { useRef, useState } from "react";
-import { auth } from "../server/firestore";
-import { useSelector, useDispatch } from "react-redux";
-
 import {
   KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
   View,
-  SafeAreaView,
   Text,
   TextInput,
 } from "react-native";
-
 import {
-  GoogleAuthProvider,
-  GithubAuthProvider,
+  // GoogleAuthProvider,
+  // GithubAuthProvider,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signInWithPopup,
+  // signInWithPopup,
 } from 'firebase/auth';
-
-import { loginUser, logoutUser, UserState } from "../redux/userReducer.js";
+import * as React from "react";
+import PropTypes from 'prop-types';
+import { auth } from "../server/firestore";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, logoutUser } from "../redux/userReducer.js";
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +31,11 @@ const styles = StyleSheet.create({
 const LoginScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+
+  useEffect(() => {
+    if (loggedIn) enter();
+  }, [loggedIn]);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,7 +44,6 @@ const LoginScreen = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
         passToDispatch(res)
-        navigation.navigate('Home')
       })
       .catch((err) => {
         alert(`${err.name}: ${err.message}`);
@@ -54,21 +55,27 @@ const LoginScreen = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
         passToDispatch(res)
-        navigation.navigate('Home')
       })
       .catch((err) => {
-          alert(`${err.name}: ${err.message}`);
+        alert(`${err.name}: ${err.message}`);
       });
   }
 
-// just added this for dryness, it's the same content that was originally in handleSignIn
+  const logOut = () => {
+    dispatch(logoutUser());
+  }
+
+  // just added this for dryness, it's the same content that was originally in handleSignIn
   const passToDispatch = (res) => {
-    // If successful, update the user's login state and display a success message
     const user = res.user;
+    // If successful, update the user's login state and display a success message
     const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };
     // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
     dispatch(loginUser(loginData));
+    enter();
   }
+
+  const enter = () => { navigation.navigate('Home'); }
 
   return (
     <KeyboardAvoidingView
@@ -91,26 +98,55 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       <View>
-        <TouchableOpacity
-          onPress={handleSignIn}
-          // value={}
-          // onChangeText={}
-        >
-          <Text>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handleSignUp}
-          // value={}
-          // onChangeText={}
-          secureTextEntry
-        >
-          <Text>Register</Text>
-        </TouchableOpacity>
+        {loggedIn ? (
+          <>
+            <TouchableOpacity
+              onPress={logOut}
+              style={{marginTop: 20, backgroundColor: 'lightcoral'}}
+              // value={}
+              // onChangeText={}
+              secureTextEntry
+            >
+              <Text>  Logout  </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={enter}
+              style={{marginTop: 20, backgroundColor: 'lightblue'}}
+              // value={ }
+              // onChangeText={ }
+              secureTextEntry
+            >
+              <Text>   Enter</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <TouchableOpacity
+              onPress={handleSignIn}
+            // value={}
+            // onChangeText={}
+            >
+              <Text>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={handleSignUp}
+              // value={}
+              // onChangeText={}
+              secureTextEntry
+            >
+              <Text>Register</Text>
+            </TouchableOpacity>
+          </>
+        )
+        }
       </View>
 
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView >
   )
 
 }
+LoginScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default LoginScreen;

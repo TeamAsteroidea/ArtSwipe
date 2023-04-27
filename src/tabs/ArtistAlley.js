@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
@@ -8,10 +8,11 @@ import {
   StyleSheet
 } from "react-native";
 
-import Colors from "constants/Colors.js";
-import ArtistTile from "components/ArtistAlley/ArtistTile.js";
+import Colors from "constants/Colors";
+import Header from 'components/ArtistAlley/Header'
+import ArtistTile from "components/ArtistAlley/ArtistTile";
 
-const ArtistAlley = React.memo(function ArtistAlley({ navigation }) {
+const ArtistAlley = memo(function ArtistAlley({ navigation }) {
   const imageObjs = useSelector((state) => state.images.imagesArrayObj);
   const artistObjs = imageObjs.reduce((acc, cur) => {
     const { artist } = cur;
@@ -31,16 +32,19 @@ const ArtistAlley = React.memo(function ArtistAlley({ navigation }) {
   const extractArtistKey = (item) => item.artist.toString();
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={artistData}
-        renderItem={({ item }) => <ArtistTile navigation={navigation} item={item} />}
-        keyExtractor={extractArtistKey}
-        initialNumToRender={10}
-        onEndReachedThreshold={0.2}
-        scrollEventThrottle={16}
-      />
-    </View >
+    <>
+      <Header />
+      <View style={styles.container}>
+        <FlatList
+          data={artistData}
+          renderItem={({ item }) => <ArtistTile navigation={navigation} item={item} />}
+          keyExtractor={extractArtistKey}
+          initialNumToRender={10}
+          onEndReachedThreshold={0.2}
+          scrollEventThrottle={16}
+        />
+      </View >
+    </>
   );
 });
 
