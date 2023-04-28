@@ -13,15 +13,11 @@ import {
 
 import BookmarkCard from './bookmarkCard';
 
-const BookmarkList = ({ navigation, onCompleted }) => {
+const BookmarkList = ({ navigation }) => {
 
   const items = useSelector((state) => {
     // return showCompleted ? state.images.completed : state.images.imagesArrayObj
-    if (onCompleted) {
-      return state.images.completed;
-    } else {
-      return state.images.imagesArrayObj;
-    }
+    return state.user.bookmarks
   })
 
   const renderItem = ({item}) => (<BookmarkCard item={item} navigation={navigation} />);

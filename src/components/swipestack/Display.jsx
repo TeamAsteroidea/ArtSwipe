@@ -130,7 +130,8 @@ function Display ({ user, stack, navigation, loadCards }) {
           }}
           cards={stack}
           renderCard={(card) => (
-            <Card key={card.title}>
+            <Card key={card.name}>
+              {console.log(card)}
               <CardImage source={{uri: card.image}}/>
               <Info>
                 <PriceContainer>

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // import { store } from '/redux/store';
 import {
   StyleSheet,
+  Image,
   // Button,
   View,
   // SafeAreaView,
@@ -14,16 +15,28 @@ import {
 import Colors from "constants/Colors.js";
 import Fonts from "constants/Fonts.js";
 
-const MessagesChatItem = ({ navigation, image, name, recentMessage }) => {
+const MessagesChatItem = ({
+  navigation,
+  chat_id,
+  image,
+  name,
+  recentMessage,
+}) => {
   return (
     <View style={styles.chatItem}>
       <Pressable
         style={styles.chatButton}
         onPress={() => {
-          navigation.navigate("ChatPage");
+          navigation.navigate("ChatPage", { chat_id });
         }}
       >
-        <View style={styles.chatIcon}></View>
+        <View style={styles.chatIcon}>
+          <Image
+            source={{ uri: image }}
+            resizeMode="contain"
+            style={{ flex: 1 }}
+          />
+        </View>
         <View style={styles.chatText}>
           <Text style={Fonts.SUBTITLE} numberOfLines={1}>
             {name}
@@ -62,6 +75,7 @@ const styles = StyleSheet.create({
     width: 65,
     backgroundColor: Colors.PLACEHOLDER,
     borderRadius: 33,
+    overflow: "hidden",
   },
   chatText: {
     flex: 1,

@@ -1,7 +1,5 @@
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import FontAwesome from "react-native-vector-icons/FontAwesome5";
+import { useRef, useState } from "react";
 // import { store } from '/redux/store';
 import {
   Platform,
@@ -10,56 +8,67 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
+  Image,
   // Text,
   // Alert,
   // ScrollView,
   FlatList,
   TextInput,
 } from "react-native";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
 
 import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
 import Subheader from "components/modular/Subheader.jsx";
 import ChatItem from "components/Messages/ChatItem.jsx";
-import { getMessagesByRoom } from "src/server/fs-messages.js";
+// import { getMessagesByRoom, postMessage } from "server/fs-messages.js";
+import { groupData } from "../../dummyData/dummyData.js";
 
-const isSenderSame = (currentMessage, prevMessage) => {
-  if (currentMessage && prevMessage) {
-    return currentMessage.user_id === prevMessage.user_id;
-  }
-  return false;
-};
-
-const dummyMessage = {
-  chat_id: 1,
-  message_id: 1,
-  user_id: 2,
-  message_date: 1682447971,
-  message_body:
-    "Hey, my name is John. I'm interested in your art. Can you tell me more about it?",
-};
-
-const ChatPage = ({ navigation }) => {
-  const dummyData = [].concat(...Array(100).fill(dummyMessage));
-  const dummyData2 = dummyData.map((message, index) => {
-    const isContinueAbove = isSenderSame(message, dummyData[index + 1]);
-    const isContinueBelow = isSenderSame(message, dummyData[index - 1]);
-    return { ...message, isContinueAbove, isContinueBelow };
+const ChatPage = ({ navigation, route }) => {
+  const uid = "ua";
+  let chatData;
+  let messageData = [];
+  const { chat_id } = route.params;
+  groupData.forEach((chatGroup) => {
+    if (chatGroup.chat_id === chat_id) {
+      messageData = chatGroup.messages;
+      chatData = chatGroup;
+    }
   });
-  // console.log(dummyData);
+  const imageIcon = (
+    <View style={styles.chatIcon}>
+      <Image
+        source={{ uri: chatData.image }}
+        resizeMode="contain"
+        style={{ flex: 1 }}
+      />
+    </View>
+  );
 
   const scrollViewRef = useRef();
-  const [chats, setChats] = useState(dummyData2);
+  let unsubscribe = () => {};
+  // const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState(messageData);
+  const [lastUpdated, setLastUpdated] = useState(0);
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
+  const [inputBoxHeight, setInputBoxHeight] = useState(50);
+  // const uid = useSelector((state) => state.user.user).uid;
 
-  useEffect(() => {
-    const getMessageList = async () => {
-      // const roomData = await getMessagesByRoom();
-      // console.log(roomData);
-    };
-    getMessageList();
-  }, []);
+  // const defineStopListener = async () => {
+  //   unsubscribe = await getMessagesByRoom(
+  //     chat_id,
+  //     ({ messageData, last_activity_date }) => {
+  //       if (last_activity_date.seconds > lastUpdated) {
+  //         setLastUpdated(last_activity_date.seconds);
+  //         setChats(messageData);
+  //       }
+  //     }
+  //   );
+  // };
+  // defineStopListener();
 
   const handleViewableItemsChanged = useRef(({ viewableItems, changed }) => {
     setBottom(false);
@@ -70,20 +79,25 @@ const ChatPage = ({ navigation }) => {
     });
   });
 
-  const handleSendChat = () => {
-    setChats((prevchats) => {
-      const message = {
-        chat_id: 1,
-        message_id: Math.round(Math.random() * 10000),
-        user_id: 1,
-        message_date: Date.now(),
-        message_body: bodyText.trim(),
-      };
-      message.isContinueAbove = isSenderSame(message, prevchats[0]);
-      prevchats[0].isContinueBelow = isSenderSame(message, prevchats[0]);
-      return [message].concat(prevchats);
+  const handleSendChat = async () => {
+    // await postMessage({ chat_id }, bodyText.trim());
+    if (messageData[0].user_id === uid) {
+      messageData[0].isContinueBelow = true;
+    }
+    messageData.unshift({
+      chat_id: chat_id,
+      message_id: messageData.length,
+      user_id: uid,
+      message_body: bodyText.trim(),
+      message_date: "",
+      isContinueBelow: false,
+      isContinueAbove: messageData[0].isContinueBelow,
     });
     setBodyText("");
+  };
+
+  const onTextChange = ({ contentSize }) => {
+    setInputBoxHeight(contentSize.height > 30 ? 90 : 50);
   };
 
   return (
@@ -92,8 +106,13 @@ const ChatPage = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <Subheader navigation={navigation} title="Background Character A" />
-        <View style={styles.chatStore}></View>
+        <Subheader
+          navigation={navigation}
+          title={chatData.name}
+          backFunction={unsubscribe}
+          customNode={imageIcon}
+        />
+        {/* <View style={styles.chatStore}></View> */}
         <FlatList
           ref={scrollViewRef}
           data={chats}
@@ -146,15 +165,24 @@ const ChatPage = ({ navigation }) => {
             style={{
               flex: 1,
               borderRadius: 8,
-              maxHeight: 50,
+              maxHeight: inputBoxHeight,
               marginHorizontal: 10,
               backgroundColor: Colors.INPUTS,
             }}
           >
             <TextInput
-              style={{ marginHorizontal: 20, marginVertical: 12 }}
+              style={{
+                flexGrow: 1,
+                marginHorizontal: 20,
+                marginVertical: 12,
+              }}
               placeholder="write your message..."
-              onChangeText={(text) => setBodyText(text)}
+              onChangeText={(text) => {
+                setBodyText(text);
+              }}
+              onContentSizeChange={(event) => {
+                onTextChange(event.nativeEvent);
+              }}
               value={bodyText}
               multiline
             ></TextInput>
@@ -183,6 +211,7 @@ const ChatPage = ({ navigation }) => {
 
 ChatPage.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default ChatPage;
@@ -201,6 +230,13 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexDirection: "column-reverse",
   },
+  chatIcon: {
+    height: 65,
+    width: 65,
+    backgroundColor: Colors.PLACEHOLDER,
+    borderRadius: 33,
+    overflow: "hidden",
+  },
   scrollBottomButton: {
     position: "fixed",
     height: 30,
@@ -209,7 +245,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
   chatInputBar: {
-    flexGrow: 1,
+    minHeight: 80,
+    maxHeight: 90,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

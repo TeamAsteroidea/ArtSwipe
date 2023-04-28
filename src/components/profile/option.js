@@ -20,10 +20,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   iconContainer: {
-    backgroundColor: 'pink',
     // padding: 10,
     width: 60,
     height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   iconPlaceholder: {
     backgroundColor: 'grey',
@@ -37,19 +38,19 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text: {
-    fontSize: 25,
+    fontSize: 20,
     // fontWeight: '500',
   },
 });
 
-export default function Option({ option, pageName, navigation }) {
+export default function Option({ option, pageName, navigation, icon }) {
 
   return (
     <View style={styles.outerContainer}>
       <TouchableOpacity style={styles.touchContainer} onPress={() => navigation.navigate(pageName)}>
         <View style={styles.container}>
           <View style={styles.iconContainer}>
-            {/* <View style={styles.iconPlaceholder} /> */}
+            {icon}
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text}>{option}</Text>

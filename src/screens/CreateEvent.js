@@ -1,6 +1,6 @@
+import { useState } from "react";
 import * as React from "react";
 import { useSelector } from 'react-redux';
-import { useState } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
@@ -16,6 +16,7 @@ import axios from 'axios';
 import StartDatePicker from "../components/Events/EventsStartPicker.js"
 import EndDatePicker from "../components/Events/EventsEndPicker.js"
 
+import styled from 'styled-components/native';
 /*
 id (String)
 userId (User who created Event) (String) (Should match Users Collection)
@@ -30,47 +31,65 @@ shortDescription (Optional String ?)
 imageUrl (String)
 */
 
-const CreateEvent = ({ navigation }) => {
+const CreateContainer = styled.View`
+  margin-top: 60px;
+`;
+
+// dummy user
+const dummyuserid = '12345';
+const dummyusername = 'dennisTester';
+
+const CreateEvent = ({ route, navigation }) => {
   const [ eventName, setEventName ] = useState('');
   const [ eventDescription, setEventDescription ] = useState('');
   const [ eventAddress, setEventAddress ] = useState('');
   const [ eventCity, setEventCity ] = useState('');
   const [ eventState, setEventState ] = useState('');
-  const [ eventZipCode, setEventZipCode ] = useState('');
+  const [ contactInfo, setContactInfo ] = useState('');
+  const [ imageurl, setImageurl ] = useState('');
+  const [ websiteurl, setWebsiteurl ] = useState('');
   const { eventStart } = useSelector((state) => state.events);
-  const { eventEnd } = useSelector((state) => state.events);
+  const {reduxState} = useSelector((state) => {
+    console.log('state', Object.keys(state));
+    console.log('events', state.events);
+    return Object.keys(state);
+  })
+  // const { eventEnd } = useSelector((state) => state.events);
 
   const eventStartUnix = Date.parse(eventStart);
-  const eventEndUnix = Date.parse(eventEnd);
+  // const eventEndUnix = Date.parse(eventEnd);
+  // console.log('eventStart', eventStart);
+  // console.log('eventStartUnix', eventStartUnix);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = {
-      eventName: eventName,
-      eventDescription: eventDescription,
-      eventStart: eventStartUnix,
-      eventEnd: eventEndUnix,
-      eventAddress: eventAddress,
-      eventCity: eventCity,
-      eventState: eventState,
-      eventZipCode: eventZipCode,
+      title: eventName,
+      description: eventDescription,
+      eventdate: eventStartUnix,
+      venue: `${eventAddress}, ${eventCity}, ${eventState}`,
+      contactinfo: contactInfo,
+      imageurl: imageurl,
+      websiteurl: websiteurl,
+      userid: dummyuserid,
+      username: dummyusername,
     }
 
     console.log(formData);
 
-  axios.post('/createevent', formData)
-    .then(data => {
-      console.log('Post success data: ', data);
-    })
-    .catch(err => {
-      console.log('We were unable to process your submission: ', err);
-    })
+  // axios.post('/createevent', formData)
+  //   .then(data => {
+  //     console.log('Post success data: ', data);
+  //   })
+  //   .catch(err => {
+  //     console.log('We were unable to process your submission: ', err);
+  //   })
   navigation.navigate('Events')
   }
 
   return (
-    <View>
+    <CreateContainer>
       <View>
         <Text>Event Name</Text>
         <TextInput
@@ -110,10 +129,22 @@ const CreateEvent = ({ navigation }) => {
           onChangeText={setEventState}
         />
 
-        <Text>Zip Code</Text>
+        <Text>Contact Info</Text>
         <TextInput
-          placeholder="94105"
-          onChangeText={setEventZipCode}
+          placeholder="user@email.com"
+          onChangeText={setContactInfo}
+        />
+
+        <Text>Website</Text>
+        <TextInput
+          placeholder="Insert website URL"
+          onChangeText={setWebsiteurl}
+        />
+
+        <Text>Image</Text>
+        <TextInput
+          placeholder="Insert image URL"
+          onChangeText={setImageurl}
         />
 
         <Button
@@ -121,7 +152,7 @@ const CreateEvent = ({ navigation }) => {
           title="Save Changes"
         />
       </View>
-    </View>);
+    </CreateContainer>);
 };
 
 CreateEvent.propTypes = {

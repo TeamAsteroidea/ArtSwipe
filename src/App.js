@@ -29,7 +29,7 @@ import Profile from "./tabs/Profile.js";
 import SwipeStack from "./tabs/SwipeStack.js";
 
 /*~~~~SCREENS GO HERE~~~~*/
-import ArtistPage from "./screens/ArtistPage.js";
+import Wares from "./screens/Wares.js";
 import DetailView from "./screens/DetailView.js";
 import ChatPage from "./screens/ChatPage.jsx";
 import BiddingHistory from './screens/BiddingHistory.js';
@@ -44,6 +44,7 @@ import ProfileSettings from './screens/ProfileSettings.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const iconSize = 30;
 
 
 function Home() {
@@ -70,32 +71,32 @@ function Home() {
         key={1}
         name="Events"
         component={Events}
-        options={StackScreenOptions("calendar", 40)}
+        options={StackScreenOptions("calendar", iconSize)}
       />
 
       <Tab.Screen
         key={2}
         name="ArtistAlley"
         component={ArtistAlley}
-        options={StackScreenOptions("store", 35)}
+        options={StackScreenOptions("store", 0.875 * iconSize)}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         key={3}
         name="SwipeStack"
         component={SwipeStack}
-        options={StackScreenOptions("gavel", 42)}
-      />
+        options={StackScreenOptions("gavel", 1.05 * iconSize)}
+      /> */}
       <Tab.Screen
         key={4}
         name="Messages"
         component={Messages}
-        options={StackScreenOptions("comment", 42)}
+        options={StackScreenOptions("comment", 1.05 * iconSize)}
       />
       <Tab.Screen
         key={5}
         name="Profile"
         component={Profile}
-        options={StackScreenOptions("user-circle", 44, "solid")}
+        options={StackScreenOptions("user-circle", 1.1 * iconSize, "solid")}
       />
     </Tab.Navigator>
   );
@@ -119,8 +120,8 @@ function App() {
             options={{ headerShown: false, gestureEnabled: false }}
           />
           <Stack.Screen
-            name="ArtistPage"
-            component={ArtistPage}
+            name="Wares"
+            component={Wares}
             options={{ headerShown: false, gestureDirection: "vertical" }}
           />
           <Stack.Screen
