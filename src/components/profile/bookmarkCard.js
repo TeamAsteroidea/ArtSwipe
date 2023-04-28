@@ -14,7 +14,8 @@ import {
 
 import BookmarkButton from '../modular/bookmarkButton';
 import { TEXT, SUBTEXT } from '../../constants/Fonts.js';
-import TimeRemaining from '../../scripts/helperFunctions/Timer';
+import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining';
+import Timer from '../../scripts/helperFunctions/Timer';
 import * as generic from 'src/server/fs-generic.js'
 
 const styles = StyleSheet.create({
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
 const BookmarkCard = ({ itemID, navigation }) => {
 
   const [item, setItem] = useState(null);
+  const [clock, setClock] = useState(null);
 
   useEffect(() => {
     generic.getOne('art', itemID)
@@ -55,6 +57,19 @@ const BookmarkCard = ({ itemID, navigation }) => {
       })
       .catch(err => console.log(err, 'err retrieving art item'))
   }, [])
+
+  useEffect(() => {
+    if (item) {
+      setClock(timeRemaining(item))
+    }
+  }, [item])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setClock(clock - 1000);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [clock]);
 
   if (item) {
     return(
@@ -71,7 +86,9 @@ const BookmarkCard = ({ itemID, navigation }) => {
           <Text style={{ fontSize: 10 }}>You bid: {item.bidIncrementPrice}</Text>
           <Text style={{ fontSize: 13, fontWeight: 'bold'}}>Time left:</Text>
           <View>
-            {TimeRemaining(item)}
+            <Text>
+              <Timer remainingTime={clock}/>
+            </Text>
           </View>
         </View>
         <View style={styles.bookmarkContainer}>

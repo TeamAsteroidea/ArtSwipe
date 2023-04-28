@@ -16,28 +16,42 @@ import BookmarkCard from './bookmarkCard';
 
 const ArtList = ({ navigation, onCompleted }) => {
 
-  const [ renderArt, setRenderArt ] = useState(false);
+  const [ renderArt, setRenderArt ] = useState(true);
 
-  const items = useSelector((state) => {
-    // return showCompleted ? state.images.completed : state.images.imagesArrayObj
-    if (onCompleted) {
-      return state.images.completed;
-    } else {
-      return state.user.activeBids;
-    }
-  })
+  // const items = useSelector((state) => {
+  //   // return showCompleted ? state.images.completed : state.images.imagesArrayObj
+  //   // if (onCompleted) {
+  //   //   return state.user.activeBids.filter( bid => );
+  //   // } else {
+  //   //   return state.user.activeBids;
+  //   // }
 
-  useEffect(() => {
-    if (items) {
-      setRenderArt(true);
-    }
-  },[items]);
+  //   if (onCompleted) {
+  //     return state.images.completed;
+  //   } else {
+  //     return state.images.imagesArrayObj;
+  //   }
+  // })
+
+  // useEffect(() => {
+  //   if (items) {
+  //     setRenderArt(true);
+  //   }
+  // },[items]);
 
   const renderItem = ({item}) => {
+
     return (
       <BookmarkCard itemID={item} navigation={navigation} />
     )
   };
+
+  const items = [
+    '00jnbbgfKgpExW7e4pVb',
+    '01zCu8m2UyeLBEvzuxQe',
+    '045Ye3pJpKHj2QcPMVbp',
+    '08ZzS3RVds9HxciVtw3A',
+  ]
 
   if (renderArt) {
     return(
