@@ -45,22 +45,68 @@ const userSlice = createSlice({
       }
     },
     setGender: (state, action) => {
-      state.genderId = action.payload;
+      state.user.personalInfo.genderId = action.payload;
+    },
+    //TODO: make this user array nonsense a bit dryer
+    addActive: (state, action) => {
+      state = {
+        ...state,
+        user: {
+          ...state.user,
+          rejected: state.user.rejected.push(action.payload)
+        }
+      }
+    },
+    removeActive: (state, action) => {
+      state = {
+        ...state,
+        user: {
+          ...state.user,
+          activeBids: state.user.activeBids.filter(
+            (item) => item !== action.payload
+          )
+        }
+      }
+    },
+    addReject: (state, action) => {
+      state = {
+        ...state,
+        user: {
+          ...state.user,
+          activeBids: state.user.activeBids.push(action.payload)
+        }
+      }
+    },
+    removeReject: (state, action) => {
+      state = {
+        ...state,
+        user: {
+          ...state.user,
+          rejected: state.user.rejected.filter(
+            (item) => item !== action.payload
+          )
+        }
+      }
+    },
+    addBookmark: (state, action) => {
+      state = {
+        ...state,
+        user: {
+          ...state.user,
+          bookmarks: state.user.bookmarks.push(action.payload)
+        }
+      }
     },
     removeBookmark: (state, action) => {
       state = {
         ...state,
-        bookmarks: state.user.bookmarks.filter(
-          (bookmark) => bookmark !== action.payload
-        ),
-      };
-    },
-    addBookmark: (state, action) => {
-      console.log(state.user.bookmarks, "bookmarks");
-      state = {
-        ...state,
-        bookmarks: state.user.bookmarks.push(action.payload),
-      };
+        user: {
+          ...state.user,
+          bookmarks: state.user.bookmarks.filter(
+            (item) => item !== action.payload
+          )
+        }
+      }
     },
     setDarkMode: (state, action) => {
       state.darkMode = action.payload;

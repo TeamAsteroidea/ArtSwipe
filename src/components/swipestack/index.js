@@ -21,6 +21,7 @@ function Content ({ navigation }) {
       .then((result) => {
         const sortedArtwork = sortArtwork(user, result);
         setStack(sortedArtwork);
+        console.log('card loaded')
       })
       .catch((err) => {console.log(err)})
   };
