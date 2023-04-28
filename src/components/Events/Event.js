@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import {
   // StyleSheet,
   // Button,
-  // View,
+  View,
   // SafeAreaView,
   Text,
   // Alert,
@@ -28,28 +28,88 @@ import {
 //   imageUrl: 'website.com/image3.png',
 // }
 
+const EventPressable = styled.Pressable`
+  flexDirection: row;
+  height: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 40px;
+`;
+
+const EventImgContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+
+`;
+const EventImg = styled.Image`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const EventView = styled.View`
+  flex: 2;
+  justify-content: space-around;
+  align-items: left;
+`;
+
+const EventBold = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+const EventNormal = styled.Text`
+font-size: 17px;
+font-weight: 400;
+`;
+
+const ViewBorder = styled.View`
+`;
+
 const Event = ({ eventData, navigation }) => {
   console.log('eventData is', eventData);
-  const imgObj = {
-    uri: eventData.imageurl,
-  };
-
-  console.log(imgObj.uri);
-
+  if (Object.keys(eventData).indexOf('imageurl') >= 0) {
+    return (
+      <ViewBorder>
+        <EventPressable onPress={() => {
+          navigation.navigate('EventDescription', {
+            eventData,
+          })
+        }}>
+          <EventImgContainer>
+            <EventImg
+              source={{
+                uri: eventData.imageurl,
+              }}
+            />
+          </EventImgContainer>
+          <EventView>
+            <EventBold>{eventData.eventdate}</EventBold>
+            <EventBold>{eventData.title}</EventBold>
+            <EventNormal>{eventData.venue}</EventNormal>
+          </EventView>
+        </EventPressable>
+      </ViewBorder>
+    );
+  } else if (Object.keys(eventData).length > 0) {
+    return (
+      <EventPressable onPress={() => {
+        navigation.navigate('EventDescription', {
+          eventData,
+        })
+      }}>
+        <EventView>
+          {eventData.eventdate ? <EventBold>{eventData.eventdate}</EventBold> : <EventBold />}
+          {eventData.title ? <EventBold>{eventData.title}</EventBold> : <EventBold />}
+          {eventData.venue ? <EventNormal>{eventData.venue}</EventNormal> : <EventNormal />}
+        </EventView>
+      </EventPressable>
+    );
+  }
   return (
-    <Pressable onPress={() => {
-      navigation.navigate('EventDescription', {
-        eventData,
-      })
-    }}>
-      <Image
-        style={{ width: '100%', height: 100 }}
-        source={imgObj}
-      />
-      <Text>{eventData.eventDate}</Text>
-      <Text>{eventData.title}</Text>
-      <Text>{eventData.venue}</Text>
-    </Pressable>
+    <View />
   );
 };
 
@@ -59,3 +119,4 @@ Event.propTypes = {
 };
 
 export default Event;
+

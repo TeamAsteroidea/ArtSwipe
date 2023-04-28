@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import styled from 'styled-components/native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus';
+import { AntDesign } from '@expo/vector-icons';
 import {
   // StyleSheet,
   Button,
@@ -11,9 +14,10 @@ import {
   // Alert,
   // ScrollView,
   FlatList,
-  // Pressable,
+  Pressable,
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { db } from "../server/firestore.js";
 
 
 import Event from '../components/Events/Event.js';
@@ -129,6 +133,17 @@ const Stack = createNativeStackNavigator();
 //   console.log('pressed pressable');
 // }
 
+const CreatePressable = styled.Pressable`
+  position: absolute;
+  width: 41px;
+  top: 5px;
+  right: 10px;
+`;
+
+const FlatListWrapper = styled.FlatList`
+  margin-top: 42px;
+`;
+
 const EventsList = ({ navigation }) => {
   const [eData, setEData] = useState([]);
 
@@ -148,14 +163,21 @@ const EventsList = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Event Page</Text>
-      <Button
-        title="Event Create Button"
+      <CreatePressable
+        // title="Event Create Button"
         onPress={() => navigation.navigate('EventCreation', {
           eventData: eData[0],
         })}
-      />
-      <FlatList
+      >
+        <FontAwesomeIcon
+          icon={faCirclePlus}
+          size={40}
+          color='#034448'
+          background-color='none'
+          // style={styles.filterIcon}
+          />
+      </CreatePressable>
+      <FlatListWrapper
         data={eData}
         renderItem={renderEvent}
         keyExtractor={(item) => item.id}
