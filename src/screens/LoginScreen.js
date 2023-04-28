@@ -1,4 +1,5 @@
 import {
+  Image,
   KeyboardAvoidingView,
   StyleSheet,
   TouchableOpacity,
@@ -21,12 +22,42 @@ import { auth } from "../server/firestore";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, logoutUser } from "../redux/userReducer.js";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { BGDARK } from '../constants/Colors.js';
+import Logo from '../../assets/artswipe-logo.png';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: "#232323",
+  },
+  inputContainer: {
+    backgroundColor: "#D9D9D9",
+    fontSize: 16,
+    width: 275,
+    height: 50,
+    margin: 10,
+    borderRadius: 10,
+    padding: 10,
+  },
+  lowerButtons: {
+    backgroundColor: "#034448",
+    width: 125,
+    height: 30,
+    borderRadius: 5,
+    margin: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#FFFFFF",
+  },
+  logo: {
+    width: 300,
+    height: 300,
+    resizeMode: 'contain',
+    marginBottom: 50,
   }
 })
 
@@ -116,59 +147,69 @@ const LoginScreen = ({ navigation }) => {
       style={styles.container}
       behavior="padding"
     >
+
       <View>
-        <Text>Login Screen</Text>
+        <Image
+          source={ Logo }
+          style={ styles.logo }/>
+      </View>
+
+      <View>
         <TextInput
           placeholder="Email"
           value={email}
           onChangeText={text => setEmail(text)}
+          style={styles.inputContainer}
         />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={text => setPassword(text)}
+          style={styles.inputContainer}
           secureTextEntry
         />
       </View>
 
-      <View>
+      <View style={{marginTop: 40}}>
         {loggedIn ? (
           <>
             <TouchableOpacity
               onPress={logOut}
-              style={{ marginTop: 20, backgroundColor: 'lightcoral' }}
+              style={styles.lowerButtons}
               // value={}
               // onChangeText={}
               secureTextEntry
             >
-              <Text>  Logout  </Text>
+              <Text style={styles.buttonText}>Logout</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={enter}
-              style={{ marginTop: 20, backgroundColor: 'lightblue' }}
+              style={styles.lowerButtons}
               // value={ }
               // onChangeText={ }
               secureTextEntry
             >
-              <Text>   Enter</Text>
+              <Text style={styles.buttonText}>Enter</Text>
             </TouchableOpacity>
           </>
         ) : (
           <>
             <TouchableOpacity
               onPress={handleSignIn}
+              style={styles.lowerButtons}
             // value={}
             // onChangeText={}
             >
-              <Text>Login</Text>
+              <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleSignUp}
+              style={styles.lowerButtons}
               // value={}
               // onChangeText={}
               secureTextEntry
             >
-              <Text>Register</Text>
+              <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
           </>
         )
