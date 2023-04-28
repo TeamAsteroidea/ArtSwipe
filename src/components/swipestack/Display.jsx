@@ -12,6 +12,7 @@ import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
 import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
 import { getOne } from '../../server/fs-generic.js';
+import BookMarkButton from '../modular/bookmarkButton.js';
 
 function Display ({ user, stack, navigation, loadCards }) {
   const [dumpster, setDumpster] = useState(false);
@@ -56,6 +57,9 @@ function Display ({ user, stack, navigation, loadCards }) {
           </View>
         }
       </TimerContainer>
+      <BookMarkButtonContainer>
+        <BookMarkButton item={stack[currentIndex]}/>
+      </BookMarkButtonContainer>
       <ModalContainer>
         <OpenModal
           onPress={() => navigation.navigate('BiddingHistory')}>
@@ -325,4 +329,12 @@ const Dumpster = styled.Image`
   right: 0;
   height: 800px;
   width: 800px;
+`
+
+const BookMarkButtonContainer = styled.View`
+  flex: 1;
+  padding: 4px;
+  position: absolute;
+  right: 70px;
+  top: 10px;
 `
