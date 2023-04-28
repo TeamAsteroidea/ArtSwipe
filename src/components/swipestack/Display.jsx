@@ -11,6 +11,7 @@ import Timer from './components/Timer.jsx';
 import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
 import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
+import { getOne } from '../../server/fs-generic.js';
 
 function Display ({ user, stack, navigation, loadCards }) {
   const [dumpster, setDumpster] = useState(false);
@@ -36,7 +37,12 @@ function Display ({ user, stack, navigation, loadCards }) {
   }, [clock]);
 
   useEffect(() => {
-    setClock(timeRemaining(stack[currentIndex]))
+    // getOne('art', stack[currentIndex].name)
+    //   .then((result) => {
+    //     console.log(result)
+    //     stack[currentIndex] = result;
+    //   })
+      setClock(timeRemaining(stack[currentIndex]))
   }, [currentIndex])
 
   return (
