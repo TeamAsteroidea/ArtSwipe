@@ -48,7 +48,7 @@ const Bookmarks = ({ navigation }) => {
   <SafeAreaView>
     <View>
       <View>
-        <SubHeader navigation={ navigation } title={"Bookmarks"} />
+        <SubHeader navigation={ navigation } title={"Bookmarks"} backFunction={() => {}}/>
       </View>
       <View style={styles.buttonsContainer}>
         <Pressable title={'all'} onPress={showAll}>
