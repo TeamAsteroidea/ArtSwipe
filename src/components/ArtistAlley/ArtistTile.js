@@ -29,7 +29,7 @@ const ArtistTile = memo(function ArtistTile({ navigation, item }) {
     <View style={styles.artist}>
       <View style={styles.images}>
         <FlatList
-          initialNumToRender={6}
+          initialNumToRender={2}
           data={item.data.slice(0, displayCount)}
           renderItem={renderItem}
           horizontal
