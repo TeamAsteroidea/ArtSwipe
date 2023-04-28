@@ -1,41 +1,27 @@
 import * as React from "react";
 import { useState } from "react";
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { store } from '/redux/store';
 import {
-  // StyleSheet,
   Button,
   View,
-  // SafeAreaView,
   Text,
   TextInput,
-  // Alert,
 } from "react-native";
 import axios from 'axios';
 import { DarkModePicker, LanguagePicker, ShowMePicker } from '../components/profile/ProfilePickers.js';
-
-/*
-Dark Mode
-Language
-Price Range
-Payment
-Exp. Date
-Show Me
-Location
-Email
-Phone Number
-*/
+import styles from '../components/profile/profileFormsStyles';
 
 const ProfileSettings = ({ navigation }) => {
-  const [ darkMode, setDarkMode ] = useState('On');
-  const [ language, setLanguage ] = useState('English (US)');
   const [ priceMin, setPriceMin ] = useState('');
   const [ priceMax, setPriceMax ] = useState('');
   const [ payMethod, setPayMethod ] = useState('');
   const [ payExp, setPayExp ] = useState('');
-  const [ showMe, setShowMe ] = useState('');
   const [ location, setLocation ] = useState('');
   const [ email, setEmail ] = useState('');
+  const { darkMode } = useSelector((state) => state.user);
+  const { language } = useSelector((state) => state.user);
+  const { showMe } = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -63,55 +49,58 @@ const ProfileSettings = ({ navigation }) => {
 
   return (
     <View>
-      <View>
-        <Text>Dark Mode</Text>
+      <View style={styles.formContainer}>
+        <Text style={styles.labels}>Dark Mode</Text>
         <DarkModePicker
           selectedValue={darkMode}
-          onValueChange={(modeVal) => setDarkMode(modeVal)}
         />
 
-        <Text>Language</Text>
+        <Text style={styles.labels}>Language</Text>
         <LanguagePicker
           selectedValue={language}
-          onValueChange={(langVal) => setLanguage(langVal)}
         />
 
-        <Text>Price Range</Text>
-        <Text>$</Text>
-        <TextInput
-          placeholder="100"
-          onChangeText={setPriceMin}
-        />
-        <Text>to</Text>
-        <Text>$</Text>
-        <TextInput
-          placeholder="9000000"
-          onChangeText={setPriceMax}
-        />
+        <Text style={styles.labels}>Price Range</Text>
+        <View style={styles.priceRange}>
+          <Text>$ </Text>
+          <TextInput
+            placeholder="100"
+            onChangeText={setPriceMin}
+            style={styles.priceRangeInput}
+          />
+          <Text>&nbsp;&nbsp; to &nbsp;&nbsp;</Text>
+          <Text>$ </Text>
+          <TextInput
+            placeholder="9,000,000"
+            onChangeText={setPriceMax}
+            style={styles.priceRangeInput}
+          />
+        </View>
 
-        <Text>Payment Method</Text>
+        <Text style={styles.labels}>Payment Method</Text>
         <TextInput
           placeholder="Enter card number"
           onChangeText={setPayMethod}
+          style={styles.textInput}
         />
 
-        <Text>Exp. Date</Text>
+        <Text style={styles.labels}>Exp. Date</Text>
         <TextInput
           placeholder="MM/YY"
           onChangeText={setPayExp}
+          style={styles.textInput}
         />
 
-        <Text>Show Me</Text>
+        <Text style={styles.labels}>Show Me</Text>
         <ShowMePicker
-          selectedValue={darkMode}
-          onValueChange={(modeVal) => setDarkMode(modeVal)}
+          selectedValue={showMe}
           placeholder="Type of artwork shown"
-          onChangeText={setShowMe}
         />
 
         <Button
           title="Save Changes"
           onPress={handleSubmit}
+          style={styles.button}
         />
       </View>
     </View>);

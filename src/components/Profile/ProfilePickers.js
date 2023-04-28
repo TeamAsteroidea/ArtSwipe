@@ -1,9 +1,12 @@
 import * as React from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { SelectList, MultipleSelectList } from 'react-native-dropdown-select-list';
+import { setDarkMode, setGender, setLanguage, setShowMe } from "../../redux/userReducer";
 
 export const GenderPicker = () => {
-  const [ selected, setSelected ] = useState('');
+  const { genderId } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const data = [
       {key:'1', value:'Female'},
       {key:'2', value:'Trans Female'},
@@ -15,9 +18,10 @@ export const GenderPicker = () => {
   ];
   return(
     <SelectList
-        setSelected={(val) => setSelected(val)}
+        setSelected={(val) => dispatch(setGender(val))}
         data={data}
         save="value"
+        defaultOption={{key: genderId, value: genderId}}
         boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
         dropdownStyles={{borderRadius:5}}
     />
@@ -25,26 +29,28 @@ export const GenderPicker = () => {
 };
 
 export const DarkModePicker = () => {
-  const [ darkModeValue, setDarkModeValue ] = useState('');
+  const { darkMode } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const data = [
       {key:'1', value:'On'},
-      {key:'2', value:'Off'}
+      {key:'2', value:'Off'},
   ];
   return(
     <SelectList
-        setSelected={(val) => setDarkModeValue(val)}
+        setSelected={(val) => dispatch(setDarkMode(val))}
         data={data}
         save="value"
         search={false}
-        defaultOption={{key:'1', value:'On'}}
+        defaultOption={{key: darkMode, value:darkMode}}
         boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-        dropdownStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
+        dropdownStyles={{borderRadius:5}}
     />
   )
 };
 
 export const LanguagePicker = () => {
-  const [ langValue, setLangValue ] = useState('');
+  const { language } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const data = [
       {key:'1', value:'English (US)'},
       {key:'2', value:'Spanish'},
@@ -52,18 +58,20 @@ export const LanguagePicker = () => {
   ];
   return(
     <SelectList
-        setSelected={(val) => setLangValue(val)}
+        setSelected={(val) => dispatch(setLanguage(val))}
         data={data}
         save="value"
         search={false}
-        defaultOption={{key:'1', value:'English (US)'}}
+        defaultOption={{key: language, value: language}}
         boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-        dropdownStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
+        dropdownStyles={{borderRadius:5}}
     />
   )
 };
 
 export const ShowMePicker = () => {
+  const { showMe } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [ artTypeValue, setArtTypeValue ] = useState([]);
   const data = [
     {key:'1', value:'Paintings'},
@@ -80,12 +88,14 @@ export const ShowMePicker = () => {
   ];
   return(
     <MultipleSelectList
-      setSelected={(val) => setArtTypeValue(val)}
+      onSelect={() => dispatch(setShowMe(artTypeValue))}
+      setSelected={(val) => {setArtTypeValue(val)}}
       data={data}
       save="value"
       label="Categories"
+      defaultOption={{key: showMe, value: showMe}}
       boxStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
-      dropdownStyles={{borderRadius:5,paddingHorizontal:15,paddingTop:8, paddingBottom:5}}
+      dropdownStyles={{borderRadius:5}}
     />
   )
 };
