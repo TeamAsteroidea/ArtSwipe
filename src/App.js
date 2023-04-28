@@ -38,9 +38,14 @@ import LoginScreen from './screens/LoginScreen.js';
 
 
 
+import CreateEvent from './screens/CreateEvent.js'
+import PersonalInfo from './screens/PersonalInfo.js';
+import ProfileSettings from './screens/ProfileSettings.js';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const iconSize = 30;
+
 
 function Home() {
   return (
@@ -60,6 +65,7 @@ function Home() {
           elevation: 5,
         },
       }}
+      initialRouteName='SwipeStack'
     >
       <Tab.Screen
         key={1}
@@ -95,6 +101,8 @@ function Home() {
     </Tab.Navigator>
   );
 }
+
+// screenOptions={{ headerShown: false }}
 
 function App() {
   return (
@@ -136,6 +144,21 @@ function App() {
             <Stack.Screen
               name="Bookmarks"
               component={Bookmarks}
+              options={{ headerShown: false, gestureDirection: 'vertical'}}
+            />
+            <Stack.Screen
+              name="CreateEvent"
+              component={CreateEvent}
+              options={{ headerShown: false, gestureDirection: 'vertical'}}
+            />
+            <Stack.Screen
+              name="PersonalInfo"
+              component={PersonalInfo}
+              options={{ headerShown: false, gestureDirection: 'vertical'}}
+            />
+            <Stack.Screen
+              name="ProfileSettings"
+              component={ProfileSettings}
               options={{ headerShown: false, gestureDirection: 'vertical'}}
             />
         </Stack.Navigator>

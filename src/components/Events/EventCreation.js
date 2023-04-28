@@ -8,9 +8,10 @@ import {
   // SafeAreaView,
   Text,
   // Alert,
-  ScrollView,
+  // ScrollView,
 } from "react-native";
 
+import { getAllEvents } from '../../server/fs-events.js';
 // {
 //   id: '12347',
 //   userId: '54321',
@@ -29,6 +30,12 @@ const EventCreation = ({ route }) => {
   return (
     <View>
       <Text>EventCreation</Text>
+      <Button
+        title="Event Edit Button"
+        onPress={async () => {
+          await getAllEvents();
+        }}
+      />
     </View>);
 };
 

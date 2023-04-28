@@ -1,6 +1,24 @@
 const axios = require("axios");
 const fsp = require("node:fs/promises")
 
+function dateWithinPastFewDays() {
+  // Number of milliseconds in a day
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  // Generate a random number between 1 and 5 to represent how many days ago the date should be
+  const daysAgo = Math.floor(Math.random() * 5) + 1;
+  // Subtract the number of milliseconds in the chosen number of days from the current date to get the desired date
+  const date = new Date(Date.now() - (daysAgo * millisecondsPerDay));
+  // Return the date in milliseconds
+  return date.getTime();
+}
+
+function auctionDurationMilliseconds() {
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  const days = Math.floor(Math.random() * 7) + 1;
+  const milliseconds = days * millisecondsPerDay;
+  return milliseconds;
+}
+
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 var artists = [
@@ -39,14 +57,14 @@ var getUrl = async(url) => {
     results.push({
       id: id,
       bidders: [],
-      bidIncrementPrice: 1,
-      bidStartingPrice: 1,
+      bidIncrement: 1,
+      bidPrice: 1,
       artist: card.artist,
       name: card.name,
       currentOwner: 'Nobody',
       image: card.image_uris ? card.image_uris.art_crop: card.card_faces[0].image_uris.art_crop,
-      date_auctioned: 0,
-      bidDuration: 0
+      date_auctioned: dateWithinPastFewDays(),
+      bidDuration: auctionDurationMilliseconds()
     })
     id += 1
   }

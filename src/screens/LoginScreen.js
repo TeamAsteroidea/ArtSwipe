@@ -79,7 +79,7 @@ const LoginScreen = ({ navigation }) => {
         if (Platform.OS === 'web') {
           localStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         } else {
-          console.log('handleSignIn ', JSON.parse(JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken})))
+          // console.log('handleSignIn ', JSON.parse(JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken})))
           await AsyncStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         }
         passToDispatch(res)
@@ -92,7 +92,7 @@ const LoginScreen = ({ navigation }) => {
 
   // just added this for dryness, it's the same content that was originally in handleSignIn
   const passToDispatch = (res) => {
-    console.log('passToDispatch ', res)
+    // console.log('passToDispatch ', res)
     const user = res.user;
     // If successful, update the user's login state and display a success message
     const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };

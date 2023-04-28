@@ -55,7 +55,7 @@ const Profile = ({ navigation }) => {
             <Option option={'Personal Information'} pageName={ 'PersonalInfo' } navigation={navigation}></Option>
             <Option option={'Bidding History'} pageName={ 'BiddingHistory' } navigation={navigation}></Option>
             <Option option={'Bookmarks'} pageName={ 'Bookmarks' } navigation={navigation}></Option>
-            <Option option={'Settings'} pageName={ 'Settings' }navigation={navigation}></Option>
+            <Option option={'Settings'} pageName={ 'ProfileSettings' }navigation={navigation}></Option>
           </View>
         </View>
       </View>

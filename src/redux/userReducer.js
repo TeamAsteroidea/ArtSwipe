@@ -5,16 +5,20 @@ const userSlice = createSlice({
   initialState: {
     loggedIn: false,
     user: {
-      displayName: "",
-      email: "",
-      photoURL: "",
-      uid: "",
-      idToken: "",
+      displayName: '',
+      email: '',
+      photoURL: '',
+      uid: '',
+      idToken: '',
+      genderId: '',
+      darkMode: 'Off',
+      language: 'English (US)',
+      showMe: [],
     },
   },
   reducers: {
     loginUser: (state, action) => {
-      console.log("loginUser", action.payload);
+      console.log('loginUser', action.payload)
       state.user = action.payload;
       state.loggedIn = true;
     },
@@ -27,6 +31,19 @@ const userSlice = createSlice({
         uid: "",
         idToken: "", //this is for API calls
       };
+    },
+    setGender: (state, action) => {
+      state.genderId = action.payload;
+    },
+    setDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+    },
+    setLanguage: (state, action) => {
+      state.language = action.payload;
+    },
+    setShowMe: (state, action) => {
+      console.log('showme payload: ', action.payload);
+      state.showMe = action.payload;
     },
   },
   // extraReducers: {
@@ -41,3 +58,6 @@ const userSlice = createSlice({
 
 export const { loginUser, logoutUser } = userSlice.actions;
 export default userSlice.reducer;
+
+export const { loginUser, logoutUser } = userSlice.actions
+export default userSlice.reducer
