@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 
 function Timer ({ remainingTime }) {
+  // console.log(remainingTime)
   const convertTime = () => {
-    const date = new Date(remainingTime * 1000);
+    const date = new Date(remainingTime);
 
     let seconds = date.getSeconds();
     let minutes = date.getMinutes();
@@ -29,4 +30,5 @@ export default Timer;
 
 const Time = styled.Text`
   font-weight: bold;
+  color: white;
 `

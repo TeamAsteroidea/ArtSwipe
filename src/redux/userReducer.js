@@ -10,13 +10,13 @@ const userSlice = createSlice({
       email: '',
       photoURL: '',
       uid: '',
-      idToken: ''
+      idToken: '',
+      genderId: '',
     },
     bookmarks: [123456, 456456],
   },
   reducers: {
     loginUser: (state, action) => {
-      console.log('loginUser', action.payload)
       state.user = action.payload;
       state.loggedIn = true;
     },
@@ -30,6 +30,9 @@ const userSlice = createSlice({
         bookmarks: [],
         idToken: '' //this is for API calls
       };
+    },
+    setGender: (state, action) => {
+      state.genderId = action.payload;
     },
     removeBookmark: (state, action) => {
       state = {
@@ -55,5 +58,5 @@ const userSlice = createSlice({
   // },
 })
 
-export const { loginUser, logoutUser, addBookmark, removeBookmark } = userSlice.actions
+export const { loginUser, logoutUser, setLoginStatus, setGender, addBookmark, removeBookmark } = userSlice.actions
 export default userSlice.reducer

@@ -9,10 +9,13 @@ import {
 import Timer from './components/Timer.jsx';
 import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
+import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
 
-function Display ({ user, stack, navigation }) {
+function Display ({ user, stack, navigation, loadCards }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
+  const [clock, setClock] = useState(timeRemaining(stack[currentIndex]));
+  // Might be able to get rid of timeRemaining in the helper functions
+  // const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
   const [lastCardSwiped, setLastCardSwiped] = useState(false);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -24,13 +27,13 @@ function Display ({ user, stack, navigation }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setClock(clock - 1);
+      setClock(clock - 1000);
     }, 1000);
     return () => clearInterval(interval);
   }, [clock]);
 
   useEffect(() => {
-    setClock(stack[currentIndex].auctionTimeLeft)
+    setClock(timeRemaining(stack[currentIndex]))
   }, [currentIndex])
 
   return (
@@ -39,20 +42,21 @@ function Display ({ user, stack, navigation }) {
       <TimerContainer>
         {!lastCardSwiped &&
           <View>
-            <Text>Bidding ends in:</Text>
+            <BiddingEnds>Bidding ends in:</BiddingEnds>
             <Timer remainingTime={clock}/>
           </View>
         }
       </TimerContainer>
       <ModalContainer>
         <OpenModal
-          onPress={() => navigation.navigate('')}>
+          onPress={() => navigation.navigate('BiddingHistory')}>
           <ModalImage
             source={require('../../../assets/activebids.png')}
           />
         </OpenModal>
       </ModalContainer>
       <CardContainer>
+        {!lastCardSwiped ? (
         <Swiper
           containerStyle={{ backgroundColor: 'transparent'}}
           stackSize={3}
@@ -93,22 +97,24 @@ function Display ({ user, stack, navigation }) {
             }
           }}
           cards={stack}
-          renderCard={card => (
+          renderCard={(card) => (
             <Card key={card.title}>
-              <CardImage source={card.image}/>
+              <CardImage source={{uri: card.image}}/>
               <Info>
                 <PriceContainer>
                   <PreviousBid>Previous Value:</PreviousBid>
-                  <Text>{USDollar.format(card.bidPrice)}</Text>
+                  <Text>{USDollar.format(card.bidStartingPrice)}</Text>
                 </PriceContainer>
-                <Bid>{USDollar.format(card.bidPrice + card.bidIncrement)}</Bid>
+                <Bid>{USDollar.format(card.bidStartingPrice + card.bidIncrementPrice)}</Bid>
                 <TitleContainer>
                   <Title>{card.title}</Title>
-                  <Artist>{card.artist}</Artist>
+                  <Artist>{card.artistName}</Artist>
                 </TitleContainer>
                 <ButtonWrapper>
                   <Button
-                    onPress={() => navigation.navigate('DetailView')}
+                    onPress={() => navigation.navigate('DetailView', {
+                      card: card,
+                    })}
                     title="i"
                     color="white"
                   />
@@ -116,7 +122,16 @@ function Display ({ user, stack, navigation }) {
               </Info>
             </Card>
           )}
-        />
+        />) :
+        (
+          <LastCard
+            onPress={() => loadCards()}
+          >
+            <Load>
+              Load Cards
+            </Load>
+          </LastCard>
+        )}
       </CardContainer>
     </ScreenContainer>
   )
@@ -144,7 +159,7 @@ const Card = styled.View`
   background-color: white;
   height: 75%;
   border-radius: 20px;
-  box-shadow: 0 0 20px #ccc;
+  box-shadow: 0 0 5px #ccc;
 `;
 
 const CardImage = styled.Image`
@@ -241,4 +256,26 @@ const ButtonWrapper = styled.View`
   background-color: #034448;
   align-items: center;
   justify-content: center;
+`
+
+const BiddingEnds = styled.Text`
+  color: white;
+`
+
+const LastCard = styled.Pressable`
+  flex: 1;
+  top: 250px;
+  right: 90px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid white;
+  border-radius: 30px;
+  box-shadow: 0 0 5px #ccc;
+`
+
+const Load = styled.Text`
+  color: white;
+  margin: 50px;
+  font-size: 20;
 `
