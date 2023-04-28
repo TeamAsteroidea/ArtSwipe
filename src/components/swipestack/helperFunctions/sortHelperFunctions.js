@@ -30,7 +30,11 @@ const dontShowArt = (user, listOfArt) => {
   const filtered = listOfArt.filter((art) => {
     // check if the user is the last person to bid, it's been rejected, or there is no more time left on the auction
     // add in filter to check if the user is the owner of the art
-    return (!user.rejected.includes(art.id) && art.bidders[art.bidders.length - 1] !== user.username && art.auctionTimeLeft > 0)
+    // console.log(user.rejected)
+    // console.log(art.id)
+    // console.log('rejected', !user.rejected.includes(art.id))
+    // console.log('bidder equals username', art.bidders[art.bidders.length - 1] !== user.username)
+    return (!user.rejected.includes(art._id) && art.bidders[art.bidders.length - 1] !== user.username && art.auctionTimeLeft > 0)
   })
   return filtered;
 }
@@ -60,7 +64,7 @@ export function sortArtwork (user, listOfArt) {
   let bookmarked = [];
   // first, add a time left property and load the array with bookmarked artwork
   artToShow.forEach((art, index) => {
-    if (user.bookmarks.includes(art.id)) {
+    if (user.bookmarks.includes(art._id)) {
       bookmarked.push(art);
       artToShow.splice(index, 1);
     }
