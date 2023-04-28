@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
@@ -30,6 +30,16 @@ const isCloseToTop = ({contentOffset}) => {
 
 
 const DetailView = ({ navigation, route }) => {
+
+  const [imageHeight, setImageHeight] = useState(0);
+
+  const onImageLayout = (event) => {
+    setImageHeight(event.nativeEvent.layout.height);
+  };
+
+  const minContainerHeight = Math.max(Dimensions.get('window').width, imageHeight);
+
+
   return (
   <SafeWrapper>
     <ScrollList contentContainerStyle={{ flexGrow: 1}}
@@ -45,6 +55,26 @@ const DetailView = ({ navigation, route }) => {
           uri: route.params.card.image,
         }}
       />
+    <SafeWrapper>
+      <ScrollList contentContainerStyle={{
+        flexGrow: 1}}
+      scrollEventThrottle={8}
+      onScroll={({ nativeEvent }) => {
+        if (isCloseToTop(nativeEvent)) {
+          navigation.goBack()
+        }
+      }
+    }
+      >
+      <DetailViewImageContainer style={{ height: minContainerHeight }}>
+        <DetailViewImage
+          source={{
+            uri: route.params.card.image,
+          }}
+          onLayout={onImageLayout}
+        />
+      </DetailViewImageContainer>
+
       <Info>
         <Title>{route.params.card.name}</Title>
         <Artist>{route.params.card.artistName}</Artist>
@@ -62,8 +92,8 @@ const DetailView = ({ navigation, route }) => {
         <Text>How to use “and” 5 times in a row grammatically: A man owned a store called “This and That” and hired another man to make a sign for it. When the sign was finished, the owner inspected the work. He discovered that the spacing was wrong. So he said to the man, “The space between This and And and And and That is different. Please fix it.”</Text>
       </Info>
     </ScrollList>
-  </SafeWrapper>
-    );
+    </SafeWrapper >
+  );
 };
 
 DetailView.propTypes = {
@@ -78,10 +108,18 @@ const ScrollList = styled.ScrollView`
   flex: 1;
 `
 
-const DetailViewImage = styled.Image`
-  height:${Dimensions.get('window').height * 0.45}px;
+const DetailViewImageContainer = styled.View`
+  background-color: lightgrey;
   width: ${Dimensions.get('window').width}px;
-`
+  display: flex;
+`;
+
+const DetailViewImage = styled.Image`
+  height: ${Dimensions.get('window').width}px;
+  width: ${Dimensions.get('window').width}px;
+  resize-mode: contain;
+`;
+
 const Info = styled.View`
   padding-top: 30px;
   padding-left: 20px;
