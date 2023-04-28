@@ -5,8 +5,6 @@ import Colors from "constants/Colors";
 
 export default StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: Colors.BGLIGHT,
   },
   artist: {
     display: 'flex',
@@ -39,9 +37,6 @@ export default StyleSheet.create({
     width: 300,
     height: 300,
   },
-  images: {
-    // paddingLeft: 20,
-  },
   image: {
     backgroundColor: 'lightgrey',
     resizeMode: 'cover',
@@ -71,7 +66,6 @@ export default StyleSheet.create({
   headerContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
-    // justifyContent: "space-between",
     height: 35,
     marginTop: 5,
     paddingHorizontal: 20,
@@ -137,10 +131,6 @@ export default StyleSheet.create({
     flex: 1,
     marginHorizontal: 10,
     marginBottom: 3,
-    // backgroundColor: 'green',
-    // borderRadius: 10,
-    // borderWidth: 2,
-    // borderColor: 'grey',
     overflow: 'hidden',
   },
   artImageContainer: {
@@ -156,10 +146,7 @@ export default StyleSheet.create({
   },
   artDescription: {
     flex: 1,
-    // justifyContent: 'space-between',
     textAlign: "left",
-    // backgroundColor: 'orange',
-    // paddingHorizontal: 10,
     paddingVertical: 5,
     height: 65
   },
@@ -176,20 +163,12 @@ export default StyleSheet.create({
   bidStartingPrice: {
     fontSize: 14,
   },
-  waresImages: {
-    // flexDirection: "row",
-    // justifyContent: "space-evenly",
-    // // flexWrap: "wrap",
-    // paddingVertical: 20,
-  },
   artworkTileContainer: {
     justifyContent: "space-around",
-    // backgroundColor: 'blue',
     width: "48%",
     marginTop: 20,
   },
   contentContainerStyle: {
     justifyContent: 'center',
-    // backgroundColor: 'red'
   }
 });
