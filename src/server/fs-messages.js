@@ -23,7 +23,6 @@ export const getRooms = async (uid, callback) => {
     const groupQuery = await query(
       groupRef,
       // where("users", "array-contains", uid),
-      // where("last_activity_date", "!=", 0),
       orderBy("last_activity_date", "desc")
     );
     const querySnapshot = await getDocs(groupQuery);
