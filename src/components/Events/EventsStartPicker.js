@@ -19,6 +19,9 @@ const StartDatePicker = () => {
   };
 
   const handleConfirm = (date) => {
+    const dateStr = date.toString();
+    dispatch(setEventStart(dateStr));
+
     const options = {
       date: {
         weekday: "short",
@@ -31,12 +34,8 @@ const StartDatePicker = () => {
       },
     }
 
-    const dateStr = date.toString();
-    console.log(dateStr);
-    dispatch(setEventStart(dateStr));
     const dateString = date.toLocaleString("en-US", options.date);
     const timeString = date.toLocaleString("en-US", options.time);
-    console.log(dateString, timeString);
     setSelectedDate(`${dateString} @ ${timeString}`);
     hideDatePicker();
   };

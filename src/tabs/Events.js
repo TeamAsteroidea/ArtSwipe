@@ -24,6 +24,7 @@ import Event from '../components/Events/Event.js';
 import EventDescription from '../components/Events/EventDescription.js';
 import EventCreation from '../components/Events/EventCreation.js';
 import EventEdit from '../components/Events/EventEdit.js';
+import UpdateEvent from '../components/Events/UpdateEvent.js';
 import { getAllEvents } from '../server/fs-events.js';
 
 
@@ -157,16 +158,22 @@ const EventsList = ({ navigation }) => {
       })
   }, []);
 
+  const updateEvents = (newEvent) => {
+    setEData([...eData, newEvent]);
+  }
+
   const renderEvent = ({ item }) => (
-    <Event eventData={item} navigation={navigation}/>
+    <Event eventData={item} navigation={navigation} updateEvents={updateEvents}/>
   );
+
+
 
   return (
     <View>
       <CreatePressable
         // title="Create Event"
         onPress={() => navigation.navigate('CreateEvent', {
-          eventData: eData[0],
+          updateEvents: updateEvents,
         })}
       >
         <FontAwesomeIcon
@@ -182,10 +189,6 @@ const EventsList = ({ navigation }) => {
         renderItem={renderEvent}
         keyExtractor={(item) => item.id}
       />
-      <Button
-        title="Create Event"
-        onPress={() => navigation.navigate('CreateEvent')}
-      />
     </View>);
 };
 
@@ -196,6 +199,7 @@ const Events = () => {
       <Stack.Screen name="EventDescription" component={EventDescription} />
       <Stack.Screen name="EventCreation" component={EventCreation} />
       <Stack.Screen name="EventEdit" component={EventEdit} />
+      <Stack.Screen name="UpdateEvent" component={UpdateEvent} />
     </Stack.Navigator>
   );
 }
