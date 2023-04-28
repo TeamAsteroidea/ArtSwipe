@@ -65,14 +65,14 @@ function Display ({ user, stack, navigation, loadCards }) {
         </OpenModal>
       </ModalContainer>
       <CardContainer>
-        {dumpster && <Image source={require('../../../assets/dumpster.gif')} />}
+        {dumpster && <Dumpster source={require('../../../assets/dumpster.gif')} />}
         {money && <Money source={require('../../../assets/giphy.gif')} />}
         {!lastCardSwiped ? (
         <Swiper
           containerStyle={{ backgroundColor: 'transparent'}}
           stackSize={3}
           cardIndex={0}
-          showSecondCard={false}
+          // showSecondCard={false}
           verticalSwipe={false}
           animateCardOpacity
           horizontalThreshold={210}
@@ -317,4 +317,12 @@ const Money = styled.Image`
   flex: 1;
   position: absolute;
   height: 800px;
+`
+
+const Dumpster = styled.Image`
+  flex: 1;
+  position: absolute;
+  right: 0;
+  height: 800px;
+  width: 800px;
 `

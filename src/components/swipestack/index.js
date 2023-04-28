@@ -19,7 +19,7 @@ function Content ({ navigation }) {
   const [stack, setStack] = useState([]);
 
   const loadCards = () => {
-    console.log('cards loaded')
+    // console.log('cards loaded')
     // getAll('art')
     search('art', limit(100))
       .then((result) => {

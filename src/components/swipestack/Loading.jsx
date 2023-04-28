@@ -6,6 +6,7 @@ function Loading () {
   return (
     <View style={styles.container}>
       <Spinner
+        animation={'fade'}
         visible={true}
         textContent={'Loading...'}
         textStyle={styles.spinnerTextStyle}

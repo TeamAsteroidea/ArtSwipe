@@ -3,6 +3,7 @@ export const handleLeftSwipe = (art, user) => {
 };
 
 // change addDoc to setDoc to update a document in firebase
+// update the user and art document
 
 export const handleRightSwipe = (art, user) => {
   art.bidders.push(user.username);
