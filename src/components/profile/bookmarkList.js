@@ -22,23 +22,32 @@ const BookmarkList = ({ navigation }) => {
   //   return state.user.bookmarks;
   // })
   // const userID = useSelector(state => state.user.uid)
-  const userID = '03LMbElkmRD5Kw3mw3xA';
-  const [items, setItems] = useState(null);
-  const [ renderArt, setRenderArt ] = useState(false);
+  // const userID = '03LMbElkmRD5Kw3mw3xA';
+  // const [items, setItems] = useState(null);
+  // const [ renderArt, setRenderArt ] = useState(false);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    generic.getOne('users', userID).then((results) => {
-      setItems(results.bookmarks)})
-      .catch(err => console.log('error retrieving bookmarks', err))
-  // }, [userID]);
-    },[]);
+  //   generic.getOne('users', userID).then((results) => {
+  //     setItems(results.bookmarks)})
+  //     .catch(err => console.log('error retrieving bookmarks', err))
+  // // }, [userID]);
+  //   },[]);
 
-  useEffect(() => {
-    if (items) {
-      setRenderArt(true);
-    }
-  },[items]);
+  // useEffect(() => {
+  //   if (items) {
+  //     setRenderArt(true);
+  //   }
+  // },[items]);
+
+  const [ renderArt, setRenderArt ] = useState(true);
+
+  const items = [
+    '00jnbbgfKgpExW7e4pVb',
+    '01zCu8m2UyeLBEvzuxQe',
+    '045Ye3pJpKHj2QcPMVbp',
+    '08ZzS3RVds9HxciVtw3A',
+  ]
 
   const renderItem = ({item}) => {
     return (
