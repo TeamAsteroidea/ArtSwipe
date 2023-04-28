@@ -1,5 +1,5 @@
 import { db } from "./firestore.js";
-import { collection, doc, getDoc, getDocs, addDoc, updateDoc, query } from "firebase/firestore/lite";
+import { collection, doc, getDoc, getDocs,setDoc, addDoc, updateDoc, query } from "firebase/firestore";
 
 export async function getAll(collectionName) {
   const collectionRef = collection(db, collectionName);
@@ -20,11 +20,13 @@ export async function getOne(collectionName, target) {
   }
 }
 
-export async function write(collectionName, data) {
-  const collectionRef = collection(db, collectionName);
-  const docRef = await addDoc(collectionRef, data);
-  const snapshot = await getDoc(docRef)
-  if (snapshot.exists()) {
+export async function write(collectionName, data, setId = undefined) {
+  console.log(setId)
+  const thisRef = setId? doc(db, collectionName, setId) : collection(db, collectionName);
+  const docRef = setId? await setDoc(thisRef, data) : await addDoc(thisRef, data);
+
+  const snapshot = docRef? await getDoc(docRef) : await (getDoc(thisRef));
+  if (snapshot && snapshot.exists()) {
     var _id = snapshot.id
     return ({...snapshot.data(), _id:_id})
   }
