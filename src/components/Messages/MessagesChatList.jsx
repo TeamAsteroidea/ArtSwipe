@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-// import { store } from '/redux/store';
 import {
   StyleSheet,
   Button,
@@ -17,21 +17,25 @@ import {
 import Fonts from "constants/Fonts.js";
 import MessagesChatItem from "./MessagesChatItem.jsx";
 import { getRooms } from "server/fs-messages.js";
+import { setGroupData } from "src/redux/messagesReducer.js";
 
-import { groupData } from "../../../dummyData/dummyData.js";
+// import { groupData } from "../../../dummyData/dummyData.js";
 
 const MessagesChatList = ({ navigation }) => {
-  const [groups, setGroups] = useState([]);
+  const dispatch = useDispatch();
+  // const uid = useSelector((state) => state.user.user).uid;
+  const uid = "sgBia5iAZvNEwIGE0hxvu8Az0xN2";
+  const groups = useSelector((state) => state.messages.groupData);
+
   useEffect(() => {
     const getGroupList = async () => {
-      const groupData = await getRooms();
-      // setGroups(groupData);
+      const groupData = await getRooms(uid);
+      dispatch(setGroupData(groupData));
     };
     getGroupList();
-    setGroups(groupData);
   }, []);
 
-  const chatList = groups.map((chat, index) => {
+  const chatList = groups?.map((chat, index) => {
     return (
       <MessagesChatItem
         key={index}
@@ -39,6 +43,7 @@ const MessagesChatList = ({ navigation }) => {
         chat_id={chat.chat_id}
         image={chat.image}
         name={chat.name}
+        chatData={chat}
         recentMessage={
           chat.messages.length > 0 ? chat.messages[0].message_body : ""
         }
@@ -55,9 +60,9 @@ const MessagesChatList = ({ navigation }) => {
               console.log("clicked");
             }}
           >
-            <Text style={{ ...Fonts.SUBTITLE, textAlign: "right" }}>
+            {/* <Text style={{ ...Fonts.SUBTITLE, textAlign: "right" }}>
               Seller Store Chats {">"}
-            </Text>
+            </Text> */}
           </Pressable>
         </View>
         {chatList}

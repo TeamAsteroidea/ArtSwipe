@@ -24,8 +24,8 @@ const MessagesChatItem = ({
   date,
   body,
 }) => {
-  // const uid = useSelector((state) => state.user.user).uid;
-  const uid = "ua";
+  const uid = useSelector((state) => state.user.user).uid;
+  // const uid = "ua";
   let isSenderUser = false;
   if (user_id === uid) {
     isSenderUser = true;

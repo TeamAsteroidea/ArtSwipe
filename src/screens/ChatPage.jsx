@@ -15,7 +15,7 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 
@@ -23,52 +23,36 @@ import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
 import Subheader from "components/modular/Subheader.jsx";
 import ChatItem from "components/Messages/ChatItem.jsx";
-// import { getMessagesByRoom, postMessage } from "server/fs-messages.js";
-import { groupData } from "../../dummyData/dummyData.js";
+import { getMessagesByRoom, postMessage } from "server/fs-messages.js";
+import { setMessageData, setGroupData } from "src/redux/messagesReducer.js";
+import { getRooms } from "server/fs-messages.js";
+// import { groupData } from "../../dummyData/dummyData.js";
 
 const ChatPage = ({ navigation, route }) => {
-  const uid = "ua";
-  let chatData;
-  let messageData = [];
-  const { chat_id } = route.params;
-  groupData.forEach((chatGroup) => {
-    if (chatGroup.chat_id === chat_id) {
-      messageData = chatGroup.messages;
-      chatData = chatGroup;
-    }
-  });
-  const imageIcon = (
-    <View style={styles.chatIcon}>
-      <Image
-        source={{ uri: chatData.image }}
-        resizeMode="contain"
-        style={{ flex: 1 }}
-      />
-    </View>
-  );
-
+  const dispatch = useDispatch();
   const scrollViewRef = useRef();
   let unsubscribe = () => {};
-  // const [chats, setChats] = useState([]);
-  const [chats, setChats] = useState(messageData);
   const [lastUpdated, setLastUpdated] = useState(0);
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
   const [inputBoxHeight, setInputBoxHeight] = useState(50);
   // const uid = useSelector((state) => state.user.user).uid;
+  const uid = "sgBia5iAZvNEwIGE0hxvu8Az0xN2";
+  const messageData = useSelector((state) => state.messages.messageData);
+  const { chat_id, chatData, setGroups } = route.params;
 
-  // const defineStopListener = async () => {
-  //   unsubscribe = await getMessagesByRoom(
-  //     chat_id,
-  //     ({ messageData, last_activity_date }) => {
-  //       if (last_activity_date.seconds > lastUpdated) {
-  //         setLastUpdated(last_activity_date.seconds);
-  //         setChats(messageData);
-  //       }
-  //     }
-  //   );
-  // };
-  // defineStopListener();
+  const defineStopListener = async () => {
+    unsubscribe = await getMessagesByRoom(
+      chat_id,
+      ({ messageData, last_activity_date }) => {
+        if (last_activity_date.seconds > lastUpdated) {
+          setLastUpdated(last_activity_date.seconds);
+          dispatch(setMessageData(messageData));
+        }
+      }
+    );
+  };
+  defineStopListener();
 
   const handleViewableItemsChanged = useRef(({ viewableItems, changed }) => {
     setBottom(false);
@@ -80,25 +64,37 @@ const ChatPage = ({ navigation, route }) => {
   });
 
   const handleSendChat = async () => {
-    // await postMessage({ chat_id }, bodyText.trim());
-    if (messageData[0].user_id === uid) {
-      messageData[0].isContinueBelow = true;
-    }
-    messageData.unshift({
-      chat_id: chat_id,
-      message_id: messageData.length,
-      user_id: uid,
-      message_body: bodyText.trim(),
-      message_date: "",
-      isContinueBelow: false,
-      isContinueAbove: messageData[0].isContinueBelow,
-    });
     setBodyText("");
+    await postMessage({ chat_id }, uid, bodyText.trim());
+    // if (messageData[0].user_id === uid) {
+    //   messageData[0].isContinueBelow = true;
+    // }
+    // messageData.unshift({
+    //   chat_id: chat_id,
+    //   message_id: messageData.length,
+    //   user_id: uid,
+    //   message_body: bodyText.trim(),
+    //   message_date: "",
+    //   isContinueBelow: false,
+    //   isContinueAbove: messageData[0].isContinueBelow,
+    // });
+    const groupData = await getRooms(uid);
+    dispatch(setGroupData(groupData));
   };
 
   const onTextChange = ({ contentSize }) => {
     setInputBoxHeight(contentSize.height > 30 ? 90 : 50);
   };
+
+  const imageIcon = (
+    <View style={styles.chatIcon}>
+      <Image
+        source={{ uri: chatData.image }}
+        resizeMode="contain"
+        style={{ flex: 1 }}
+      />
+    </View>
+  );
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.BGLIGHT }}>
@@ -115,7 +111,7 @@ const ChatPage = ({ navigation, route }) => {
         {/* <View style={styles.chatStore}></View> */}
         <FlatList
           ref={scrollViewRef}
-          data={chats}
+          data={messageData}
           inverted={true}
           removeClippedSubviews={true}
           onViewableItemsChanged={handleViewableItemsChanged.current}

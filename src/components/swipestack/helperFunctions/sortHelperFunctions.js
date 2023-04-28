@@ -44,7 +44,6 @@ export function sortArtwork (user, listOfArt) {
   // add a property for the time left on the auction
 
   listOfArt.forEach((art) => {
-    // console.log('in map', art);
     art.auctionTimeLeft = timeRemaining(art);
     // const newArt = {...art}
     // newArt.bidders = [...newArt.bidders]

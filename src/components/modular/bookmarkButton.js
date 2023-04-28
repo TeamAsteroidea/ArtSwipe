@@ -11,7 +11,7 @@ const BookmarkButton = ({ item }) => {
 
   const dispatch = useDispatch();
   const userID = useSelector(state => state.user.user.uid)
-  console.log('userID', userID)
+  // console.log('userID', userID)
   let bookmarks = useSelector( state => state.user.bookmarks)
   let initialState = bookmarks.includes(item._id);
   const [isLiked, setLiked] = useState(initialState);
