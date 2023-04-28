@@ -8,6 +8,7 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
+  Image,
   // Text,
   // Alert,
   // ScrollView,
@@ -22,30 +23,52 @@ import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
 import Subheader from "components/modular/Subheader.jsx";
 import ChatItem from "components/Messages/ChatItem.jsx";
-import { getMessagesByRoom, postMessage } from "server/fs-messages.js";
+// import { getMessagesByRoom, postMessage } from "server/fs-messages.js";
+import { groupData } from "../../dummyData/dummyData.js";
 
-const ChatPage = ({ navigation }) => {
+const ChatPage = ({ navigation, route }) => {
+  const uid = "ua";
+  let chatData;
+  let messageData = [];
+  const { chat_id } = route.params;
+  groupData.forEach((chatGroup) => {
+    if (chatGroup.chat_id === chat_id) {
+      messageData = chatGroup.messages;
+      chatData = chatGroup;
+    }
+  });
+  const imageIcon = (
+    <View style={styles.chatIcon}>
+      <Image
+        source={{ uri: chatData.image }}
+        resizeMode="contain"
+        style={{ flex: 1 }}
+      />
+    </View>
+  );
+
   const scrollViewRef = useRef();
   let unsubscribe = () => {};
-  const [chats, setChats] = useState([]);
+  // const [chats, setChats] = useState([]);
+  const [chats, setChats] = useState(messageData);
   const [lastUpdated, setLastUpdated] = useState(0);
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
   const [inputBoxHeight, setInputBoxHeight] = useState(50);
-  const uid = useSelector((state) => state.user.user).uid;
+  // const uid = useSelector((state) => state.user.user).uid;
 
-  const defineStopListener = async () => {
-    unsubscribe = await getMessagesByRoom(
-      "dR4tIvfPCFdhXihkLEZX",
-      ({ messageData, last_activity_date }) => {
-        if (last_activity_date.seconds > lastUpdated) {
-          setLastUpdated(last_activity_date.seconds);
-          setChats(messageData);
-        }
-      }
-    );
-  };
-  defineStopListener();
+  // const defineStopListener = async () => {
+  //   unsubscribe = await getMessagesByRoom(
+  //     chat_id,
+  //     ({ messageData, last_activity_date }) => {
+  //       if (last_activity_date.seconds > lastUpdated) {
+  //         setLastUpdated(last_activity_date.seconds);
+  //         setChats(messageData);
+  //       }
+  //     }
+  //   );
+  // };
+  // defineStopListener();
 
   const handleViewableItemsChanged = useRef(({ viewableItems, changed }) => {
     setBottom(false);
@@ -57,7 +80,19 @@ const ChatPage = ({ navigation }) => {
   });
 
   const handleSendChat = async () => {
-    await postMessage({ chat_id: "dR4tIvfPCFdhXihkLEZX" }, bodyText.trim());
+    // await postMessage({ chat_id }, bodyText.trim());
+    if (messageData[0].user_id === uid) {
+      messageData[0].isContinueBelow = true;
+    }
+    messageData.unshift({
+      chat_id: chat_id,
+      message_id: messageData.length,
+      user_id: uid,
+      message_body: bodyText.trim(),
+      message_date: "",
+      isContinueBelow: false,
+      isContinueAbove: messageData[0].isContinueBelow,
+    });
     setBodyText("");
   };
 
@@ -73,10 +108,11 @@ const ChatPage = ({ navigation }) => {
       >
         <Subheader
           navigation={navigation}
-          title="Background Character A"
+          title={chatData.name}
           backFunction={unsubscribe}
+          customNode={imageIcon}
         />
-        <View style={styles.chatStore}></View>
+        {/* <View style={styles.chatStore}></View> */}
         <FlatList
           ref={scrollViewRef}
           data={chats}
@@ -175,6 +211,7 @@ const ChatPage = ({ navigation }) => {
 
 ChatPage.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default ChatPage;
@@ -192,6 +229,13 @@ const styles = StyleSheet.create({
   chatScroll: {
     flexGrow: 1,
     flexDirection: "column-reverse",
+  },
+  chatIcon: {
+    height: 65,
+    width: 65,
+    backgroundColor: Colors.PLACEHOLDER,
+    borderRadius: 33,
+    overflow: "hidden",
   },
   scrollBottomButton: {
     position: "fixed",

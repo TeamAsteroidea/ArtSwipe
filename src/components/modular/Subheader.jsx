@@ -11,8 +11,8 @@ import Fonts from "constants/Fonts.js";
 // title to specify what to display for the subheader text.
 // the backFunction will run before navigating back
 // the custom button will allow for a custom react element to be rendered at the top right
-const Subheader = ({ navigation, title, backFunction, customButton }) => {
-  const isRender = false;
+const Subheader = ({ navigation, title, backFunction, customNode }) => {
+  const isRender = customNode ? true : false;
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -28,14 +28,19 @@ const Subheader = ({ navigation, title, backFunction, customButton }) => {
         <Text style={Fonts.SUBHEADER}>{title}</Text>
       </View>
       {isRender && (
-        <TouchableOpacity
+        <View
           style={{
             height: 50,
             width: 50,
             borderRadius: 50,
             backgroundColor: Colors.PLACEHOLDER,
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
           }}
-        ></TouchableOpacity>
+        >
+          {customNode}
+        </View>
       )}
     </View>
   );
@@ -45,7 +50,7 @@ Subheader.propTypes = {
   navigation: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   backFunction: PropTypes.func.isRequired,
-  customButton: PropTypes.node,
+  customNode: PropTypes.node,
 };
 
 export default Subheader;
