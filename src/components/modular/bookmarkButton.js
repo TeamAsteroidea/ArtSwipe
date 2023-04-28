@@ -10,7 +10,8 @@ import { update } from '../../server/fs-generic';
 const BookmarkButton = ({ item }) => {
 
   const dispatch = useDispatch();
-  const userID = useSelector(state => state.user.uid)
+  const userID = useSelector(state => state.user.user.uid)
+  console.log('userID', userID)
   let bookmarks = useSelector( state => state.user.bookmarks)
   let initialState = bookmarks.includes(item._id);
   const [isLiked, setLiked] = useState(initialState);
@@ -19,13 +20,13 @@ const BookmarkButton = ({ item }) => {
 // collectionName: users, data: id, {bookmarks: }
 
     if (isLiked) {
-      update('art', item._id, { bookmarks: bookmarks.filter(bookmark => bookmark === item._id)})
-        .then(() => console.log('bookmark removed'))
+      update('users', userID, { bookmarks: bookmarks.filter(bookmark => bookmark === item._id)})
+        // .then(() => console.log('bookmark removed'))
         .catch(err => console.log('error removing bookmark', err))
       setLiked(!isLiked);
     } else {
-      update('art', item._id, { bookmarks: bookmarks.push(item._id)})
-        .then(() => console.log('bookmark added'))
+      update('users', userID, { bookmarks: bookmarks.concat(item._id)})
+        // .then(() => console.log('bookmark added'))
         .catch(err => console.log('error adding bookmark', err))
       setLiked(!isLiked);
     }

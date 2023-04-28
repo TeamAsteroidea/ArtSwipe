@@ -21,18 +21,21 @@ const BookmarkList = ({ navigation }) => {
   //   // return showCompleted ? state.images.completed : state.images.imagesArrayObj
   //   return state.user.bookmarks;
   // })
-  const userID = useSelector(state => state.user._id)
+  // const userID = useSelector(state => state.user.uid)
+  const userID = '03LMbElkmRD5Kw3mw3xA';
   const [items, setItems] = useState(null);
   const [ renderArt, setRenderArt ] = useState(false);
 
   useEffect(() => {
+
     generic.getOne('users', userID).then((results) => {
       setItems(results.bookmarks)})
       .catch(err => console.log('error retrieving bookmarks', err))
-  }, [userID]);
+  // }, [userID]);
+    },[]);
 
   useEffect(() => {
-    if (items.length) {
+    if (items) {
       setRenderArt(true);
     }
   },[items]);

@@ -28,7 +28,7 @@ const ArtList = ({ navigation, onCompleted }) => {
   })
 
   useEffect(() => {
-    if (items.length) {
+    if (items) {
       setRenderArt(true);
     }
   },[items]);

@@ -8,7 +8,7 @@ const userSlice = createSlice({
       displayName: "",
       email: "",
       photoURL: "",
-      uid: "",
+      uid: "03LMbElkmRD5Kw3mw3xA",
       idToken: "",
       genderId: "",
       darkMode: "Off",
