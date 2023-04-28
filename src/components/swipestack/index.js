@@ -8,7 +8,7 @@ import Display from './Display.jsx';
 import styled from 'styled-components/native';
 import { useSelector } from "react-redux";
 import { search } from '../../server/fs-generic.js';
-import { orderBy, limit, where } from "firebase/firestore/lite";
+import { orderBy, limit, where } from "firebase/firestore";
 
 function Content ({ navigation }) {
   // const artwork = getAll('art')

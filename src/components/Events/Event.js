@@ -68,15 +68,30 @@ font-weight: 400;
 const ViewBorder = styled.View`
 `;
 
-const Event = ({ eventData, navigation, updateEvents }) => {
+const Event = ({ eventData, navigation, getUpdatedEvents }) => {
   // console.log('eventData is', eventData);
+  const options = {
+    date: {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    },
+    time: {
+      timeStyle: "short",
+    }
+  }
+  const dateString = (new Date(Number(eventData.eventdate)*1000)).toLocaleString("en-US", options.date);
+  const timeString = (new Date(Number(eventData.eventdate)*1000)).toLocaleString("en-US", options.time);
+  const eventDateTime = `${dateString}\n@ ${timeString}`;
+
   if (Object.keys(eventData).indexOf('imageurl') >= 0) {
     return (
       <ViewBorder>
         <EventPressable onPress={() => {
           navigation.navigate('EventDescription', {
             eventData,
-            updateEvents: updateEvents,
+            getUpdatedEvents: getUpdatedEvents,
           })
         }}>
           <EventImgContainer>
@@ -87,7 +102,7 @@ const Event = ({ eventData, navigation, updateEvents }) => {
             />
           </EventImgContainer>
           <EventView>
-            <EventBold>{eventData.eventdate}</EventBold>
+            <EventBold>{eventDateTime}</EventBold>
             <EventBold>{eventData.title}</EventBold>
             <EventNormal>{eventData.venue}</EventNormal>
           </EventView>
