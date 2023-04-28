@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
     height: 75,
     justifyContent: "space-around",
     alignItems: "center",
+  },
+  textBolded: {
+    fontWeight: "bold",
   }
 })
 
@@ -45,10 +48,10 @@ const BiddingHistory = ({ navigation }) => {
       </View>
       <View style={styles.buttonsContainer}>
         <Pressable title={'pending'} onPress={showPending}>
-          <Text>Pending</Text>
+        { onCompleted ? <Text>Pending</Text> : <Text style={styles.textBolded} >Pending</Text>}
         </Pressable>
         <Pressable title={'completed'} onPress={showCompleted}>
-          <Text>Completed</Text>
+        { onCompleted ? <Text style={styles.textBolded}>Completed</Text> : <Text >Completed</Text>}
         </Pressable>
       </View>
     </View>

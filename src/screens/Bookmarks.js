@@ -53,10 +53,10 @@ const Bookmarks = ({ navigation }) => {
       <View style={styles.buttonsContainer}>
         <Pressable title={'all'} onPress={showAll}>
           {/* <Text styles={onSearch ? null : styles.textBolded}>All</Text> */}
-          { onSearch ? <Text>All</Text> : <Text styles={styles.textBolded} >All</Text>}
+          { onSearch ? <Text>All</Text> : <Text style={styles.textBolded} >All</Text>}
         </Pressable>
         <Pressable title={'search'} onPress={showSearch}>
-          <Text>Search</Text>
+        { onSearch ? <Text style={styles.textBolded}>Search</Text> : <Text>Search</Text>}
         </Pressable>
       </View>
     </View>
