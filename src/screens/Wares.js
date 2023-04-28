@@ -76,7 +76,7 @@ const Wares = ({ route }) => {
             }}
           />
 
-          <Fade offset={700} decay={0.8} direction={'Up'} position={Dimensions.get('window').height - 200} />
+          <Fade offset={700} decay={1.4} direction={'Up'} position={Dimensions.get('window').height - 225} />
         </View>
       </View>
     </SafeAreaView>
