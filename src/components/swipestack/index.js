@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { getAll } from '../../server/fs-generic.js';
 import Loading from './Loading.jsx';
 import { search } from '../../server/fs-generic.js';
-import { orderBy, limit, where } from "firebase/firestore/lite";
+import { orderBy, limit, where } from "firebase/firestore";
 
 function Content ({ navigation }) {
   // const artwork = getAll('art')
