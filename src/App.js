@@ -64,6 +64,7 @@ function Home() {
           elevation: 5,
         },
       }}
+      initialRouteName='SwipeStack'
     >
       <Tab.Screen
         key={1}
