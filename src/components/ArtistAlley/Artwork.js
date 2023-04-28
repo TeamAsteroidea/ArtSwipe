@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import styles from './Styles';
 
@@ -9,7 +9,7 @@ import {
   Pressable,
 } from "react-native";
 
-const Artwork = memo(function Artwork({ artwork, handlePress }) {
+const Artwork = (function Artwork({ artwork, handlePress }) {
   return (
     <View >
     <Pressable onPress={handlePress}>
