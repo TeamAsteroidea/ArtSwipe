@@ -26,16 +26,16 @@ import { getAllEvents } from '../../server/fs-events.js';
 // }
 
 const EventCreation = ({ route }) => {
-  const { eventData } = route.params;
+  // const { eventData } = route.params;
   return (
     <View>
       <Text>EventCreation</Text>
-      <Button
+      {/* <Button
         title="Event Edit Button"
         onPress={async () => {
           await getAllEvents();
         }}
-      />
+      /> */}
     </View>);
 };
 
