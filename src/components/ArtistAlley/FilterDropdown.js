@@ -3,11 +3,9 @@ import { View, Text, TouchableOpacity } from "react-native";
 import styles from './Styles';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons/faFilter';
 import Colors from "constants/Colors";
 
 const FilterDropdown = memo(function FilterDropdown({ showDropdown, setShowDropdown, selectedOption }) {
-
 
   return (
     <View style={styles.filterContainer}>
@@ -18,8 +16,8 @@ const FilterDropdown = memo(function FilterDropdown({ showDropdown, setShowDropd
           activeOpacity={0.8}
         >
           <Text style={styles.filterText}>
-            <FontAwesomeIcon icon={faFilter} style={styles.filterIcon} color={Colors.PRIMARY} />
-            {selectedOption ? selectedOption : "Filter"}
+            < FontAwesomeIcon icon={selectedOption[1]} style={styles.filterIcon} color={Colors.PRIMARY} />
+            <Text style={styles.faText}>{selectedOption[0]}</Text>
           </Text>
         </TouchableOpacity>
       </View>
@@ -31,7 +29,7 @@ const FilterDropdown = memo(function FilterDropdown({ showDropdown, setShowDropd
 FilterDropdown.propTypes = {
   showDropdown: PropTypes.bool.isRequired,
   setShowDropdown: PropTypes.func.isRequired,
-  selectedOption: PropTypes.string.isRequired,
+  selectedOption: PropTypes.array.isRequired,
 };
 
 export default FilterDropdown;

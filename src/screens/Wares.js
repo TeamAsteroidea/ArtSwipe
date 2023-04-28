@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Text,
   Pressable,
+  Dimensions
 } from "react-native";
 import styles from 'components/ArtistAlley/Styles';
 import ArtworkTile from '../components/ArtistAlley/ArtworkTile';
@@ -43,22 +44,21 @@ const Wares = ({ route }) => {
 
       <View style={styles.descriptionContainer}>
         <View style={styles.waresImages} id="myView">
-          <Fade offset={820} decay={1.5} />
+          <Fade offset={820} decay={1.9} position={0} />
           <FlatList
-            initialNumToRender={6}
+            initialNumToRender={3}
             data={wares.data}
             renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(artwork, index) => `${artwork.name}-${index}`}
             snapToAlignment={'center'}
-            zoomScale={7}
             snapToInterval={styles.slide.width}
             decelerationRate={0.005}
             columnWrapperStyle={{ justifyContent: 'space-evenly' }}
             numColumns={2}
             contentContainerStyle={styles.contentContainerStyle}
           />
-          <Fade offset={800} decay={1.9} direction={'Up'} position={588}/>
+          <Fade offset={700} decay={0.8} direction={'Up'} position={Dimensions.get('window').height - 200}/>
         </View>
       </View>
     </SafeAreaView>
