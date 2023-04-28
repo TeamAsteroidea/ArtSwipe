@@ -1,6 +1,6 @@
+import { useState } from "react";
 import * as React from "react";
 import { useSelector } from 'react-redux';
-import { useState } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
@@ -36,7 +36,9 @@ const CreateEvent = ({ navigation }) => {
   const [ eventAddress, setEventAddress ] = useState('');
   const [ eventCity, setEventCity ] = useState('');
   const [ eventState, setEventState ] = useState('');
-  const [ eventZipCode, setEventZipCode ] = useState('');
+  const [ contactInfo, setContactInfo ] = useState('');
+  const [ imageurl, setImageurl ] = useState('');
+  const [ websiteurl, setWebsiteurl ] = useState('');
   const { eventStart } = useSelector((state) => state.events);
   const { eventEnd } = useSelector((state) => state.events);
 
@@ -51,10 +53,10 @@ const CreateEvent = ({ navigation }) => {
       eventDescription: eventDescription,
       eventStart: eventStartUnix,
       eventEnd: eventEndUnix,
-      eventAddress: eventAddress,
-      eventCity: eventCity,
-      eventState: eventState,
-      eventZipCode: eventZipCode,
+      location: `${eventAddress}, ${eventCity}, ${eventState}`,
+      contactInfo: contactInfo,
+      imageurl: imageurl,
+      websiteurl: websiteurl,
     }
 
     console.log(formData);
@@ -110,10 +112,22 @@ const CreateEvent = ({ navigation }) => {
           onChangeText={setEventState}
         />
 
-        <Text>Zip Code</Text>
+        <Text>Contact Info</Text>
         <TextInput
-          placeholder="94105"
-          onChangeText={setEventZipCode}
+          placeholder="user@email.com"
+          onChangeText={setContactInfo}
+        />
+
+        <Text>Website</Text>
+        <TextInput
+          placeholder="Insert website URL"
+          onChangeText={setWebsiteurl}
+        />
+
+        <Text>Image</Text>
+        <TextInput
+          placeholder="Insert image URL"
+          onChangeText={setImageurl}
         />
 
         <Button
