@@ -263,14 +263,19 @@ const BiddingEnds = styled.Text`
 `
 
 const LastCard = styled.Pressable`
+  flex: 1;
+  top: 250px;
+  right: 90px;
   position: absolute;
-  top: 50%;
-  left: 50%;
   justify-content: center;
   align-items: center;
   border: 5px solid white;
+  border-radius: 30px;
+  box-shadow: 0 0 5px #ccc;
 `
 
 const Load = styled.Text`
   color: white;
+  margin: 50px;
+  font-size: 20;
 `
