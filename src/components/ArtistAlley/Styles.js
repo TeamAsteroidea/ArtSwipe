@@ -5,9 +5,8 @@ import Colors from "constants/Colors";
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    zIndex: 2,
-    backgroundColor: Colors.BGLIGHT,
+    // flex: 1,
+    // backgroundColor: Colors.BGLIGHT,
   },
   artist: {
     display: 'flex',
@@ -18,9 +17,13 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginBottom: 5,
   },
-  artistDescription: {},
+  artistDescription: {
+    paddingLeft: 5,
+    paddingTop: 5,
+  },
   artistName: {
     fontWeight: 'bold',
+    fontSize: 20,
     marginBottom: 5,
   },
   artistLocation: {
@@ -40,24 +43,38 @@ export default StyleSheet.create({
     // paddingLeft: 20,
   },
   image: {
+    backgroundColor: 'lightgrey',
     resizeMode: 'cover',
     width: 300,
     height: 300,
     marginBottom: 10,
   },
   descriptionContainer: {
+    marginBottom: 200,
+  },
+  artistDescriptionContainer: {
     margin: 5,
     padding: 5,
   },
   headerContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
-    height: 80,
+    alignItems: "flex-start",
+    // justifyContent: "space-between",
+    height: 60,
+    marginTop: 5,
     paddingHorizontal: 20,
-    borderBottomColor: "#e3e3e3",
-    borderBottomWidth: 1,
+  },
+  backButtonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  backButtonIcon: {
+    marginRight: 10,
+  },
+  headerArtistName: {
+    textAlign: "right",
+    fontSize: 25,
+    fontWeight: "500",
   },
   title: {
     fontSize: 22,
@@ -78,23 +95,22 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   optionsContainer: {
+    position: "absolute",
     flexDirection: "column",
     alignItems: "center",
-    position: "absolute",
-    top: 40,
+    elevation: 5,
+    zIndex: 5,
+    top: 130,
     right: 0,
     backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#e3e3e3",
     borderRadius: 5,
-    // margin: 1,
     marginTop: "auto",
     marginBottom: 2,
     marginLeft: 2,
     marginRight: 2,
-    zIndex: 999,
     padding: 6,
-
   },
   optionText: {
     padding: 6,
@@ -110,4 +126,63 @@ export default StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 5,
   },
+  artTile: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginBottom: 3,
+    // backgroundColor: 'green',
+    // borderRadius: 10,
+    // borderWidth: 2,
+    // borderColor: 'grey',
+    overflow: 'hidden',
+  },
+  artImageContainer: {
+    backgroundColor: 'lightgrey',
+    width: 175,
+    height: 175,
+    flex: 1,
+  },
+  artImage: {
+    flex: 1,
+    width: 175,
+    height: 175,
+  },
+  artDescription: {
+    flex: 1,
+    // justifyContent: 'space-between',
+    textAlign: "left",
+    // backgroundColor: 'orange',
+    // paddingHorizontal: 10,
+    paddingVertical: 5,
+    height: 65
+  },
+  artName: {
+    fontSize: 15,
+    fontWeight: '700',
+    marginBottom: 5,
+  },
+  materials: {
+    fontSize: 12,
+    fontWeight: '300',
+    marginBottom: 5,
+  },
+  bidStartingPrice: {
+    fontSize: 14,
+  },
+  waresImages: {
+    // flexDirection: "row",
+    // justifyContent: "space-evenly",
+    // // flexWrap: "wrap",
+    // paddingVertical: 20,
+  },
+  artworkTileContainer: {
+    justifyContent: "space-around",
+    // backgroundColor: 'blue',
+    width: "48%",
+    marginTop: 20,
+  },
+  contentContainerStyle: {
+    justifyContent: 'center',
+    // backgroundColor: 'red'
+  }
 });
