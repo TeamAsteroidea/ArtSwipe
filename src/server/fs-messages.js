@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { useSelector } from "react-redux";
 
-import { isSenderSame } from "scripts/messages/isSenderSame.js";
+import { isSenderSame } from "../scripts/messages/isSenderSame.js";
 
 export const getGroups = async (callback) => {
   try {
