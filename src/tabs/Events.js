@@ -149,13 +149,13 @@ const EventsList = ({ navigation }) => {
   const [eData, setEData] = useState([]);
 
   useEffect(() => {
-    // getAllEvents()
-    //   .then((fsData) => {
-    //     setEData(fsData);
-    //   })
-    //   .catch((err) => {
-    //     console.log('Error initializing art event data:', err);
-    //   })
+    getAllEvents()
+      .then((fsData) => {
+        setEData(fsData);
+      })
+      .catch((err) => {
+        console.log('Error initializing art event data:', err);
+      })
   }, []);
 
   const updateEvents = (newEvent) => {
