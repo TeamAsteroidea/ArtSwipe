@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useRef, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
@@ -16,9 +16,7 @@ import styles from 'components/ArtistAlley/Styles';
 import ArtistTile from "components/ArtistAlley/ArtistTile";
 import FilterDropdown from "components/ArtistAlley/FilterDropdown";
 import { Fade } from 'components/modular/Fade';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faClock, faStar, faMapMarkerAlt, faFire, faFilter } from '@fortawesome/free-solid-svg-icons';
-import DropDownSelectList from 'react-native-dropdown-select-list';
 
 const ArtistAlley = memo(function ArtistAlley({ navigation }) {
   const imageObjs = useSelector((state) => state.images.imagesArrayObj);
@@ -39,6 +37,7 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
 
   const extractArtistKey = (item) => item.artist.toString();
 
+const flatListRef = useRef(null);
 
 
   const [showDropdown, setShowDropdown] = useState(false);
@@ -72,6 +71,10 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
     setCurrentList(sortedData);
   }
 
+  useEffect(() => {
+    flatListRef.current.scrollToIndex({ index: 0, animated: true });
+  }, [currentList])
+
   const handleOptionPress = (option) => {
     setSelectedOption(option);
     setShowDropdown(false);
@@ -104,15 +107,16 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
         <View style={styles.container}>
           <Fade offset={820} decay={1.9} />
           <FlatList
+            ref={flatListRef}
             data={currentList}
             renderItem={({ item }) => <ArtistTile navigation={navigation} item={item} />}
             keyExtractor={extractArtistKey}
             initialNumToRender={2}
             onEndReachedThreshold={0.2}
             minHeight={Dimensions.get('window').height}
-            snapToAlignment={'start'}
-            snapToInterval={Dimensions.get('window').height / currentList.length}
-            decelerationRate={0.575}
+            snapToAlignment={'center'}
+            snapToInterval={390}
+            decelerationRate={0.75}
             scrollEventThrottle={16}
           />
           <Fade offset={815} decay={1.3} direction={'Up'} position={609} />

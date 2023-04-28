@@ -62,7 +62,6 @@ const Wares = ({ route }) => {
             getItemLayout={(data, index) => (
               { length: 263, offset: 263 * index, index }
             )}
-            minHeight={Dimensions.get('window').height}
             renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(artwork, index) => `${artwork.name}-${index}`}
@@ -71,8 +70,12 @@ const Wares = ({ route }) => {
             decelerationRate={0.005}
             columnWrapperStyle={{ justifyContent: 'space-evenly' }}
             numColumns={2}
-            contentContainerStyle={styles.contentContainerStyle}
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: 180 // add padding at the bottom
+            }}
           />
+
           <Fade offset={700} decay={0.8} direction={'Up'} position={Dimensions.get('window').height - 200} />
         </View>
       </View>
