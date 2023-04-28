@@ -1,18 +1,18 @@
-// import { timeRemaining } from '../../../scripts/helperFunctions/timeRemaining.js';
+import { timeRemaining } from '../../../scripts/helperFunctions/timeRemaining.js';
 
-const timeRemaining = (art) => {
-  // get today's date in UNIX format (seconds)
-  const today = Math.floor((new Date().getTime()) / 1000);
-  // subtract todays date from the dateAuctioned
-  const timeSpent = today - art.date_auctioned;
-  // if the timeSpent is equal to or less than 0, return 0
-  if (timeSpent > art.bidDuration) {
-    return 0;
-  }
-  // return the time spent from the bid duration
-  // console.log(art.bidDuration - timeSpent)
-  return art.bidDuration - timeSpent;
-}
+// const timeRemaining = (art) => {
+//   // get today's date in UNIX format (seconds)
+//   const today = Math.floor((new Date().getTime()) / 1000);
+//   // subtract todays date from the dateAuctioned
+//   const timeSpent = today - art.date_auctioned;
+//   // if the timeSpent is equal to or less than 0, return 0
+//   if (timeSpent > art.bidDuration) {
+//     return 0;
+//   }
+//   // return the time spent from the bid duration
+//   // console.log(art.bidDuration - timeSpent)
+//   return art.bidDuration - timeSpent;
+// }
 
 const sortByPropertyValue = (array, key) => {
   return array.sort((a, b) => {
@@ -28,7 +28,6 @@ const sortByPropertyValue = (array, key) => {
 
 const dontShowArt = (user, listOfArt) => {
   const filtered = listOfArt.filter((art) => {
-    // console.log(art.auctionTimeLeft)
     // check if the user is the last person to bid, it's been rejected, or there is no more time left on the auction
     // add in filter to check if the user is the owner of the art
     return (!user.rejected.includes(art.id) && art.bidders[art.bidders.length - 1] !== user.username && art.auctionTimeLeft > 0)
@@ -37,20 +36,22 @@ const dontShowArt = (user, listOfArt) => {
 }
 
 export function sortArtwork (user, listOfArt) {
-  // console.log('list of art', listOfArt[0]);
+  // console.log('list of art', listOfArt);
   // add a property for the time left on the auction
 
-  const art = listOfArt.map((art) => {
-    const newArt = {...art}
-    newArt.bidders = [...newArt.bidders]
-    newArt.auctionTimeLeft = timeRemaining(art);
+  listOfArt.forEach((art) => {
+    // console.log('in map', art);
+    art.auctionTimeLeft = timeRemaining(art);
+    // const newArt = {...art}
+    // newArt.bidders = [...newArt.bidders]
+    // newArt.auctionTimeLeft = timeRemaining(art);
     // console.log(newArt)
-    return newArt;
+    // return newArt;
   })
+  // console.log('listOfArt', listOfArt)
   // filter artwork in which the user is the last person to bid, it's been rejected, or there is no more time left on the auction
-  // console.log('first art piece', art)
-  let artToShow = dontShowArt(user, art);
-
+  let artToShow = dontShowArt(user, listOfArt);
+  // console.log(artToShow)
   // sort art by time left
   artToShow = sortByPropertyValue(artToShow, 'auctionTimeLeft');
   // console.log('artToShow', artToShow);

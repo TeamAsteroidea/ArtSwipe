@@ -11,7 +11,7 @@ import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
 import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
 
-function Display ({ user, stack, navigation }) {
+function Display ({ user, stack, navigation, loadCards }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clock, setClock] = useState(timeRemaining(stack[currentIndex]));
   // Might be able to get rid of timeRemaining in the helper functions
@@ -56,6 +56,7 @@ function Display ({ user, stack, navigation }) {
         </OpenModal>
       </ModalContainer>
       <CardContainer>
+        {!lastCardSwiped ? (
         <Swiper
           containerStyle={{ backgroundColor: 'transparent'}}
           stackSize={3}
@@ -96,18 +97,18 @@ function Display ({ user, stack, navigation }) {
             }
           }}
           cards={stack}
-          renderCard={card => (
+          renderCard={(card) => (
             <Card key={card.title}>
               <CardImage source={{uri: card.image}}/>
               <Info>
                 <PriceContainer>
                   <PreviousBid>Previous Value:</PreviousBid>
-                  <Text>{USDollar.format(card.bidPrice)}</Text>
+                  <Text>{USDollar.format(card.bidStartingPrice)}</Text>
                 </PriceContainer>
-                <Bid>{USDollar.format(card.bidPrice + card.bidIncrement)}</Bid>
+                <Bid>{USDollar.format(card.bidStartingPrice + card.bidIncrementPrice)}</Bid>
                 <TitleContainer>
-                  <Title>{card.name}</Title>
-                  <Artist>{card.artist}</Artist>
+                  <Title>{card.title}</Title>
+                  <Artist>{card.artistName}</Artist>
                 </TitleContainer>
                 <ButtonWrapper>
                   <Button
@@ -121,7 +122,16 @@ function Display ({ user, stack, navigation }) {
               </Info>
             </Card>
           )}
-        />
+        />) :
+        (
+          <LastCard
+            onPress={() => loadCards()}
+          >
+            <Load>
+              Load Cards
+            </Load>
+          </LastCard>
+        )}
       </CardContainer>
     </ScreenContainer>
   )
@@ -249,5 +259,18 @@ const ButtonWrapper = styled.View`
 `
 
 const BiddingEnds = styled.Text`
+  color: white;
+`
+
+const LastCard = styled.Pressable`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid white;
+`
+
+const Load = styled.Text`
   color: white;
 `

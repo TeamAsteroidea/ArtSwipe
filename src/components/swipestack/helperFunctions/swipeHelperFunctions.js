@@ -4,7 +4,7 @@ export const handleLeftSwipe = (art, user) => {
 
 export const handleRightSwipe = (art, user) => {
   art.bidders.push(user.username);
-  art.bidPrice += art.bidIncrement;
-  const bid = {artwork: art, bidPrice: art.bidPrice}
+  art.bidStartingPrice += art.bidIncrementPrice;
+  const bid = {artwork: art.id, bidPrice: art.bidStartingPrice}
   user.activeBids.push(bid)
 };
