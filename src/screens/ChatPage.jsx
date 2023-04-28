@@ -55,7 +55,7 @@ const ChatPage = ({ navigation }) => {
 
   useEffect(() => {
     const getMessageList = async () => {
-      const roomData = await getMessagesByRoom();
+      // const roomData = await getMessagesByRoom();
       // console.log(roomData);
     };
     getMessageList();
