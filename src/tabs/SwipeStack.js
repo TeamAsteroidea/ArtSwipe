@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
-  // StyleSheet,
+  StyleSheet,
   // Button,
   View,
   SafeAreaView,
@@ -14,10 +14,13 @@ import Header from '../components/swipestack/components/Header.jsx';
 
 const SwipeStack = ({ navigation }) => {
   return (
-    <SafeAreaView style={{flex: '1'}}>
+    <SafeAreaView style={styles.safeArea}>
       <Header/>
-      <Content navigation={navigation}/>
-    </SafeAreaView>);
+      <View style={styles.container}>
+        <Content navigation={navigation} />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 SwipeStack.propTypes = {
@@ -25,3 +28,14 @@ SwipeStack.propTypes = {
 };
 
 export default SwipeStack;
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#034448',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#232323'
+  }
+});
