@@ -16,7 +16,8 @@ const userSlice = createSlice({
       language: 'English (US)',
       showMe: [],
     },
-    bookmarks: [123456, 456456],
+    bookmarks: ['00UV4CKT2hdMKUZq0Y6f'],
+    activeBids: ['00UV4CKT2hdMKUZq0Y6f'],
   },
   reducers: {
     loginUser: (state, action) => {
@@ -30,7 +31,6 @@ const userSlice = createSlice({
         email: '',
         photoURL: '',
         uid: '',
-        bookmarks: [],
         idToken: '' //this is for API calls
       };
     },

@@ -1,6 +1,7 @@
 import * as React from "react";
+import { useEffect, useState, setState } from "react";
 import PropTypes from 'prop-types';
-// import { store } from '../../redux/store.js';
+import { store } from '../../redux/store.js';
 import { useSelector } from 'react-redux';
 import {
   Button,
@@ -15,26 +16,40 @@ import BookmarkCard from './bookmarkCard';
 
 const ArtList = ({ navigation, onCompleted }) => {
 
+  const [ renderArt, setRenderArt ] = useState(false);
+
   const items = useSelector((state) => {
     // return showCompleted ? state.images.completed : state.images.imagesArrayObj
     if (onCompleted) {
       return state.images.completed;
     } else {
-      return state.images.imagesArrayObj;
+      return state.user.activeBids;
     }
   })
 
-  const renderItem = ({item}) => (<BookmarkCard item={item} navigation={navigation} />);
+  useEffect(() => {
+    if (items.length) {
+      setRenderArt(true);
+    }
+  },[items]);
 
-  return(
-  <View>
-    <FlatList
-      data={items}
-      renderItem={renderItem}
-      initialNumToRender={10}
-      onEndReachedThreshold={0.2}
-      scrollEventThrottle={16} />
-  </View>);
+  const renderItem = ({item}) => {
+    return (
+      <BookmarkCard itemID={item} navigation={navigation} />
+    )
+  };
+
+  if (renderArt) {
+    return(
+      <View>
+        <FlatList
+          data={items}
+          renderItem={renderItem}
+          initialNumToRender={10}
+          onEndReachedThreshold={0.2}
+          scrollEventThrottle={16} />
+      </View>);
+  }
 };
 
 ArtList.propTypes = {
