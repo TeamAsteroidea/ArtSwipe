@@ -26,12 +26,12 @@ const DetailView = ({ navigation, route }) => {
     >
       <DetailViewImage
         source={{
-          uri: data[1].image,
+          uri: route.params.card.image,
         }}
       />
       <Info>
-        <Title>{data[1].name}</Title>
-        <Artist>{data[1].artist}</Artist>
+        <Title>{route.params.card.title}</Title>
+        <Artist>{route.params.card.artistName}</Artist>
         <InfoSubtitle>About The Piece</InfoSubtitle>
         <Text>This piece was made of lorem ipsum in early 19XX during Artist’s chartruse period. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
         <InfoSubtitle>Materials and Method</InfoSubtitle>
