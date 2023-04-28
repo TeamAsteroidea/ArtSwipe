@@ -12,19 +12,20 @@ import ArtworkTile from '../components/ArtistAlley/ArtworkTile';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
-import { TopFade } from '../components/modular/TopFade';
+import { Fade } from '../components/modular/Fade';
+import Colors from "constants/Colors";
 
 const Wares = ({ route }) => {
   const { wares } = route.params;
   const navigation = useNavigation();
 
-  const handlePress = () => {/* noop */ }
-
   const renderItem = ({ item: artwork }) => {
     // console.log('here: ', artwork)
     return (
       <View style={styles.artworkTileContainer}>
-        <ArtworkTile artwork={artwork} handlePress={handlePress} />
+        <ArtworkTile artwork={artwork} handlePress={() => navigation.navigate('DetailView', {
+                      card: artwork,
+                    })} />
       </View>
     )
   };
@@ -34,28 +35,30 @@ const Wares = ({ route }) => {
       <View style={styles.headerContainer}>
         <View style={styles.backButtonContainer}>
           <Pressable onPress={() => navigation.goBack()}>
-            <FontAwesomeIcon icon={faAngleLeft} size={30} style={styles.backButtonIcon} />
+            <FontAwesomeIcon color={Colors.PRIMARY} icon={faAngleLeft} size={30} style={styles.backButtonIcon} />
           </Pressable>
         </View>
-        <Text style={styles.headerArtistName}>{wares.artist}</Text>
+        <Text style={[styles.headerArtistName, {color: Colors.PRIMARY}]}>{wares.artist}</Text>
       </View>
 
       <View style={styles.descriptionContainer}>
         <View style={styles.waresImages} id="myView">
-          <TopFade offset={820} decay={1.5} />
+          <Fade offset={820} decay={1.5} />
           <FlatList
             initialNumToRender={6}
             data={wares.data}
             renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(artwork, index) => `${artwork.name}-${index}`}
-            snapToAlignment={'start'}
+            snapToAlignment={'center'}
+            zoomScale={7}
             snapToInterval={styles.slide.width}
-            decelerationRate='fast'
+            decelerationRate={0.005}
             columnWrapperStyle={{ justifyContent: 'space-evenly' }}
             numColumns={2}
             contentContainerStyle={styles.contentContainerStyle}
           />
+          <Fade offset={800} decay={1.9} direction={'Up'} position={588}/>
         </View>
       </View>
     </SafeAreaView>

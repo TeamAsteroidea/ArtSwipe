@@ -16,11 +16,11 @@ function Content ({ navigation }) {
   const [stack, setStack] = useState([]);
 
   const loadCards = () => {
-    getAll('art')
-      .then((result) => {
-        const sortedArtwork = sortArtwork(user, result);
-        setStack(sortedArtwork);
-      })
+    // getAll('art')
+    //   .then((result) => {
+    //     const sortedArtwork = sortArtwork(user, result);
+    //     setStack(sortedArtwork);
+    //   })
   };
 
   useEffect(() => {

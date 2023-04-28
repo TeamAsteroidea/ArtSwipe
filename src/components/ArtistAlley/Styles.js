@@ -56,14 +56,6 @@ export default StyleSheet.create({
     margin: 5,
     padding: 5,
   },
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    // justifyContent: "space-between",
-    height: 60,
-    marginTop: 5,
-    paddingHorizontal: 20,
-  },
   backButtonContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -74,25 +66,40 @@ export default StyleSheet.create({
   headerArtistName: {
     textAlign: "right",
     fontSize: 25,
-    fontWeight: "500",
+    fontWeight: "600",
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    // justifyContent: "space-between",
+    height: 35,
+    marginTop: 5,
+    paddingHorizontal: 20,
+    color: '#FFFFFF'
   },
   title: {
-    fontSize: 22,
-    fontWeight: "500",
-    color: Colors.PRIMARYLIGHT,
+    fontSize: 26,
+    fontWeight: "700",
+    color: Colors.PRIMARY,
   },
   filter: {
     alignSelf: "flex-end",
   },
+  filterContainer: {
+    alignItems: "flex-end",
+    justifyContent: "flex-start",
+    marginTop: 10,
+    marginRight: 20,
+  },
   filterDropdown: {
     position: "relative",
-    marginTop: 25,
   },
   filterText: {
-    textAlign: 'justify',
     fontSize: 16,
-    color: "#333",
+    color: Colors.PRIMARY,
     fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "right",
   },
   optionsContainer: {
     position: "absolute",
@@ -100,7 +107,7 @@ export default StyleSheet.create({
     alignItems: "center",
     elevation: 5,
     zIndex: 5,
-    top: 130,
+    top: 150,
     right: 0,
     backgroundColor: "#fff",
     borderWidth: 1,
