@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useState, setState, useEffect} from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
@@ -11,21 +12,19 @@ import {
   // Alert,
 } from "react-native";
 
-import BookmarkButton from './bookmarkButton';
+import BookmarkButton from '../modular/bookmarkButton';
 import { TEXT, SUBTEXT } from '../../constants/Fonts.js';
 import TimeRemaining from '../../scripts/helperFunctions/Timer';
-import * as firestoreGeneric from '../../server/fs-generic';
+import * as generic from 'src/server/fs-generic.js'
 
 const styles = StyleSheet.create({
   cardContainer:{
-    // backgroundColor: 'grey',
     width: '100%',
     height: 120,
     flex: 1,
     flexDirection: 'row',
   },
   iconContainer: {
-    backgroundColor: 'grey',
     width: 75,
     height: 75,
     margin: 20,
@@ -45,28 +44,41 @@ const styles = StyleSheet.create({
   }
 })
 
-const BookmarkCard = ({ item, navigation }) => {
-  return(
-  <View style={styles.cardContainer}>
-    <View style={styles.iconContainer}>
-      <Image
-        style={styles.image}
-        source={{uri: item.image}}
-      />
-    </View>
-    <View style={styles.textContainer}>
-      <Text style={styles.TEXT, { fontWeight: 'bold' }}>{item.name}</Text>
-      <Text style={{ fontSize: 12, fontWeight: 'bold'}}>Now: {item.bidPrice}</Text>
-      <Text style={{ fontSize: 10 }}>You bid: {item.bidIncrement}</Text>
-      <Text style={{ fontSize: 13, fontWeight: 'bold'}}>Time left:</Text>
-      <View>
-        {TimeRemaining(item)}
-      </View>
-    </View>
-    <View style={styles.bookmarkContainer}>
-      <BookmarkButton item={item}/>
-    </View>
-  </View>);
+const BookmarkCard = ({ itemID, navigation }) => {
+
+  const [item, setItem] = useState(null);
+
+  useEffect(() => {
+    generic.getOne('art', itemID)
+      .then(res => {
+        setItem(res);
+      })
+      .catch(err => console.log(err, 'err retrieving art item'))
+  }, [])
+
+  if (item) {
+    return(
+      <View style={styles.cardContainer}>
+        <View style={styles.iconContainer}>
+          <Image
+            style={styles.image}
+            source={{uri: item.image}}
+          />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.TEXT, { fontWeight: 'bold' }}>{item.name}</Text>
+          <Text style={{ fontSize: 12, fontWeight: 'bold'}}>Now: {item.bidStartingPrice}</Text>
+          <Text style={{ fontSize: 10 }}>You bid: {item.bidIncrementPrice}</Text>
+          <Text style={{ fontSize: 13, fontWeight: 'bold'}}>Time left:</Text>
+          <View>
+            {TimeRemaining(item)}
+          </View>
+        </View>
+        <View style={styles.bookmarkContainer}>
+          <BookmarkButton item={item}/>
+        </View>
+      </View>);
+  }
 };
 
 BookmarkCard.propTypes = {

@@ -80,12 +80,12 @@ function Home() {
         component={ArtistAlley}
         options={StackScreenOptions("store", 0.875 * iconSize)}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         key={3}
         name="SwipeStack"
         component={SwipeStack}
         options={StackScreenOptions("gavel", 1.05 * iconSize)}
-      /> */}
+      />
       <Tab.Screen
         key={4}
         name="Messages"
