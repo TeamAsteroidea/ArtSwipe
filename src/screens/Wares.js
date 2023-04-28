@@ -8,11 +8,11 @@ import {
   Pressable,
 } from "react-native";
 import styles from 'components/ArtistAlley/Styles';
-import ArtworkTile from 'components/ArtistAlley/ArtworkTile';
+import ArtworkTile from '../components/ArtistAlley/ArtworkTile';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons/faAngleLeft';
-import { TopFade } from 'components/modular/TopFade';
+import { TopFade } from '../components/modular/TopFade';
 
 const Wares = ({ route }) => {
   const { wares } = route.params;

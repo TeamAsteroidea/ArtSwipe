@@ -11,7 +11,6 @@ export interface TopFadeProps {
   offset?: number | undefined;
   /**
    * The rate at which the fadeout fades out. A higher value means a faster fadeout.
-   * Between 1 and 0.001.
    */
   decay?: number | undefined;
   /**
@@ -24,7 +23,7 @@ export interface TopFadeProps {
  * A component that creates a fadeout effect at the top of the screen.
  * @param {object} props - The props object.
  * @param {number} [props.offset=0] - The distance from the bottom of the parent container to the bottom of the fadeout. Defaults to parent's height.
- * @param {number} [props.decay=0.5] - The rate at which the fadeout fades out. A higher value means a faster fadeout. Between 1 and 0.001.
+ * @param {number} [props.decay=0.5] - The rate at which the fadeout fades out. A higher value means a faster fadeout.
  * @param {number} [props.zIndex=2147483647] - The z-index of the fadeout. Defaults to max.
  * @returns {JSX.Element} - The component.
  */
