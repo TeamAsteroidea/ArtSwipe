@@ -16,8 +16,8 @@ export const artwork = [
     currentOwner: 'artOwner',
     title: 'The Starry Night',
     image: require('../../../assets/icon.png'),
-    dateAuctioned: 1682361164,
-    bidDuration: 604800
+    date_auctioned: 1682448522000,
+    bidDuration: 604800000
   },
   { // soonest
     id: 2,
@@ -28,8 +28,8 @@ export const artwork = [
     currentOwner: 'artOwner',
     title: 'Cat With Red Fish',
     image: require('../../../assets/icon.png'),
-    dateAuctioned: 1682015564,
-    bidDuration: 604800
+    date_auctioned: 1682448522000,
+    bidDuration: 604800000
   },
   { // third soonest; should not show
     id: 3,
@@ -40,8 +40,8 @@ export const artwork = [
     currentOwner: 'artOwner',
     title: 'La Jolla Cove',
     image: require('../../../assets/icon.png'),
-    dateAuctioned: 1682188364,
-    bidDuration: 604800
+    date_auctioned: 1682448522000,
+    bidDuration: 604800000
   },
   { // second most time; should not show
     id: 4,
@@ -52,8 +52,8 @@ export const artwork = [
     currentOwner: 'artOwner',
     title: 'Landscape with the Rest on the Flight into Egypt',
     image: require('../../../assets/icon.png'),
-    dateAuctioned: 1682274764,
-    bidDuration: 604800
+    date_auctioned: 1682448522000,
+    bidDuration: 604800000
   },
   { // third soonest
     id: 5,
@@ -64,19 +64,19 @@ export const artwork = [
     currentOwner: 'artOwner',
     title: 'Girl with a Pearl Earring',
     image: require('../../../assets/icon.png'),
-    dateAuctioned: 1682101964,
-    bidDuration: 500000
+    date_auctioned: 1682448522000,
+    bidDuration: 500000000
   },
   { // second soonest
     id: 6,
     bidders: [],
     bidIncrement: 1500,
     bidPrice: 200000,
-    artist: '	Edvard Munch',
+    artist: 'Edvard Munch',
     currentOwner: 'artOwner',
     title: 'The Scream',
     image: require('../../../assets/icon.png'),
-    dateAuctioned: 1682101964,
-    bidDuration: 600000
+    date_auctioned: 1682448522000,
+    bidDuration: 600000000
   }
 ]

@@ -10,7 +10,8 @@ const userSlice = createSlice({
       email: '',
       photoURL: '',
       uid: '',
-      idToken: ''
+      idToken: '',
+      genderId: '',
     },
   },
   reducers: {
@@ -28,6 +29,9 @@ const userSlice = createSlice({
         idToken: '' //this is for API calls
       };
     },
+    setGender: (state, action) => {
+      state.genderId = action.payload;
+    },
   },
   // extraReducers: {
   //   [createUser.fulfilled]: (state, action) => {
@@ -39,5 +43,5 @@ const userSlice = createSlice({
   // },
 })
 
-export const { loginUser, logoutUser } = userSlice.actions
+export const { loginUser, logoutUser, setLoginStatus, setGender } = userSlice.actions
 export default userSlice.reducer
