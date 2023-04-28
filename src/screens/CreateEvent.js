@@ -16,6 +16,7 @@ import axios from 'axios';
 import StartDatePicker from "../components/Events/EventsStartPicker.js"
 import EndDatePicker from "../components/Events/EventsEndPicker.js"
 
+import styled from 'styled-components/native';
 /*
 id (String)
 userId (User who created Event) (String) (Should match Users Collection)
@@ -30,7 +31,15 @@ shortDescription (Optional String ?)
 imageUrl (String)
 */
 
-const CreateEvent = ({ navigation }) => {
+const CreateContainer = styled.View`
+  margin-top: 60px;
+`;
+
+// dummy user
+const dummyuserid = '12345';
+const dummyusername = 'dennisTester';
+
+const CreateEvent = ({ route, navigation }) => {
   const [ eventName, setEventName ] = useState('');
   const [ eventDescription, setEventDescription ] = useState('');
   const [ eventAddress, setEventAddress ] = useState('');
@@ -40,39 +49,47 @@ const CreateEvent = ({ navigation }) => {
   const [ imageurl, setImageurl ] = useState('');
   const [ websiteurl, setWebsiteurl ] = useState('');
   const { eventStart } = useSelector((state) => state.events);
-  const { eventEnd } = useSelector((state) => state.events);
+  const {reduxState} = useSelector((state) => {
+    console.log('state', Object.keys(state));
+    console.log('events', state.events);
+    return Object.keys(state);
+  })
+  // const { eventEnd } = useSelector((state) => state.events);
 
   const eventStartUnix = Date.parse(eventStart);
-  const eventEndUnix = Date.parse(eventEnd);
+  // const eventEndUnix = Date.parse(eventEnd);
+  // console.log('eventStart', eventStart);
+  // console.log('eventStartUnix', eventStartUnix);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = {
-      eventName: eventName,
-      eventDescription: eventDescription,
-      eventStart: eventStartUnix,
-      eventEnd: eventEndUnix,
-      location: `${eventAddress}, ${eventCity}, ${eventState}`,
-      contactInfo: contactInfo,
+      title: eventName,
+      description: eventDescription,
+      eventdate: eventStartUnix,
+      venue: `${eventAddress}, ${eventCity}, ${eventState}`,
+      contactinfo: contactInfo,
       imageurl: imageurl,
       websiteurl: websiteurl,
+      userid: dummyuserid,
+      username: dummyusername,
     }
 
     console.log(formData);
 
-  axios.post('/createevent', formData)
-    .then(data => {
-      console.log('Post success data: ', data);
-    })
-    .catch(err => {
-      console.log('We were unable to process your submission: ', err);
-    })
+  // axios.post('/createevent', formData)
+  //   .then(data => {
+  //     console.log('Post success data: ', data);
+  //   })
+  //   .catch(err => {
+  //     console.log('We were unable to process your submission: ', err);
+  //   })
   navigation.navigate('Events')
   }
 
   return (
-    <View>
+    <CreateContainer>
       <View>
         <Text>Event Name</Text>
         <TextInput
@@ -135,7 +152,7 @@ const CreateEvent = ({ navigation }) => {
           title="Save Changes"
         />
       </View>
-    </View>);
+    </CreateContainer>);
 };
 
 CreateEvent.propTypes = {
