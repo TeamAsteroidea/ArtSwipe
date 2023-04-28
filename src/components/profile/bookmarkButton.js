@@ -8,7 +8,7 @@ import { addBookmark, removeBookmark } from "../../redux/userReducer.js";
 // const EmptyHeart = <FontAwesome5 name="heart" light size={30} color="#ff0000" />;
 
 
-const BookmarkHeart = ({ item }) => {
+const BookmarkButton = ({ item }) => {
 
   // const [isClick, setClick] = useSelector(state => {
   //   // console.log('userstate', state.user.user);
@@ -39,15 +39,15 @@ const BookmarkHeart = ({ item }) => {
       <Pressable onPress={toggleBookmark}>
         { isLiked ?
             <FontAwesome5
-              name="heart"
-              size={30}
-              color="#ff0000"
+              name="bookmark"
+              size={20}
+              color="#D2A93F"
               solid
             /> :
             <FontAwesome5
-              name="heart"
-              size={30}
-              color="#ff0000"
+              name="bookmark"
+              size={20}
+              color="#D2A93F"
             />
         }
       </Pressable>
@@ -55,4 +55,4 @@ const BookmarkHeart = ({ item }) => {
   );
 }
 
-export default BookmarkHeart;
+export default BookmarkButton;
