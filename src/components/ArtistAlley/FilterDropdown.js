@@ -17,7 +17,7 @@ const FilterDropdown = (function FilterDropdown({ showDropdown, setShowDropdown,
         >
           <Text style={styles.filterText}>
             <View>
-              <FontAwesomeIcon icon={selectedOption[1]} style={styles.filterIcon} color={Colors.ACCENT} />
+              <FontAwesomeIcon icon={selectedOption[1]} style={[styles.filterIcon, {marginBottom: 2}]} color={Colors.ACCENT} />
             </View>
             <View>
               <Text style={styles.faText}>{selectedOption[0]}</Text>
