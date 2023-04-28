@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useWindowDimensions, ViewStyle } from "react-native";
 // I got tired of truing all the combinations so I made it a function lol
@@ -49,7 +49,7 @@ export interface FadeProps {
  * @param {number} [props.color='rgba(242, 242, 242)'] - The color.
  * @returns {JSX.Element} - The fadeout component.
  */
-export const Fade: React.FC<FadeProps> = memo(
+export const Fade: React.FC<FadeProps> = (
   ({
     offset = 0,
     decay = 1.4,

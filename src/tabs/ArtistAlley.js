@@ -1,4 +1,4 @@
-import React, { useState, memo, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
@@ -14,11 +14,12 @@ import {
 import Header from 'components/ArtistAlley/Header'
 import styles from 'components/ArtistAlley/Styles';
 import ArtistTile from "components/ArtistAlley/ArtistTile";
-import FilterDropdown from "components/ArtistAlley/FilterDropdown";
+import FilterDropdown from "../components/ArtistAlley/FilterDropdown";
 import { Fade } from 'components/modular/Fade';
 import { faClock, faStar, faMapMarkerAlt, faFire, faFilter } from '@fortawesome/free-solid-svg-icons';
+import Colors from "constants/Colors";
 
-const ArtistAlley = memo(function ArtistAlley({ navigation }) {
+const ArtistAlley = (function ArtistAlley({ navigation }) {
   const imageObjs = useSelector((state) => state.images.imagesArrayObj);
   const artistObjs = imageObjs.reduce((acc, cur) => {
     const { artist } = cur;
@@ -37,7 +38,7 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
 
   const extractArtistKey = (item) => item.artist.toString();
 
-const flatListRef = useRef(null);
+  const flatListRef = useRef(null);
 
 
   const [showDropdown, setShowDropdown] = useState(false);
@@ -90,13 +91,19 @@ const flatListRef = useRef(null);
           {options.map((option, index) => (
             <TouchableOpacity
               style={{
-                height: 45,
+                height: 38,
+                backgroundColor: option[1] === selectedOption[1] ? Colors.INPUTS : "#fff",
+                borderRadius: 5,
+                overflow: "hidden"
               }}
               key={index}
               onPress={() => handleOptionPress(option)}
               activeOpacity={0.8}
             >
-              <Text style={styles.optionText}>
+              <Text style={{
+                ...styles.optionText,
+                color: option[1] === selectedOption[1] ? Colors.PRIMARY : "#333"
+              }}>
                 {option[0]}
               </Text>
             </TouchableOpacity>

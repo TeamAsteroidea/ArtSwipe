@@ -1,11 +1,11 @@
-import React, { memo } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import styles from './Styles';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Colors from "constants/Colors";
 
-const FilterDropdown = memo(function FilterDropdown({ showDropdown, setShowDropdown, selectedOption }) {
+const FilterDropdown = (function FilterDropdown({ showDropdown, setShowDropdown, selectedOption }) {
 
   return (
     <View style={styles.filterContainer}>
@@ -17,7 +17,7 @@ const FilterDropdown = memo(function FilterDropdown({ showDropdown, setShowDropd
         >
           <Text style={styles.filterText}>
             <View>
-              <FontAwesomeIcon icon={selectedOption[1]} style={styles.filterIcon} color={Colors.PRIMARY} />
+              <FontAwesomeIcon icon={selectedOption[1]} style={[styles.filterIcon, {marginBottom: 2}]} color={Colors.ACCENT} />
             </View>
             <View>
               <Text style={styles.faText}>{selectedOption[0]}</Text>

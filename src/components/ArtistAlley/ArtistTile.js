@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import Artwork from './Artwork';
 import styles from './Styles';
@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from "react-native";
 
-const ArtistTile = memo(function ArtistTile({ navigation, item }) {
+const ArtistTile = (function ArtistTile({ navigation, item }) {
 
   const handlePress = () => {
     // console.log(item)

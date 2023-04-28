@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from 'react-redux';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from "expo-status-bar";
@@ -44,7 +44,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const iconSize = 30;
 
-const Home = function Home() {
+const Home = () => {
   return (
     <Tab.Navigator
       screenOptions={{
