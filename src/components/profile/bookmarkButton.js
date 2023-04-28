@@ -4,8 +4,7 @@ import { Text, Pressable, View } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { addBookmark, removeBookmark } from "../../redux/userReducer.js";
-// const FilledHeart = <FontAwesome5 name="heart" size={30} color="#ff0000" />;
-// const EmptyHeart = <FontAwesome5 name="heart" light size={30} color="#ff0000" />;
+import { update } from '../../server/fs-generic';
 
 
 const BookmarkButton = ({ item }) => {
@@ -18,17 +17,21 @@ const BookmarkButton = ({ item }) => {
   //   else return true;
   // });
   const dispatch = useDispatch();
-    const bookmarks = useSelector( state => state.user.bookmarks)
+    const userID = useSelector(state => state.user.uid)
+    let bookmarks = useSelector( state => state.user.bookmarks)
     let initialState = bookmarks.includes(item.id);
     const [isLiked, setLiked] = useState(initialState);
 
   const toggleBookmark = () => {
+// collectionName: users, data: id, {bookmarks: }
 
     if (isLiked) {
-      dispatch(removeBookmark(item.id));
+      // bookmarks.splice(bookmarks.indexOf(item.id), 1);
+      // console.log(bookmarks, 'bookmarks spliced');
+      // update("users", userID, {bookmarks: bookmarks})
       setLiked(!isLiked);
     } else {
-      dispatch(addBookmark(item.id));
+      // update("users", userID, {bookmarks: bookmarks.push(item.id)})
       setLiked(!isLiked);
     }
 

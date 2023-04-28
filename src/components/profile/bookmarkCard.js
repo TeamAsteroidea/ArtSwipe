@@ -14,6 +14,7 @@ import {
 import BookmarkButton from './bookmarkButton';
 import { TEXT, SUBTEXT } from '../../constants/Fonts.js';
 import TimeRemaining from '../../scripts/helperFunctions/Timer';
+import * as firestoreGeneric from '../../server/fs-generic';
 
 const styles = StyleSheet.create({
   cardContainer:{
