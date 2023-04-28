@@ -11,8 +11,11 @@ import Timer from './components/Timer.jsx';
 import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
 import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Display ({ user, stack, navigation, loadCards }) {
+  // const {user}  = useSelector((state) => state.user); //this would be to make stuff stateful
+  // console.log(testUser)
   const [dumpster, setDumpster] = useState(false);
   const [money, setMoney] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);

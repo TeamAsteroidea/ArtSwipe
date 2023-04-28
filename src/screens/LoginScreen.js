@@ -89,29 +89,34 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleFireStoreUser = (user) => {
-    generic.getOne('users',user.uid).then((results) => {
-      if (results) {
-        console.log('found this:', results)
-      } else {
-        generic.write('users',
-          {
-            bookmarks: [],
-            activeBids: [],
-            rejected: [],
-            userName: user.email,
-            personalInfo: {
-              number: '000-000-0000',
-              birthdate: '01/01/1970',
-              genderId: 'Prefer not to say',
-              location: 'To be Determined',
-              email: user.email,
-              firstName: 'new',
-              lastName: 'user',
-            }
-          }
-        ).then(() => (console.log('wrote user')))
-      }
-    }).catch((err) => {console.log(err)})
+    return (
+      generic.getOne('users', user.uid)
+      .then((results) => {
+        if (results) {
+          return results
+        } else {
+          return generic.write('users',
+            {
+              bookmarks: [],
+              activeBids: [],
+              rejected: [],
+              userName: user.email,
+              personalInfo: {
+                number: '000-000-0000',
+                birthdate: '01/01/1970',
+                genderId: 'Prefer not to say',
+                location: 'To be Determined',
+                email: user.email,
+                firstName: 'new',
+                lastName: 'user',
+              }
+            }, user.uid
+          )
+        }
+      })
+      .then((results) => (results))
+      .catch((err) => {console.log(err)})
+    )
   }
 
   const handleSignUp = () => {
@@ -122,8 +127,6 @@ const LoginScreen = ({ navigation }) => {
         } else {
           await AsyncStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         }
-        passToDispatch(res)
-        handleFireStoreUser(res.user)
         enter();
       })
       .catch((err) => {
@@ -142,7 +145,6 @@ const LoginScreen = ({ navigation }) => {
           await AsyncStorage.setItem('currentUser', JSON.stringify({user: res.user, _tokenResponse: res._tokenResponse.idToken}));
         }
         passToDispatch(res)
-        handleFireStoreUser(res.user)
         enter();
       })
       .catch((err) => {
@@ -152,12 +154,15 @@ const LoginScreen = ({ navigation }) => {
 
   // just added this for dryness, it's the same content that was originally in handleSignIn
   const passToDispatch = (res) => {
-    // console.log('passToDispatch ', res._tokenResponse)
     const user = res.user;
-    // If successful, update the user's login state and display a success message
-    const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };
-    // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
-    dispatch(loginUser(loginData));
+    handleFireStoreUser(res.user).then((results) => {
+      // console.log('results', results)
+      dispatch(loginUser(results))
+    })
+    // // If successful, update the user's login state and display a success message
+    // const loginData = { displayName: user.displayName || '', email: user.email || '', photoURL: user.photoURL || '', uid: user.uid, loggedIn: true, idToken: res._tokenResponse.idToken };
+    // // showNotificationPopup(`Logged in as ${user.email}`, '#15d146');
+    // dispatch(loginUser(loginData));
   }
 
   const logOut = async () => {

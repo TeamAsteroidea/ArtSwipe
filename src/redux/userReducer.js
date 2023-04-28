@@ -5,17 +5,20 @@ const userSlice = createSlice({
   initialState: {
     loggedIn: false,
     user: {
-      displayName: "",
-      email: "",
-      photoURL: "",
-      uid: "",
-      idToken: "",
-      genderId: "",
-      darkMode: "Off",
-      language: "English (US)",
-      showMe: [],
+      _id: "",
+      activeBids: [],
+      bookmarks: [],
+      rejected: [],
+      personalInfo: {
+        firstName: "",
+        number: "",
+        email: "",
+        genderId: "",
+        location: "",
+        birthdate: "",
+        lastName: ""},
+      // idToken: "", //might need later for auth
     },
-    bookmarks: [123456, 456456],
   },
   reducers: {
     loginUser: (state, action) => {
@@ -26,13 +29,20 @@ const userSlice = createSlice({
     logoutUser: (state) => {
       state.loggedIn = false;
       state.user = {
-        displayName: "",
-        email: "",
-        photoURL: "",
-        uid: "",
+        _id: "",
+        activeBids: [],
         bookmarks: [],
-        idToken: "", //this is for API calls
-      };
+        rejected: [],
+        personalInfo: {
+          firstName: "",
+          number: "",
+          email: "",
+          genderId: "",
+          location: "",
+          birthdate: "",
+          lastName: ""},
+        // idToken: "", //might need later for auth
+      }
     },
     setGender: (state, action) => {
       state.genderId = action.payload;
