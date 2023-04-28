@@ -15,7 +15,17 @@ import {
 import styled from 'styled-components/native';
 import data from '../../dummyData/artUrlArray.js'
 
+const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+  const paddingToBottom = 20;
+  return layoutMeasurement.height + contentOffset.y >=
+    contentSize.height - paddingToBottom;
+};
 
+const isCloseToTop = ({contentOffset}) => {
+  const paddingToTop = -100; //negative padding to only do it if overflowing
+  return contentOffset.y <=
+    paddingToTop;
+};
 
 
 
@@ -23,6 +33,12 @@ const DetailView = ({ navigation, route }) => {
   return (
   <SafeWrapper>
     <ScrollList contentContainerStyle={{ flexGrow: 1}}
+      scrollEventThrottle={8}
+      onScroll={({nativeEvent}) => {
+        if (isCloseToTop(nativeEvent)) {
+          navigation.goBack()
+        }
+      }}
     >
       <DetailViewImage
         source={{
