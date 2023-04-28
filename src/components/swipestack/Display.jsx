@@ -5,6 +5,7 @@ import {
   Button,
   View,
   Text,
+  Image,
 } from "react-native";
 import Timer from './components/Timer.jsx';
 import styled from 'styled-components/native';
@@ -12,6 +13,8 @@ import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelper
 import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
 
 function Display ({ user, stack, navigation, loadCards }) {
+  const [dumpster, setDumpster] = useState(false);
+  const [money, setMoney] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clock, setClock] = useState(timeRemaining(stack[currentIndex]));
   // Might be able to get rid of timeRemaining in the helper functions
@@ -56,36 +59,59 @@ function Display ({ user, stack, navigation, loadCards }) {
         </OpenModal>
       </ModalContainer>
       <CardContainer>
+        {dumpster && <Image source={require('../../../assets/dumpster.gif')} />}
+        {money && <Money source={require('../../../assets/giphy.gif')} />}
         {!lastCardSwiped ? (
         <Swiper
           containerStyle={{ backgroundColor: 'transparent'}}
           stackSize={3}
           cardIndex={0}
+          showSecondCard={false}
           verticalSwipe={false}
           animateCardOpacity
-          overLayLabels={{
-            left: {
-              title: 'NOPE',
-              style: {
-                label: {
-                  textAlign: 'right',
-                  color: 'red',
-                },
-              },
-            },
-            right: {
-              title: 'BID',
-              style: {
-                label: {
-                  color: 'green',
-                }
-              }
+          horizontalThreshold={210}
+          // overlayLabels={{
+          //   left: {
+          //     title: 'x',
+          //     style: {
+          //       label: {
+          //         textAlign: 'right',
+          //         color: '#c20a2e',
+          //         fontSize: 80,
+          //         marginTop: -20
+          //       },
+          //     },
+          //   },
+          //   right: {
+          //     title: '✓',
+          //     style: {
+          //       label: {
+          //         color: '#2EC20A',
+          //         fontSize: 65,
+          //         marginTop: -12
+          //       }
+          //     }
+          //   }
+          // }}
+          onSwiping={(arg) => {
+            if (arg < -25) {
+              setMoney(false);
+              setDumpster(true);
+            } else if (arg > 25){
+              setDumpster(false);
+              setMoney(true);
             }
           }}
+          onSwipedAborted={() => {
+            setDumpster(false);
+            setMoney(false);
+          }}
           onSwipedLeft={(index) => {
+            setDumpster(false);
             handleLeftSwipe(stack[index], user);
           }}
           onSwipedRight={(index) => {
+            setMoney(false);
             handleRightSwipe(stack[index], user);
           }}
           onSwiped={() => {
@@ -277,5 +303,11 @@ const LastCard = styled.Pressable`
 const Load = styled.Text`
   color: white;
   margin: 50px;
-  font-size: 20;
+  font-size: 20px;
+`
+
+const Money = styled.Image`
+  flex: 1;
+  position: absolute;
+  height: 800px;
 `
