@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from 'react-redux';
 import { useState } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
@@ -12,7 +13,8 @@ import {
   // Alert,
 } from "react-native";
 import axios from 'axios';
-import DatePicker from "../components/Events/EventsPickers.js"
+import StartDatePicker from "../components/Events/EventsStartPicker.js"
+import EndDatePicker from "../components/Events/EventsEndPicker.js"
 
 /*
 id (String)
@@ -31,12 +33,15 @@ imageUrl (String)
 const CreateEvent = ({ navigation }) => {
   const [ eventName, setEventName ] = useState('');
   const [ eventDescription, setEventDescription ] = useState('');
-  const [ eventStart, setEventStart ] = useState('');
-  const [ eventEnd, setEventEnd ] = useState('--');
   const [ eventAddress, setEventAddress ] = useState('');
   const [ eventCity, setEventCity ] = useState('');
   const [ eventState, setEventState ] = useState('');
   const [ eventZipCode, setEventZipCode ] = useState('');
+  const { eventStart } = useSelector((state) => state.events);
+  const { eventEnd } = useSelector((state) => state.events);
+
+  const eventStartUnix = Date.parse(eventStart);
+  const eventEndUnix = Date.parse(eventEnd);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,15 +49,15 @@ const CreateEvent = ({ navigation }) => {
     const formData = {
       eventName: eventName,
       eventDescription: eventDescription,
-      eventStart: eventStart,
-      eventEnd: eventEnd,
+      eventStart: eventStartUnix,
+      eventEnd: eventEndUnix,
       eventAddress: eventAddress,
       eventCity: eventCity,
       eventState: eventState,
       eventZipCode: eventZipCode,
     }
 
-    console.log(formData)
+    console.log(formData);
 
   axios.post('/createevent', formData)
     .then(data => {
@@ -82,14 +87,10 @@ const CreateEvent = ({ navigation }) => {
         />
 
         <Text>Start Date</Text>
-        <DatePicker
-          onChangeText={setEventStart}
-        />
+        <StartDatePicker/>
 
         <Text>End Date</Text>
-        <DatePicker
-          onChangeText={setEventEnd}
-        />
+        <EndDatePicker/>
 
         <Text>Street Address</Text>
         <TextInput

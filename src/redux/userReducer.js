@@ -10,11 +10,15 @@ const userSlice = createSlice({
     // photoURL: "photo URL",
     // uid: 1234,
     loggedIn: false,
+    genderId: '',
   },
   reducers: {
     setLoginStatus: (state, action) => {
       state.loggedIn = action.payload;
-    }
+    },
+    setGender: (state, action) => {
+      state.genderId = action.payload;
+    },
   },
   // extraReducers: {
   //   [createUser.fulfilled]: (state, action) => {
@@ -26,5 +30,5 @@ const userSlice = createSlice({
   // },
 })
 
-export const {} = userSlice.actions
+export const { setLoginStatus, setGender } = userSlice.actions
 export default userSlice.reducer

@@ -12,7 +12,7 @@ import {
   // Alert,
 } from "react-native";
 import axios from 'axios';
-import { DarkModePicker, LanguagePicker, ShowMePicker } from '../components/Profile/ProfilePickers.js';
+import { DarkModePicker, LanguagePicker, ShowMePicker } from '../components/profile/ProfilePickers.js';
 
 /*
 Dark Mode
@@ -45,11 +45,7 @@ const ProfileSettings = ({ navigation }) => {
       language: language,
       priceMin: priceMin,
       priceMax: priceMax,
-      payMethod: payMethod,
-      payExp: payExp,
       showMe: showMe,
-      location: location,
-      email: email,
     }
 
     console.log(formData)
@@ -111,18 +107,6 @@ const ProfileSettings = ({ navigation }) => {
           onValueChange={(modeVal) => setDarkMode(modeVal)}
           placeholder="Type of artwork shown"
           onChangeText={setShowMe}
-        />
-
-        <Text>Location</Text>
-        <TextInput
-          placeholder="San Francisco"
-          onChangeText={setLocation}
-        />
-
-        <Text>Email</Text>
-        <TextInput
-          placeholder="janesmith7@email.com"
-          onChangeText={setEmail}
         />
 
         <Button

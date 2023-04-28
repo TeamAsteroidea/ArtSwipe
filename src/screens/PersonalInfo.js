@@ -12,7 +12,7 @@ import {
   // Alert,
 } from "react-native";
 import axios from 'axios';
-import { GenderPicker } from '../components/Profile/ProfilePickers.js';
+import { GenderPicker } from '../components/profile/ProfilePickers.js';
 
 /*
 First Name

@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Text, View } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { setEventEnd } from "../../redux/eventReducer";
 
-const DatePicker = () => {
+const EndDatePicker = () => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const { eventEnd } = useSelector((state) => state.events);
+  const dispatch = useDispatch();
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -25,6 +29,8 @@ const DatePicker = () => {
       timeStyle: "short",
     }
 
+    const dateStr = date.toString();
+    dispatch(setEventEnd(dateStr));
     const dateString = date.toLocaleString("en-US", dateOptions);
     const timeString = date.toLocaleString("en-US", timeOptions);
     setSelectedDate(`${dateString} @ ${timeString}`);
@@ -33,7 +39,7 @@ const DatePicker = () => {
 
   return (
     <View>
-      {selectedDate !== null ? <Text>{selectedDate}</Text> : null }
+      {selectedDate !== '' ? <Text>{selectedDate}</Text> : '' }
       <Button title="Select date & time" onPress={showDatePicker} />
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -46,4 +52,4 @@ const DatePicker = () => {
   );
 };
 
-export default DatePicker;
+export default EndDatePicker;
