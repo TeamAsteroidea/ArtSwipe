@@ -196,6 +196,7 @@ const LoginScreen = ({ navigation }) => {
           <>
             <TouchableOpacity
               onPress={handleSignIn}
+              style={styles.lowerButtons}
             // value={}
             // onChangeText={}
             >
@@ -203,6 +204,7 @@ const LoginScreen = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleSignUp}
+              style={styles.lowerButtons}
               // value={}
               // onChangeText={}
               secureTextEntry
