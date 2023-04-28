@@ -162,8 +162,19 @@ const EventsList = ({ navigation }) => {
     setEData([...eData, newEvent]);
   }
 
+  const getUpdatedEvents = (() => {
+    console.log('calling get Updated events');
+    getAllEvents()
+    .then((fsData) => {
+      setEData(fsData);
+    })
+    .catch((err) => {
+      console.log('Error getting art event data:', err);
+    })
+  })
+
   const renderEvent = ({ item }) => (
-    <Event eventData={item} navigation={navigation} updateEvents={updateEvents}/>
+    <Event eventData={item} navigation={navigation} getUpdatedEvents={getUpdatedEvents}/>
   );
 
 

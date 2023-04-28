@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus';
-import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import {
   // StyleSheet,
   Button,
@@ -33,57 +33,126 @@ import {
 const UpdatePressable = styled.Pressable`
   position: absolute;
   width: 41px;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
 `;
 
-// position: absolute;
-// width: 41px;
-// top: 5px;
-// right: 10px;
 
 const DescView = styled.View`
   margin-top: 60px;
 `;
 
+const ViewContainer = styled.View`
+  margin: 30px;
+`;
+
+const EventHeader1 = styled.Text`
+  marginTop: 15px;
+  font-size: 22pt;
+  font-weight: 600;
+`;
+
+const EventHeader2 = styled.Text`
+  marginTop: 20px;
+  font-size: 18pt;
+  font-weight: 600;
+`;
+
+const EventText = styled.Text`
+  marginVertical: 5px;
+  font-size: 16pt;
+`;
+
 const EventDescription = ({ route, navigation }) => {
-  const { eventData, updateEvents } = route.params;
+  const { eventData, getUpdatedEvents } = route.params;
   const imgObj = {
     uri: eventData.imageurl,
   };
 
+  const options = {
+    date: {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    },
+    time: {
+      timeStyle: "short",
+    }
+  }
+
+  const dateString = (new Date(Number(eventData.eventdate)*1000)).toLocaleString("en-US", options.date);
+  const timeString = (new Date(Number(eventData.eventdate)*1000)).toLocaleString("en-US", options.time);
+  const eventDateTime = `${dateString} @ ${timeString}`;
+
   return (
-    <View>
-       <UpdatePressable
+    <ViewContainer>
+      <UpdatePressable
         // title="Create Event"
         onPress={() => {
           navigation.navigate('UpdateEvent', {
             editData: eventData,
-            updateEvents: updateEvents,
+            getUpdatedEvents: getUpdatedEvents,
           })
         }}
       >
-        <FontAwesomeIcon
+        <Entypo
+          name="edit"
           icon={faCirclePlus}
-          size={40}
-          color='#034448'
-          background-color='none'
+          size={35}
+          color='#D2A93F'
+          background-color='#034448'
           // style={styles.filterIcon}
           />
       </UpdatePressable>
       <DescView>
         <Image
-          style={{ width: '100%', height: 100 }}
+          style={{ width: '100%', height: 170 }}
           source={imgObj}
         />
-        <Text>{eventData.eventDate}</Text>
-        <Text>{eventData.title}</Text>
-        <Text>{eventData.venue}</Text>
-        <Text>{eventData.description}</Text>
-        <Text>{eventData.contactInfo}</Text>
+        <EventHeader1>{eventDateTime}</EventHeader1>
+        <EventHeader1>{eventData.title}</EventHeader1>
+        <EventText>{eventData.venue}</EventText>
+        <EventHeader2>Description</EventHeader2>
+        <EventText>{eventData.description}</EventText>
+        <EventText>{eventData.contactInfo}</EventText>
       </DescView>
-    </View>);
+    </ViewContainer>
+  );
 };
+
+  // return (
+  //   <View>
+  //      <UpdatePressable
+  //       // title="Create Event"
+  //       onPress={() => {
+  //         navigation.navigate('UpdateEvent', {
+  //           editData: eventData,
+  //           updateEvents: updateEvents,
+  //         })
+  //       }}
+  //     >
+  //       <FontAwesomeIcon
+  //         icon={faCirclePlus}
+  //         size={40}
+  //         color='#034448'
+  //         background-color='none'
+  //         // style={styles.filterIcon}
+  //         />
+  //     </UpdatePressable>
+  //     <DescView>
+  //       <Image
+  //         style={{ width: '100%', height: 100 }}
+  //         source={imgObj}
+  //       />
+  //       <Text>{eventData.eventDate}</Text>
+  //       <Text>{eventData.title}</Text>
+  //       <Text>{eventData.venue}</Text>
+  //       <Text>{eventData.description}</Text>
+  //       <Text>{eventData.contactInfo}</Text>
+  //     </DescView>
+  //   </View>);
+// };
 
 EventDescription.propTypes = {
   route: PropTypes.object.isRequired,

@@ -33,15 +33,29 @@ shortDescription (Optional String ?)
 imageUrl (String)
 */
 
-const CreateContainer = styled.View`
-  margin-top: 60px;
-`;
 
 // dummy user
 const dummyuserid = '12345';
 const dummyusername = 'dennisTester';
-
 const dbCol = 'events';
+
+const CreateContainer = styled.View`
+  marginHorizontal: 30px;
+  marginTop: 60px;
+`;
+
+const Label = styled.Text`
+  fontSize: 15pt;
+  marginTop: 20px;
+  marginBottom: 3px;
+`;
+
+const Input = styled.TextInput`
+  fontSize: 15pt;
+  marginTop: 5px;
+  borderBottomWidth: 1px;
+  borderBottomColor: '#000';
+`;
 
 const CreateEvent = ({ route, navigation }) => {
   const { updateEvents, editData } = route.params;
@@ -64,7 +78,6 @@ const CreateEvent = ({ route, navigation }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = {
       title: eventName,
       description: eventDescription,
@@ -79,9 +92,9 @@ const CreateEvent = ({ route, navigation }) => {
     }
 
     console.log(formData);
-    // const newData = await writeEvent(dbCol, formData);
-    // console.log('Wrote new Data', newData);
-    // updateEvents(newData);
+    const newData = await writeEvent(dbCol, formData);
+    console.log('Wrote new Data', newData);
+    updateEvents(newData);
 
   navigation.navigate('Events')
   }
@@ -89,68 +102,143 @@ const CreateEvent = ({ route, navigation }) => {
   return (
     <CreateContainer>
       <View>
-        <Text>Event Name</Text>
-        <TextInput
+        <Label>Event Name</Label>
+        <Input
           placeholder="Patrick's Graduation"
           onChangeText={setEventName}
+          value={eventName}
         />
 
-        <Text>Description</Text>
+        <Label>Description</Label>
         <TextInput
           placeholder="Write a description for your event"
           onChangeText={setEventDescription}
+          value={eventDescription}
           multiline
           style={{borderWidth:1,padding:8}}
         />
 
-        <Text>Start Date</Text>
+        {/* <Label>Start Date</Label> */}
         <StartDatePicker/>
 
-        {/* <Text>End Date</Text>
+        {/* <Label>End Date</Label>
         <EndDatePicker/> */}
 
-        <Text>Street Address</Text>
-        <TextInput
+        <Label>Street Address</Label>
+        <Input
           placeholder="44 Tehama St"
           onChangeText={setEventAddress}
+          value={eventAddress}
         />
 
-        <Text>City</Text>
-        <TextInput
+        <Label>City</Label>
+        <Input
           placeholder="San Francisco"
           onChangeText={setEventCity}
+          value={eventCity}
         />
 
-        <Text>State</Text>
-        <TextInput
+        <Label>State</Label>
+        <Input
           placeholder="CA"
           onChangeText={setEventState}
+          value={eventState}
         />
 
-        <Text>Contact Info</Text>
-        <TextInput
+        <Label>Contact Info</Label>
+        <Input
           placeholder="user@email.com"
           onChangeText={setContactInfo}
+          value={contactInfo}
         />
 
-        <Text>Website</Text>
-        <TextInput
+        <Label>Website</Label>
+        <Input
           placeholder="Insert website URL"
           onChangeText={setWebsiteurl}
+          value={websiteurl}
         />
 
-        <Text>Image</Text>
-        <TextInput
+        <Label>Image</Label>
+        <Input
           placeholder="Insert image URL"
           onChangeText={setImageurl}
+          value={imageurl}
         />
 
         <Button
           onPress={handleSubmit}
           title="Save Changes"
         />
+
       </View>
     </CreateContainer>);
+
+  // return (
+  //   <CreateContainer>
+  //     <View>
+  //       <Text>Event Name</Text>
+  //       <TextInput
+  //         placeholder="Patrick's Graduation"
+  //         onChangeText={setEventName}
+  //       />
+
+  //       <Text>Description</Text>
+  //       <TextInput
+  //         placeholder="Write a description for your event"
+  //         onChangeText={setEventDescription}
+  //         multiline
+  //         style={{borderWidth:1,padding:8}}
+  //       />
+
+  //       <Text>Start Date</Text>
+  //       <StartDatePicker/>
+
+  //       {/* <Text>End Date</Text>
+  //       <EndDatePicker/> */}
+
+  //       <Text>Street Address</Text>
+  //       <TextInput
+  //         placeholder="44 Tehama St"
+  //         onChangeText={setEventAddress}
+  //       />
+
+  //       <Text>City</Text>
+  //       <TextInput
+  //         placeholder="San Francisco"
+  //         onChangeText={setEventCity}
+  //       />
+
+  //       <Text>State</Text>
+  //       <TextInput
+  //         placeholder="CA"
+  //         onChangeText={setEventState}
+  //       />
+
+  //       <Text>Contact Info</Text>
+  //       <TextInput
+  //         placeholder="user@email.com"
+  //         onChangeText={setContactInfo}
+  //       />
+
+  //       <Text>Website</Text>
+  //       <TextInput
+  //         placeholder="Insert website URL"
+  //         onChangeText={setWebsiteurl}
+  //       />
+
+  //       <Text>Image</Text>
+  //       <TextInput
+  //         placeholder="Insert image URL"
+  //         onChangeText={setImageurl}
+  //       />
+
+  //       <Button
+  //         onPress={handleSubmit}
+  //         title="Save Changes"
+  //       />
+  //     </View>
+  //   </CreateContainer>);
 };
 
 CreateEvent.propTypes = {
