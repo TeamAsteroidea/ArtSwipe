@@ -8,6 +8,7 @@ import Display from './Display.jsx';
 import styled from 'styled-components/native';
 import { useSelector } from "react-redux";
 import { getAll } from '../../server/fs-generic.js';
+import Loading from './Loading.jsx';
 
 function Content ({ navigation }) {
   // const artwork = getAll('art')
@@ -30,7 +31,11 @@ function Content ({ navigation }) {
 
   return (
     <Swiper style={{}}>
-      {stack.length > 0 && <Display stack={stack} user={user} navigation={navigation} loadCards={loadCards}/>}
+      {stack.length > 0 ? (<Display stack={stack} user={user} navigation={navigation} loadCards={loadCards}/>)
+        : (
+          <Loading />
+        )
+      }
     </Swiper>
   );
 }
