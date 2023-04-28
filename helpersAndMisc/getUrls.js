@@ -1,5 +1,5 @@
 const axios = require("axios");
-const fsp = require("node:fs/promises")
+const fsp = require("node:fs/promises");
 
 function dateWithinPastFewDays() {
   // Number of milliseconds in a day
@@ -7,7 +7,7 @@ function dateWithinPastFewDays() {
   // Generate a random number between 1 and 5 to represent how many days ago the date should be
   const daysAgo = Math.floor(Math.random() * 5) + 1;
   // Subtract the number of milliseconds in the chosen number of days from the current date to get the desired date
-  const date = new Date(Date.now() - (daysAgo * millisecondsPerDay));
+  const date = new Date(Date.now() - daysAgo * millisecondsPerDay);
   // Return the date in milliseconds
   return date.getTime();
 }
@@ -19,7 +19,7 @@ function auctionDurationMilliseconds() {
   return milliseconds;
 }
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 var artists = [
   "Guay",
@@ -42,16 +42,19 @@ var artists = [
   "Adam Rex",
   "Foglio",
   "Velinov",
-  "Kev Walker"
+  "Kev Walker",
+];
+var query = `https://api.scryfall.com/cards/search?q=(${artists
+  .map((value) => `a:"${value}"`)
+  .join(" or ")} or is:masterpiece) -is:artseries`;
+// console.log(query)
 
-]
-var query = `https://api.scryfall.com/cards/search?q=(${artists.map((value) => `a:"${value}"`).join(' or ')} or is:masterpiece) -is:artseries`;
-console.log(query)
-
-var results = []
-var id = 0
-var getUrl = async(url) => {
-  var result = await axios.get(url).catch((err) => {console.log(err.name, err.message)})
+var results = [];
+var id = 0;
+var getUrl = async (url) => {
+  var result = await axios.get(url).catch((err) => {
+    console.log(err.name, err.message);
+  });
   // console.log(result.data)
   for (let card of result.data.data) {
     results.push({
@@ -61,28 +64,27 @@ var getUrl = async(url) => {
       bidPrice: 1,
       artist: card.artist,
       name: card.name,
-      currentOwner: 'Nobody',
-      image: card.image_uris ? card.image_uris.art_crop: card.card_faces[0].image_uris.art_crop,
+      currentOwner: "Nobody",
+      image: card.image_uris
+        ? card.image_uris.art_crop
+        : card.card_faces[0].image_uris.art_crop,
       date_auctioned: dateWithinPastFewDays(),
-      bidDuration: auctionDurationMilliseconds()
-    })
-    id += 1
+      bidDuration: auctionDurationMilliseconds(),
+    });
+    id += 1;
   }
-  console.log(result.data.next_page)
-  console.log(result.data.has_more)
-  await sleep(150)
+  // console.log(result.data.next_page)
+  // console.log(result.data.has_more)
+  await sleep(150);
   if (result.data.has_more) {
-    getUrl(result.data.next_page)
+    getUrl(result.data.next_page);
+  } else {
+    // console.log(results.length)
+    fsp.writeFile("dummyData/artUrlArray.txt", JSON.stringify(results));
   }
-  else {
-    console.log(results.length)
-    fsp.writeFile('dummyData/artUrlArray.txt', JSON.stringify(results))
-  }
-}
+};
 
-getUrl(query)
-
-
+getUrl(query);
 
 // var getArtUrl = async (loops) => {
 
@@ -91,8 +93,6 @@ getUrl(query)
 //     console.log(`${i}...`)
 //     axiosPromises.push(axios.get(query).catch((err) => {console.log(err.name, err.message)}))
 //     await sleep(150)
-
-
 
 //     // let result = await axios.get(query)
 //     // console.log(result.request.res.responseUrl)

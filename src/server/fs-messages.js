@@ -3,34 +3,43 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
   query,
   updateDoc,
   addDoc,
   Timestamp,
   where,
   onSnapshot,
+  orderBy,
 } from "firebase/firestore";
-import { useSelector } from "react-redux";
 
 import { isSenderSame } from "scripts/messages/isSenderSame.js";
+import { groupData } from "../../dummyData/dummyData.js";
 
-export const getGroups = async (callback) => {
+export const getRooms = async (uid, callback) => {
   try {
-    const uid = useSelector((state) => state.user.user).uid;
+    // console.log(uid);
     const groupRef = collection(db, "messages");
     const groupQuery = await query(
       groupRef,
-      where("users", "array-contains", uid)
+      // where("users", "array-contains", uid),
+      // where("last_activity_date", "!=", 0),
+      orderBy("last_activity_date", "desc")
     );
-    const unsubscribe = onSnapshot(groupQuery, (querySnapshot) => {
-      if (!querySnapshot) {
-        throw "No message groups found for this user";
-      }
-      const roomsData = querySnapshot.data();
-      console.log(roomsData);
-      // callback(roomsData);
-    });
-    return unsubscribe;
+    const querySnapshot = await getDocs(groupQuery);
+    // console.log(querySnapshot);
+    const roomsData = [];
+    querySnapshot.forEach((doc) => roomsData.push(doc.data()));
+    return roomsData;
+    // const unsubscribe = onSnapshot(groupQuery, (querySnapshot) => {
+    //   if (querySnapshot.exists()) {
+    //     throw "No message groups found for this user";
+    //   }
+    //   const roomsData = querySnapshot.map((doc) => doc.data());
+    //   console.log(roomsData);
+    //   // callback(roomsData);
+    // });
+    // return unsubscribe;
   } catch (error) {
     console.log(`ERROR: ${error}`);
   }
@@ -69,7 +78,11 @@ export const getMessagesByRoom = async (chat_id, callback) => {
   }
 };
 
-export const postMessage = async ({ chat_id, users }, message_body) => {
+export const postMessage = async (
+  { chat_id, users },
+  user_id,
+  message_body
+) => {
   try {
     if (message_body.length === 0 || !message_body) {
       throw "No message body provided";
@@ -98,10 +111,11 @@ export const postMessage = async ({ chat_id, users }, message_body) => {
     const message = { message_body };
     message.chat_id = chat_id;
     message.message_id = messagesSnapshot.data().messages.length + 1;
-    message.user_id = "aEZBqMLqSpNxawFZnb11M64MLK62";
+    message.user_id = user_id;
     message.message_date = Timestamp.now();
 
     await updateDoc(messageRef, {
+      last_activity_date: Timestamp.now(),
       messages: [message, ...messagesSnapshot.data().messages],
     });
   } catch (error) {

@@ -21,13 +21,14 @@ const MessagesChatItem = ({
   image,
   name,
   recentMessage,
+  chatData,
 }) => {
   return (
     <View style={styles.chatItem}>
       <Pressable
         style={styles.chatButton}
         onPress={() => {
-          navigation.navigate("ChatPage", { chat_id });
+          navigation.navigate("ChatPage", { chat_id, chatData });
         }}
       >
         <View style={styles.chatIcon}>
@@ -55,6 +56,8 @@ MessagesChatItem.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   recentMessage: PropTypes.string.isRequired,
+  chat_id: PropTypes.string.isRequired,
+  chatData: PropTypes.object.isRequired,
 };
 
 export default MessagesChatItem;
