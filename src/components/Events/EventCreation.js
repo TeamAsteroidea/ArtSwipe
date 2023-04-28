@@ -33,7 +33,7 @@ const EventCreation = ({ route }) => {
       {/* <Button
         title="Event Edit Button"
         onPress={async () => {
-          await getAllEvents();
+          // await getAllEvents();
         }}
       /> */}
     </View>);
