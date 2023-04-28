@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'yellow',
   },
   profilePicture: {
+    marginTop: 30,
     width: 200,
     height: 200,
     borderRadius: 100,
