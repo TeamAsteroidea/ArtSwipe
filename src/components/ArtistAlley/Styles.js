@@ -94,10 +94,11 @@ export default StyleSheet.create({
     position: "relative",
   },
   filterIcon: {
-    // marginRight: 3,
+    marginRight: 5,
+    paddingLeft: 5,
   },
   faText: {
-    paddingLeft: 10,
+    // marginRight: 1,
   },
   filterText: {
     fontSize: 16,

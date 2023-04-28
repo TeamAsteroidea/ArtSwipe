@@ -109,6 +109,7 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
             keyExtractor={extractArtistKey}
             initialNumToRender={2}
             onEndReachedThreshold={0.2}
+            minHeight={Dimensions.get('window').height}
             snapToAlignment={'start'}
             snapToInterval={Dimensions.get('window').height / currentList.length}
             decelerationRate={0.575}

@@ -25,12 +25,17 @@ const Wares = ({ route }) => {
     return (
       <View style={styles.artworkTileContainer}>
         <ArtworkTile artwork={artwork} handlePress={() => navigation.navigate('DetailView', {
-                      card: artwork,
-                    })} />
+          card: artwork,
+        })} />
       </View>
     )
   };
 
+  const isCloseToTop = ({ contentOffset }) => {
+    const paddingToTop = -150; //negative padding to only do it if overflowing
+    return contentOffset.y <=
+      paddingToTop;
+  };
   return (
     <SafeAreaView>
       <View style={styles.headerContainer}>
@@ -39,15 +44,25 @@ const Wares = ({ route }) => {
             <FontAwesomeIcon color={Colors.PRIMARY} icon={faAngleLeft} size={30} style={styles.backButtonIcon} />
           </Pressable>
         </View>
-        <Text style={[styles.headerArtistName, {color: Colors.PRIMARY}]}>{wares.artist}</Text>
+        <Text style={[styles.headerArtistName, { color: Colors.PRIMARY }]}>{wares.artist}</Text>
       </View>
 
-      <View style={styles.descriptionContainer}>
+      <View style={[styles.descriptionContainer, { minHeight: Dimensions.get('screen').height }]}>
         <View style={styles.waresImages} id="myView">
           <Fade offset={820} decay={1.9} position={0} />
           <FlatList
             initialNumToRender={3}
             data={wares.data}
+            scrollEventThrottle={8}
+            onScroll={({ nativeEvent }) => {
+              if (isCloseToTop(nativeEvent)) {
+                navigation.goBack()
+              }
+            }}
+            getItemLayout={(data, index) => (
+              { length: 263, offset: 263 * index, index }
+            )}
+            minHeight={Dimensions.get('window').height}
             renderItem={renderItem}
             showsHorizontalScrollIndicator={false}
             keyExtractor={(artwork, index) => `${artwork.name}-${index}`}
@@ -58,7 +73,7 @@ const Wares = ({ route }) => {
             numColumns={2}
             contentContainerStyle={styles.contentContainerStyle}
           />
-          <Fade offset={700} decay={0.8} direction={'Up'} position={Dimensions.get('window').height - 200}/>
+          <Fade offset={700} decay={0.8} direction={'Up'} position={Dimensions.get('window').height - 200} />
         </View>
       </View>
     </SafeAreaView>

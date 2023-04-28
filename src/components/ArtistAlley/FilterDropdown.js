@@ -16,8 +16,12 @@ const FilterDropdown = memo(function FilterDropdown({ showDropdown, setShowDropd
           activeOpacity={0.8}
         >
           <Text style={styles.filterText}>
-            < FontAwesomeIcon icon={selectedOption[1]} style={styles.filterIcon} color={Colors.PRIMARY} />
-            <Text style={styles.faText}>{selectedOption[0]}</Text>
+            <View>
+              <FontAwesomeIcon icon={selectedOption[1]} style={styles.filterIcon} color={Colors.PRIMARY} />
+            </View>
+            <View>
+              <Text style={styles.faText}>{selectedOption[0]}</Text>
+            </View>
           </Text>
         </TouchableOpacity>
       </View>
