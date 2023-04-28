@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
+import { Pressable, StyleSheet, View, Text } from "react-native";
 import PropTypes from "prop-types";
 import FontAwesome from "react-native-vector-icons/FontAwesome5";
 
@@ -23,14 +23,14 @@ const Subheader = ({ navigation, title }) => {
         <Text style={Fonts.SUBHEADER}>{title}</Text>
       </View>
       {isRender && (
-        <TouchableOpacity
+        <Pressable
           style={{
             height: 50,
             width: 50,
             borderRadius: 50,
             backgroundColor: Colors.PLACEHOLDER,
           }}
-        ></TouchableOpacity>
+        ></Pressable>
       )}
     </View>
   );

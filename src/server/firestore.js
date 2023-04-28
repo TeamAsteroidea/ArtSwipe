@@ -8,7 +8,7 @@ import {API_KEY, APP_ID} from '@env';
 
 console.log(API_KEY);
 const firebaseConfig = {
-  apiKey: API_KEY,
+  apiKey: 'API_KEY',
   authDomain: 'artswipe-b2bc3.firebaseapp.com',
   databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
   projectId: 'artswipe-b2bc3',

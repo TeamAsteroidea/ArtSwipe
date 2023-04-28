@@ -14,7 +14,7 @@ import Header from 'components/ArtistAlley/Header'
 import styles from 'components/ArtistAlley/Styles';
 import ArtistTile from "components/ArtistAlley/ArtistTile";
 import FilterDropdown from "components/ArtistAlley/FilterDropdown";
-import { TopFade } from 'components/modular/TopFade';
+import { Fade } from 'components/modular/Fade';
 
 const ArtistAlley = memo(function ArtistAlley({ navigation }) {
   const imageObjs = useSelector((state) => state.images.imagesArrayObj);
@@ -75,7 +75,7 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
       )}
       <SafeAreaView>
         <View style={styles.container}>
-          <TopFade offset={830} decay={1.5} />
+          <Fade offset={820} decay={1.9} />
           <FlatList
             data={artistData}
             renderItem={({ item }) => <ArtistTile navigation={navigation} item={item} />}
@@ -84,6 +84,7 @@ const ArtistAlley = memo(function ArtistAlley({ navigation }) {
             onEndReachedThreshold={0.2}
             scrollEventThrottle={16}
           />
+          <Fade offset={800} decay={1.3} direction={'Up'} position={580}/>
         </View >
       </SafeAreaView>
     </SafeAreaView>
