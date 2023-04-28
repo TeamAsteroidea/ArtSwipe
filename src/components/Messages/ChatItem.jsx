@@ -1,5 +1,5 @@
 import * as React from "react";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 // import { store } from '/redux/store';
 import {
   StyleSheet,
@@ -10,6 +10,7 @@ import {
   // Alert,
   // Pressable,
 } from "react-native";
+import PropTypes from "prop-types";
 
 import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
@@ -23,8 +24,9 @@ const MessagesChatItem = ({
   date,
   body,
 }) => {
+  const uid = useSelector((state) => state.user.user).uid;
   let isSenderUser = false;
-  if (user_id === 1) {
+  if (user_id === uid) {
     isSenderUser = true;
   }
   return (
@@ -58,7 +60,7 @@ const MessagesChatItem = ({
 MessagesChatItem.propTypes = {
   chat_id: PropTypes.string.isRequired,
   message_id: PropTypes.number.isRequired,
-  user_id: PropTypes.number.isRequired,
+  user_id: PropTypes.string.isRequired,
   date: PropTypes.object.isRequired,
   body: PropTypes.string.isRequired,
   isContinueAbove: PropTypes.bool.isRequired,

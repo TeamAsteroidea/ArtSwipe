@@ -1,32 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit"
-
+import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     loggedIn: false,
     user: {
-      displayName: '',
-      email: '',
-      photoURL: '',
-      uid: '',
-      idToken: ''
+      displayName: "",
+      email: "",
+      photoURL: "",
+      uid: "",
+      idToken: "",
     },
   },
   reducers: {
     loginUser: (state, action) => {
-      console.log('loginUser', action.payload)
+      console.log("loginUser", action.payload);
       state.user = action.payload;
       state.loggedIn = true;
     },
     logoutUser: (state) => {
       state.loggedIn = false;
       state.user = {
-        displayName: '',
-        email: '',
-        photoURL: '',
-        uid: '',
-        idToken: '' //this is for API calls
+        displayName: "",
+        email: "",
+        photoURL: "",
+        uid: "",
+        idToken: "", //this is for API calls
       };
     },
   },
@@ -38,7 +37,7 @@ const userSlice = createSlice({
   //     state.loggedIn = false;
   //   },
   // },
-})
+});
 
-export const { loginUser, logoutUser } = userSlice.actions
-export default userSlice.reducer
+export const { loginUser, logoutUser } = userSlice.actions;
+export default userSlice.reducer;

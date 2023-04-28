@@ -1,7 +1,5 @@
 import * as React from "react";
 import { useRef, useState } from "react";
-import PropTypes from "prop-types";
-import FontAwesome from "react-native-vector-icons/FontAwesome5";
 // import { store } from '/redux/store';
 import {
   Platform,
@@ -16,6 +14,9 @@ import {
   FlatList,
   TextInput,
 } from "react-native";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
+import FontAwesome from "react-native-vector-icons/FontAwesome5";
 
 import Colors, { colorPicker } from "constants/Colors.js";
 // import Fonts from "constants/Fonts.js";
@@ -31,6 +32,7 @@ const ChatPage = ({ navigation }) => {
   const [isBottom, setBottom] = useState(true);
   const [bodyText, setBodyText] = useState("");
   const [inputBoxHeight, setInputBoxHeight] = useState(50);
+  const uid = useSelector((state) => state.user.user).uid;
 
   const defineStopListener = async () => {
     unsubscribe = await getMessagesByRoom(

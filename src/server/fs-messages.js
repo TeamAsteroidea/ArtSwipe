@@ -11,17 +11,18 @@ import {
   where,
   onSnapshot,
 } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 import { isSenderSame } from "scripts/messages/isSenderSame.js";
 
 export const getGroups = async (callback) => {
   try {
+    const uid = useSelector((state) => state.user.user).uid;
     const groupRef = collection(db, "messages");
     const groupQuery = await query(
       groupRef,
-      where("users", "array-contains", 1)
+      where("users", "array-contains", uid)
     );
-    console.log(groupQuery);
     const unsubscribe = onSnapshot(groupQuery, (querySnapshot) => {
       if (!querySnapshot) {
         throw "No message groups found for this user";
@@ -98,7 +99,7 @@ export const postMessage = async ({ chat_id, users }, message_body) => {
     const message = { message_body };
     message.chat_id = chat_id;
     message.message_id = messagesSnapshot.data().messages.length + 1;
-    message.user_id = 1;
+    message.user_id = "aEZBqMLqSpNxawFZnb11M64MLK62";
     message.message_date = Timestamp.now();
 
     await updateDoc(messageRef, {
