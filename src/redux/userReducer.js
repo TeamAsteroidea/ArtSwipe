@@ -12,6 +12,9 @@ const userSlice = createSlice({
       uid: '',
       idToken: '',
       genderId: '',
+      darkMode: 'Off',
+      language: 'English (US)',
+      showMe: [],
     },
   },
   reducers: {
@@ -32,6 +35,16 @@ const userSlice = createSlice({
     setGender: (state, action) => {
       state.genderId = action.payload;
     },
+    setDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+    },
+    setLanguage: (state, action) => {
+      state.language = action.payload;
+    },
+    setShowMe: (state, action) => {
+      console.log('showme payload: ', action.payload);
+      state.showMe = action.payload;
+    },
   },
   // extraReducers: {
   //   [createUser.fulfilled]: (state, action) => {
@@ -43,5 +56,5 @@ const userSlice = createSlice({
   // },
 })
 
-export const { loginUser, logoutUser, setLoginStatus, setGender } = userSlice.actions
+export const { loginUser, logoutUser, setLoginStatus, setGender, setDarkMode, setLanguage, setShowMe } = userSlice.actions
 export default userSlice.reducer
