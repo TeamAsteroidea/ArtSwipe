@@ -63,7 +63,7 @@ const Profile = ({ navigation }) => {
             <Option option={'Personal Information'} pageName={ 'PersonalInfo' } navigation={navigation} icon={ProfileIcon}></Option>
             <Option option={'Bidding History'} pageName={ 'BiddingHistory' } navigation={navigation} icon={BiddingIcon}></Option>
             <Option option={'Bookmarks'} pageName={ 'Bookmarks' } navigation={navigation} icon={BookmarkIcon}></Option>
-            <Option option={'Settings'} pageName={ 'Settings' }navigation={navigation} icon={SettingsIcon}></Option>
+            <Option option={'Settings'} pageName={ 'ProfileSettings' }navigation={navigation} icon={SettingsIcon}></Option>
           </View>
         </View>
       </SafeAreaView>

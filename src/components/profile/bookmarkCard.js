@@ -13,6 +13,7 @@ import {
 
 import BookmarkButton from './bookmarkButton';
 import { TEXT, SUBTEXT } from '../../constants/Fonts.js';
+import TimeRemaining from '../../scripts/helperFunctions/Timer';
 
 const styles = StyleSheet.create({
   cardContainer:{
@@ -54,9 +55,12 @@ const BookmarkCard = ({ item, navigation }) => {
     </View>
     <View style={styles.textContainer}>
       <Text style={styles.TEXT, { fontWeight: 'bold' }}>{item.name}</Text>
-      <Text style={{ fontSize: 12, fontWeight: 'bold'}}>Now: {item.bidStartingPrice}</Text>
-      <Text style={{ fontSize: 10 }}>You bid: {item.bidIncrementPrice}</Text>
-      <Text style={{ fontSize: 13, fontWeight: 'bold'}}>Time left: {item.bidDuration}</Text>
+      <Text style={{ fontSize: 12, fontWeight: 'bold'}}>Now: {item.bidPrice}</Text>
+      <Text style={{ fontSize: 10 }}>You bid: {item.bidIncrement}</Text>
+      <Text style={{ fontSize: 13, fontWeight: 'bold'}}>Time left:</Text>
+      <View>
+        {TimeRemaining(item)}
+      </View>
     </View>
     <View style={styles.bookmarkContainer}>
       <BookmarkButton item={item}/>
