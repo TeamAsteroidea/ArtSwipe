@@ -1,5 +1,5 @@
 import { db } from "./firestore.js";
-import { collection, doc, getDoc, getDocs, addDoc, updateDoc, query } from "firebase/firestore/lite";
+import { collection, doc, getDoc, getDocs, addDoc, updateDoc, query } from "firebase/firestore";
 
 export async function getAll(collectionName) {
   const collectionRef = collection(db, collectionName);
