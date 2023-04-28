@@ -9,7 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import axios from 'axios';
-import { GenderPicker } from '../components/profile/ProfilePickers.js';
+import { GenderPicker } from '../components/profile/ProfilePickers';
 import styles from '../components/profile/profileFormsStyles';
 
 const PersonalInfo = ({ navigation }) => {
