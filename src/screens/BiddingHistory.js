@@ -44,7 +44,7 @@ const BiddingHistory = ({ navigation }) => {
   <SafeAreaView>
     <View>
       <View>
-        <SubHeader navigation={ navigation } title={"Bidding History"} />
+        <SubHeader navigation={ navigation } title={"Bidding History"} backFunction={() => {}}/>
       </View>
       <View style={styles.buttonsContainer}>
         <Pressable title={'pending'} onPress={showPending}>
