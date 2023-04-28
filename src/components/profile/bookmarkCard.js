@@ -51,7 +51,7 @@ const BookmarkCard = ({ item, navigation }) => {
       <Text>Time left: {item.bidDuration}</Text>
     </View>
     <View>
-      <BookmarkHeart artID={item.id}/>
+      <BookmarkHeart item={item}/>
     </View>
   </View>);
 };
@@ -59,4 +59,4 @@ const BookmarkCard = ({ item, navigation }) => {
 BookmarkCard.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
-export default BookmarkCard
+export default BookmarkCard;

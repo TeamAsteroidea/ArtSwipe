@@ -10,9 +10,9 @@ const userSlice = createSlice({
       email: '',
       photoURL: '',
       uid: '',
-      bookmarks: [],
       idToken: ''
     },
+    bookmarks: [123456, 456456],
   },
   reducers: {
     loginUser: (state, action) => {
@@ -27,9 +27,23 @@ const userSlice = createSlice({
         email: '',
         photoURL: '',
         uid: '',
+        bookmarks: [],
         idToken: '' //this is for API calls
       };
     },
+    removeBookmark: (state, action) => {
+      state = {
+        ...state,
+        bookmarks: state.user.bookmarks.filter(bookmark => bookmark !== action.payload),
+      }
+    },
+    addBookmark: (state, action) => {
+      console.log(state.user.bookmarks, 'bookmarks');
+      state = {
+        ...state,
+        bookmarks: state.user.bookmarks.push(action.payload),
+      }
+    }
   },
   // extraReducers: {
   //   [createUser.fulfilled]: (state, action) => {
@@ -41,5 +55,5 @@ const userSlice = createSlice({
   // },
 })
 
-export const { loginUser, logoutUser } = userSlice.actions
+export const { loginUser, logoutUser, addBookmark, removeBookmark } = userSlice.actions
 export default userSlice.reducer

@@ -12,6 +12,8 @@ import {
   // Alert,
 } from "react-native";
 
+import { useSelector, useDispatch } from "react-redux";
+
 import BookmarkList from '../components/profile/bookmarkList';
 import SubHeader from '../components/modular/Subheader';
 
