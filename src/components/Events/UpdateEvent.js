@@ -12,26 +12,12 @@ import {
   TextInput,
   // Alert,
 } from "react-native";
-import axios from 'axios';
-import StartDatePicker from "../components/Events/EventsStartPicker.js"
-import EndDatePicker from "../components/Events/EventsEndPicker.js"
-import { writeEvent } from '../server/fs-events.js';
-
+// import axios from 'axios';
+import StartDatePicker from "./EventsStartPicker.js"
+import EndDatePicker from "./EventsEndPicker.js"
+import { writeEvent } from '../../server/fs-events.js';
 
 import styled from 'styled-components/native';
-/*
-id (String)
-userId (User who created Event) (String) (Should match Users Collection)
-userName (String)
-title (String)
-venue (String)
-eventDate (in seconds–String or Number?)
-websiteUrl (String)
-contactInfo email (string)
-description (String)
-shortDescription (Optional String ?)
-imageUrl (String)
-*/
 
 const CreateContainer = styled.View`
   margin-top: 60px;
@@ -43,24 +29,25 @@ const dummyusername = 'dennisTester';
 
 const dbCol = 'events';
 
-const CreateEvent = ({ route, navigation }) => {
+const UpdateEvent = ({ route, navigation }) => {
   const { updateEvents, editData } = route.params;
-  const [ eventName, setEventName ] = useState('');
-  const [ eventDescription, setEventDescription ] = useState('');
+  console.log('editData', editData);
+  const addrArr = editData.venue.split(',');
+  console.log(addrArr);
+
+  const [ eventName, setEventName ] = useState(editData.title);
+  const [ eventDescription, setEventDescription ] = useState(editData.description);
   const [ eventAddress, setEventAddress ] = useState('');
   const [ eventCity, setEventCity ] = useState('');
   const [ eventState, setEventState ] = useState('');
-  const [ contactInfo, setContactInfo ] = useState('');
-  const [ imageurl, setImageurl ] = useState('');
-  const [ websiteurl, setWebsiteurl ] = useState('');
+  const [ contactInfo, setContactInfo ] = useState(editData.contactinfo);
+  const [ imageurl, setImageurl ] = useState(editData.imageurl);
+  const [ websiteurl, setWebsiteurl ] = useState(editData.websiteurl);
   const { eventStart } = useSelector((state) => state.events);
-
   // const { eventEnd } = useSelector((state) => state.events);
 
   const eventStartUnix = Date.parse(eventStart);
   // const eventEndUnix = Date.parse(eventEnd);
-  // console.log('eventStart', eventStart);
-  // console.log('eventStartUnix', eventStartUnix);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,12 +80,14 @@ const CreateEvent = ({ route, navigation }) => {
         <TextInput
           placeholder="Patrick's Graduation"
           onChangeText={setEventName}
+          value={eventName}
         />
 
         <Text>Description</Text>
         <TextInput
           placeholder="Write a description for your event"
           onChangeText={setEventDescription}
+          value={eventDescription}
           multiline
           style={{borderWidth:1,padding:8}}
         />
@@ -113,36 +102,42 @@ const CreateEvent = ({ route, navigation }) => {
         <TextInput
           placeholder="44 Tehama St"
           onChangeText={setEventAddress}
+          value={eventAddress}
         />
 
         <Text>City</Text>
         <TextInput
           placeholder="San Francisco"
           onChangeText={setEventCity}
+          value={eventCity}
         />
 
         <Text>State</Text>
         <TextInput
           placeholder="CA"
           onChangeText={setEventState}
+          value={eventState}
         />
 
         <Text>Contact Info</Text>
         <TextInput
           placeholder="user@email.com"
           onChangeText={setContactInfo}
+          value={contactInfo}
         />
 
         <Text>Website</Text>
         <TextInput
           placeholder="Insert website URL"
           onChangeText={setWebsiteurl}
+          value={websiteurl}
         />
 
         <Text>Image</Text>
         <TextInput
           placeholder="Insert image URL"
           onChangeText={setImageurl}
+          value={imageurl}
         />
 
         <Button
@@ -153,8 +148,8 @@ const CreateEvent = ({ route, navigation }) => {
     </CreateContainer>);
 };
 
-CreateEvent.propTypes = {
+UpdateEvent.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
-export default CreateEvent;
+export default UpdateEvent;
