@@ -11,6 +11,7 @@ import {
 
 const Artwork = memo(function Artwork({ artwork, handlePress }) {
   return (
+    <View >
     <Pressable onPress={handlePress}>
       <View style={styles.slide}>
         <Image
@@ -20,6 +21,7 @@ const Artwork = memo(function Artwork({ artwork, handlePress }) {
         <Text style={styles.artworkName}>{artwork.name}</Text>
       </View>
     </Pressable>
+    </View>
   );
 });
 

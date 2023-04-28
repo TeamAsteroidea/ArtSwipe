@@ -11,11 +11,16 @@ import {
   // Alert,
 } from "react-native";
 
+import BookmarkButton from './bookmarkButton';
+import { TEXT, SUBTEXT } from '../../constants/Fonts.js';
+import TimeRemaining from '../../scripts/helperFunctions/Timer';
+import * as firestoreGeneric from '../../server/fs-generic';
 
 const styles = StyleSheet.create({
   cardContainer:{
+    // backgroundColor: 'grey',
     width: '100%',
-    height: 150,
+    height: 120,
     flex: 1,
     flexDirection: 'row',
   },
@@ -23,9 +28,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     width: 75,
     height: 75,
+    margin: 20,
+    marginRight: 0,
   },
   image: {
     flex: 1
+  },
+  textContainer: {
+    width: 200,
+    height: 76,
+    margin: 20,
+  },
+  bookmarkContainer: {
+    // backgroundColor: 'grey',
+    justifyContent: 'center',
   }
 })
 
@@ -35,14 +51,20 @@ const BookmarkCard = ({ item, navigation }) => {
     <View style={styles.iconContainer}>
       <Image
         style={styles.image}
-        source={{uri: item.image,}}
+        source={{uri: item.image}}
       />
     </View>
-    <View>
-      <Text>{item.name}</Text>
-      <Text>Now: {item.bidStartingPrice}</Text>
-      <Text>You bid: {item.bidIncrementPrice}</Text>
-      <Text>Time left: {item.bidDuration}</Text>
+    <View style={styles.textContainer}>
+      <Text style={styles.TEXT, { fontWeight: 'bold' }}>{item.name}</Text>
+      <Text style={{ fontSize: 12, fontWeight: 'bold'}}>Now: {item.bidPrice}</Text>
+      <Text style={{ fontSize: 10 }}>You bid: {item.bidIncrement}</Text>
+      <Text style={{ fontSize: 13, fontWeight: 'bold'}}>Time left:</Text>
+      <View>
+        {TimeRemaining(item)}
+      </View>
+    </View>
+    <View style={styles.bookmarkContainer}>
+      <BookmarkButton item={item}/>
     </View>
   </View>);
 };
@@ -50,4 +72,4 @@ const BookmarkCard = ({ item, navigation }) => {
 BookmarkCard.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
-export default BookmarkCard
+export default BookmarkCard;

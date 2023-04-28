@@ -15,6 +15,7 @@ const userSlice = createSlice({
       language: 'English (US)',
       showMe: [],
     },
+    bookmarks: [123456, 456456],
   },
   reducers: {
     loginUser: (state, action) => {
@@ -25,15 +26,29 @@ const userSlice = createSlice({
     logoutUser: (state) => {
       state.loggedIn = false;
       state.user = {
-        displayName: "",
-        email: "",
-        photoURL: "",
-        uid: "",
-        idToken: "", //this is for API calls
+        displayName: '',
+        email: '',
+        photoURL: '',
+        uid: '',
+        bookmarks: [],
+        idToken: '' //this is for API calls
       };
     },
     setGender: (state, action) => {
       state.genderId = action.payload;
+    },
+    removeBookmark: (state, action) => {
+      state = {
+        ...state,
+        bookmarks: state.user.bookmarks.filter(bookmark => bookmark !== action.payload),
+      }
+    },
+    addBookmark: (state, action) => {
+      console.log(state.user.bookmarks, 'bookmarks');
+      state = {
+        ...state,
+        bookmarks: state.user.bookmarks.push(action.payload),
+      }
     },
     setDarkMode: (state, action) => {
       state.darkMode = action.payload;
@@ -59,5 +74,5 @@ const userSlice = createSlice({
 export const { loginUser, logoutUser } = userSlice.actions;
 export default userSlice.reducer;
 
-export const { loginUser, logoutUser } = userSlice.actions
+export const { loginUser, logoutUser, setLoginStatus, setGender, addBookmark, removeBookmark, setDarkMode, setLanguage, setShowMe } = userSlice.actions
 export default userSlice.reducer

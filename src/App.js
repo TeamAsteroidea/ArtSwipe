@@ -29,7 +29,7 @@ import Profile from "./tabs/Profile.js";
 import SwipeStack from "./tabs/SwipeStack.js";
 
 /*~~~~SCREENS GO HERE~~~~*/
-import ArtistPage from "./screens/ArtistPage.js";
+import Wares from "./screens/Wares.js";
 import DetailView from "./screens/DetailView.js";
 import ChatPage from "./screens/ChatPage.jsx";
 import BiddingHistory from './screens/BiddingHistory.js';
@@ -120,8 +120,8 @@ function App() {
             options={{ headerShown: false, gestureEnabled: false }}
           />
           <Stack.Screen
-            name="ArtistPage"
-            component={ArtistPage}
+            name="Wares"
+            component={Wares}
             options={{ headerShown: false, gestureDirection: "vertical" }}
           />
           <Stack.Screen
