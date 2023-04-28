@@ -13,12 +13,19 @@ module.exports = function (api) {
             server: "./src/server",
             components: "./src/components",
             constants: "./src/constants",
-            // redux: "./src/redux",
             screens: "./src/screens",
             tabs: "./src/tabs",
           },
         },
       ],
+      ["module:react-native-dotenv", {
+        "moduleName": "@env",
+        "path": ".env",
+        "blacklist": null,
+        "whitelist": null,
+        "safe": true,
+        "allowUndefined": true
+      }],
     ],
   };
 };

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useSelector } from 'react-redux';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from "expo-status-bar";
@@ -18,6 +19,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Colors from "constants/Colors.js";
 import StackScreenOptions from "components/modular/StackScreenOptions.jsx";
+import * as firestore from "server/firestore.js"
 
 /*~~~~TABS GO HERE~~~~*/
 import ArtistAlley from "./tabs/ArtistAlley.js";
@@ -32,12 +34,17 @@ import DetailView from "./screens/DetailView.js";
 import ChatPage from "./screens/ChatPage.jsx";
 import BiddingHistory from './screens/BiddingHistory.js';
 import Bookmarks from './screens/Bookmarks.js';
+import LoginScreen from './screens/LoginScreen.js';
+
+
+
 import CreateEvent from './screens/CreateEvent.js'
 import PersonalInfo from './screens/PersonalInfo.js';
 import ProfileSettings from './screens/ProfileSettings.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 
 function Home() {
   return (
@@ -99,9 +106,14 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
+          <Stack.Screen
             name="Home"
             component={Home}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, gestureEnabled: false }}
           />
           <Stack.Screen
             name="ArtistPage"

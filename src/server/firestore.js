@@ -1,23 +1,26 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+
 // import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore/lite";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import {API_KEY, APP_ID} from '@env'
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDQO1N20Ngq8-HGqZiISrhjL-bF03czf7w",
-  authDomain: "artswipe-b2bc3.firebaseapp.com",
-  projectId: "artswipe-b2bc3",
-  storageBucket: "artswipe-b2bc3.appspot.com",
-  messagingSenderId: "298048017254",
-  appId: "1:298048017254:web:afadfc7da1ad1e00722ea7",
+  apiKey: API_KEY,
+  authDomain: 'artswipe-b2bc3.firebaseapp.com',
+  databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
+  projectId: 'artswipe-b2bc3',
+  storageBucket: 'artswipe-b2bc3.appspot.com',
+  messagingSenderId: 'sender-id',
+  appId: APP_ID,
   measurementId: "G-48R5S5D0J1",
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// export const analytics = getAnalytics(app);
-export const db = getFirestore(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db };
+
