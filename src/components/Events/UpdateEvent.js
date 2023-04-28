@@ -32,6 +32,8 @@ const dbCol = 'events';
 const UpdateEvent = ({ route, navigation }) => {
   const { updateEvents, editData } = route.params;
   console.log('editData', editData);
+  const addrArr = editData.venue.split(',');
+  console.log(addrArr);
 
   const [ eventName, setEventName ] = useState(editData.title);
   const [ eventDescription, setEventDescription ] = useState(editData.description);
