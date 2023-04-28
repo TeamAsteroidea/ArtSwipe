@@ -164,8 +164,8 @@ const EventsList = ({ navigation }) => {
   return (
     <View>
       <CreatePressable
-        // title="Event Create Button"
-        onPress={() => navigation.navigate('EventCreation', {
+        // title="Create Event"
+        onPress={() => navigation.navigate('CreateEvent', {
           eventData: eData[0],
         })}
       >
@@ -181,6 +181,10 @@ const EventsList = ({ navigation }) => {
         data={eData}
         renderItem={renderEvent}
         keyExtractor={(item) => item.id}
+      />
+      <Button
+        title="Create Event"
+        onPress={() => navigation.navigate('CreateEvent')}
       />
     </View>);
 };
