@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
@@ -12,7 +12,7 @@ import {
 import Content from '../components/swipestack/index';
 import Header from '../components/swipestack/components/Header.jsx';
 
-const SwipeStack = ({ navigation }) => {
+const SwipeStack = (function SwipeStack ({ navigation }) {
   return (
     <SafeAreaView style={styles.safeArea}>
       <Header/>
@@ -21,7 +21,7 @@ const SwipeStack = ({ navigation }) => {
       </View>
     </SafeAreaView>
   );
-};
+});
 
 SwipeStack.propTypes = {
   navigation: PropTypes.object.isRequired,
