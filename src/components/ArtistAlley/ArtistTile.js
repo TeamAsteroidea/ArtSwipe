@@ -14,7 +14,8 @@ import {
 const ArtistTile = memo(function ArtistTile({ navigation, item }) {
 
   const handlePress = () => {
-    navigation.navigate('DetailView');
+    // console.log(item)
+    navigation.navigate('Wares', { wares: item });
   };
 
   const renderItem = ({ item: artwork }) => (
@@ -43,7 +44,7 @@ const ArtistTile = memo(function ArtistTile({ navigation, item }) {
 
 
       <Pressable onPress={handlePress}>
-        <View style={styles.descriptionContainer}>
+        <View style={styles.artistDescriptionContainer}>
           <View style={styles.artistDescription}>
             <Text style={styles.artistName}>{item.artist}</Text>
             <Text style={styles.artistLocation}>{item.artist}&apos;s Location</Text>

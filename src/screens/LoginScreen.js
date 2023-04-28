@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
       } else {
         const savedUser = await AsyncStorage.getItem('currentUser');
         if (savedUser) {
-          console.log('useEffect ', JSON.parse(savedUser))
+          // console.log('useEffect ', JSON.parse(savedUser))
           passToDispatch(JSON.parse(savedUser));
         }
       }
