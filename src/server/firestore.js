@@ -6,6 +6,8 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { API_KEY, APP_ID } from "@env";
 
+console.log(API_KEY, 'key');
+
 const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: "artswipe-b2bc3.firebaseapp.com",

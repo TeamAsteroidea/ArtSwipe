@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -44,7 +44,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const iconSize = 30;
 
-function Home() {
+const Home = function Home() {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -97,11 +97,11 @@ function Home() {
       />
     </Tab.Navigator>
   );
-}
+};
 
 // screenOptions={{ headerShown: false }}
 
-function App() {
+const App = function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -162,6 +162,6 @@ function App() {
       </NavigationContainer>
     </Provider>
   );
-}
+};
 
 registerRootComponent(App);

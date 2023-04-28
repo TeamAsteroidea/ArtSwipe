@@ -8,6 +8,9 @@ import Display from './Display.jsx';
 import styled from 'styled-components/native';
 import { useSelector } from "react-redux";
 import { getAll } from '../../server/fs-generic.js';
+import Loading from './Loading.jsx';
+import { search } from '../../server/fs-generic.js';
+import { orderBy, limit, where } from "firebase/firestore";
 
 function Content ({ navigation }) {
   // const artwork = getAll('art')
@@ -16,7 +19,9 @@ function Content ({ navigation }) {
   const [stack, setStack] = useState([]);
 
   const loadCards = () => {
-    getAll('art')
+    // console.log('cards loaded')
+    // getAll('art')
+    search('art', limit(100))
       .then((result) => {
         const sortedArtwork = sortArtwork(user, result);
         setStack(sortedArtwork);
@@ -30,7 +35,11 @@ function Content ({ navigation }) {
 
   return (
     <Swiper style={{}}>
-      {stack.length > 0 && <Display stack={stack} user={user} navigation={navigation} loadCards={loadCards}/>}
+      {stack.length > 0 ? (<Display stack={stack} user={user} navigation={navigation} loadCards={loadCards}/>)
+        : (
+          <Loading />
+        )
+      }
     </Swiper>
   );
 }

@@ -4,59 +4,64 @@ import {
 import Colors from "constants/Colors";
 
 export default StyleSheet.create({
-  container: {
+  artDescription: {
+    flex: 1,
+    textAlign: "left",
+    paddingVertical: 5,
+    height: 65
   },
   artist: {
     display: 'flex',
     marginTop: '3%',
     marginBottom: '8%',
   },
-  artworkName: {
-    textAlign: 'center',
-    marginBottom: 5,
-  },
   artistDescription: {
     paddingLeft: 5,
     paddingTop: 5,
+  },
+  artistDescriptionContainer: {
+    margin: 5,
+    padding: 5,
+  },
+  artistLocation: {
+    fontWeight: '200',
+    fontStyle: 'italic',
   },
   artistName: {
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 5,
   },
-  artistLocation: {
-    fontWeight: '200',
-    fontStyle: 'italic',
+  artworkName: {
+    textAlign: 'center',
+    marginBottom: 5,
   },
-  slide: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 15,
-    marginRight: 15,
-    marginBottom: 10,
-    width: 300,
-    height: 300,
+  artworkTileContainer: {
+    justifyContent: "space-around",
+    width: "48%",
+    marginTop: 20,
   },
-  image: {
+  artImage: {
+    flex: 1,
+    width: 175,
+    height: 175,
+  },
+  artImageContainer: {
     backgroundColor: 'lightgrey',
-    resizeMode: 'cover',
-    width: 300,
-    height: 300,
-    marginBottom: 10,
+    width: 175,
+    height: 175,
+    flex: 1,
   },
-  descriptionContainer: {
-    marginBottom: 200,
+  artName: {
+    fontSize: 15,
+    fontWeight: '700',
+    marginBottom: 5,
   },
-  artistDescriptionContainer: {
-    margin: 5,
-    padding: 5,
-  },
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    height: 60,
-    marginTop: 5,
-    paddingHorizontal: 20,
+  artTile: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginBottom: 3,
+    overflow: 'hidden',
   },
   backButtonContainer: {
     flexDirection: "row",
@@ -65,46 +70,67 @@ export default StyleSheet.create({
   backButtonIcon: {
     marginRight: 10,
   },
-  headerArtistName: {
-    textAlign: "right",
-    fontSize: 25,
-    fontWeight: "500",
+  bidStartingPrice: {
+    fontSize: 14,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: "500",
-    color: Colors.PRIMARYLIGHT,
+  container: {
+  },
+  contentContainerStyle: {
+    justifyContent: 'center',
+  },
+  descriptionContainer: {
+    // marginBottom: 200,
   },
   filter: {
     alignSelf: "flex-end",
   },
+  filterContainer: {
+    alignItems: "flex-end",
+    justifyContent: "flex-start",
+    marginTop: 10,
+    marginRight: 20,
+  },
   filterDropdown: {
     position: "relative",
-    marginTop: 25,
+  },
+  filterIcon: {
+    marginRight: 5,
+    paddingLeft: 5,
+  },
+  faText: {
+    // marginRight: 1,
   },
   filterText: {
-    textAlign: 'justify',
     fontSize: 16,
-    color: "#333",
+    color: Colors.PRIMARY,
     fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "right",
   },
-  optionsContainer: {
-    position: "absolute",
-    flexDirection: "column",
-    alignItems: "center",
-    elevation: 5,
-    zIndex: 5,
-    top: 130,
-    right: 0,
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#e3e3e3",
-    borderRadius: 5,
-    marginTop: "auto",
-    marginBottom: 2,
-    marginLeft: 2,
-    marginRight: 2,
-    padding: 6,
+  headerArtistName: {
+    textAlign: "right",
+    fontSize: 25,
+    fontWeight: "600",
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    height: 35,
+    marginTop: 5,
+    paddingHorizontal: 20,
+    color: '#FFFFFF'
+  },
+  image: {
+    backgroundColor: 'lightgrey',
+    resizeMode: 'cover',
+    width: 300,
+    height: 300,
+    marginBottom: 10,
+  },
+  materials: {
+    fontSize: 12,
+    fontWeight: '300',
+    marginBottom: 5,
   },
   optionText: {
     padding: 6,
@@ -120,48 +146,37 @@ export default StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 5,
   },
-  artTile: {
-    flex: 1,
-    marginHorizontal: 10,
-    marginBottom: 3,
-    overflow: 'hidden',
+  optionsContainer: {
+    position: "absolute",
+    flexDirection: "column",
+    alignItems: "center",
+    elevation: 5,
+    zIndex: 5,
+    top: 120,
+    right: 0,
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#e3e3e3",
+    borderRadius: 5,
+    marginTop: "auto",
+    marginBottom: 2,
+    marginLeft: 2,
+    marginRight: 2,
+    padding: 6,
+    width: '30%',
   },
-  artImageContainer: {
-    backgroundColor: 'lightgrey',
-    width: 175,
-    height: 175,
-    flex: 1,
-  },
-  artImage: {
-    flex: 1,
-    width: 175,
-    height: 175,
-  },
-  artDescription: {
-    flex: 1,
-    textAlign: "left",
-    paddingVertical: 5,
-    height: 65
-  },
-  artName: {
-    fontSize: 15,
-    fontWeight: '700',
-    marginBottom: 5,
-  },
-  materials: {
-    fontSize: 12,
-    fontWeight: '300',
-    marginBottom: 5,
-  },
-  bidStartingPrice: {
-    fontSize: 14,
-  },
-  artworkTileContainer: {
-    justifyContent: "space-around",
-    width: "48%",
-    marginTop: 20,
-  },
-  contentContainerStyle: {
+  slide: {
+    alignItems: 'center',
     justifyContent: 'center',
-  }
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 10,
+    width: 300,
+    height: 300,
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: "700",
+    color: Colors.PRIMARY,
+  },
 });

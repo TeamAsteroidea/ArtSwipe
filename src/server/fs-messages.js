@@ -13,7 +13,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-import { isSenderSame } from "scripts/messages/isSenderSame.js";
+import { isSenderSame } from "../scripts/messages/isSenderSame.js";
 import { groupData } from "../../dummyData/dummyData.js";
 
 export const getRooms = async (uid, callback) => {

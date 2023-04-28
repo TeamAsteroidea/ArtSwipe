@@ -68,14 +68,15 @@ font-weight: 400;
 const ViewBorder = styled.View`
 `;
 
-const Event = ({ eventData, navigation }) => {
-  console.log('eventData is', eventData);
+const Event = ({ eventData, navigation, updateEvents }) => {
+  // console.log('eventData is', eventData);
   if (Object.keys(eventData).indexOf('imageurl') >= 0) {
     return (
       <ViewBorder>
         <EventPressable onPress={() => {
           navigation.navigate('EventDescription', {
             eventData,
+            updateEvents: updateEvents,
           })
         }}>
           <EventImgContainer>
@@ -119,4 +120,3 @@ Event.propTypes = {
 };
 
 export default Event;
-
