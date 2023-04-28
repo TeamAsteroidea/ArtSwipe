@@ -64,6 +64,7 @@ function Home() {
           elevation: 5,
         },
       }}
+      initialRouteName='SwipeStack'
     >
       <Tab.Screen
         key={1}
@@ -99,6 +100,8 @@ function Home() {
     </Tab.Navigator>
   );
 }
+
+// screenOptions={{ headerShown: false }}
 
 function App() {
   return (

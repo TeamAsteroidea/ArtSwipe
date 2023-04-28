@@ -1,7 +1,10 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import styled from 'styled-components/native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons/faCirclePlus';
+import { AntDesign } from '@expo/vector-icons';
 import {
   // StyleSheet,
   Button,
@@ -11,15 +14,18 @@ import {
   // Alert,
   // ScrollView,
   FlatList,
-  // Pressable,
+  Pressable,
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { db } from "../server/firestore.js";
 
 
 import Event from '../components/Events/Event.js';
 import EventDescription from '../components/Events/EventDescription.js';
 import EventCreation from '../components/Events/EventCreation.js';
 import EventEdit from '../components/Events/EventEdit.js';
+import { getAllEvents } from '../server/fs-events.js';
+
 
 const eventDummyData = [
   {
@@ -127,8 +133,29 @@ const Stack = createNativeStackNavigator();
 //   console.log('pressed pressable');
 // }
 
+const CreatePressable = styled.Pressable`
+  position: absolute;
+  width: 41px;
+  top: 5px;
+  right: 10px;
+`;
+
+const FlatListWrapper = styled.FlatList`
+  margin-top: 42px;
+`;
+
 const EventsList = ({ navigation }) => {
-  const [eData, setEData] = useState(eventDummyData);
+  const [eData, setEData] = useState([]);
+
+  useEffect(() => {
+    getAllEvents()
+      .then((fsData) => {
+        setEData(fsData);
+      })
+      .catch((err) => {
+        console.log('Error initializing art event data:', err);
+      })
+  }, []);
 
   const renderEvent = ({ item }) => (
     <Event eventData={item} navigation={navigation}/>
@@ -136,14 +163,21 @@ const EventsList = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Event Page</Text>
-      <Button
-        title="Create Event"
+      <CreatePressable
+        // title="Create Event"
         onPress={() => navigation.navigate('CreateEvent', {
           eventData: eData[0],
         })}
-      />
-      <FlatList
+      >
+        <FontAwesomeIcon
+          icon={faCirclePlus}
+          size={40}
+          color='#034448'
+          background-color='none'
+          // style={styles.filterIcon}
+          />
+      </CreatePressable>
+      <FlatListWrapper
         data={eData}
         renderItem={renderEvent}
         keyExtractor={(item) => item.id}
