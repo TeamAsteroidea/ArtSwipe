@@ -1,4 +1,4 @@
-import React, {  memo } from "react";
+import React, { memo } from "react";
 import { useSelector } from 'react-redux';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -47,7 +47,7 @@ const Stack = createNativeStackNavigator();
 const iconSize = 30;
 
 
-const Home = memo(function Home() {
+const Home = (function Home() {
   return (
     <Tab.Navigator
       screenOptions={{
