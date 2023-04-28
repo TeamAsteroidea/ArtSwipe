@@ -5,3 +5,4 @@ package-lock.json
 .env
 GoogleService-Info.plist
 .DS_Store
+exampleUserSlice.js

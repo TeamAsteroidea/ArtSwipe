@@ -36,6 +36,7 @@
     "module-resolver": "^1.0.0",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
+    "react-animated-heart": "^0.0.8",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-native": "0.71.7",

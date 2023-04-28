@@ -19,7 +19,7 @@ const Messages = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header navigation={navigation} title="Messages" />
-      <MessagesToolbar navigation={navigation} />
+      {/* <MessagesToolbar navigation={navigation} /> */}
       <MessagesChatList navigation={navigation} />
     </SafeAreaView>
   );
