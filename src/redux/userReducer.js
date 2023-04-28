@@ -1,37 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit"
-
+import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     loggedIn: false,
     user: {
-      displayName: '',
-      email: '',
-      photoURL: '',
-      uid: '',
-      idToken: '',
-      genderId: '',
-      darkMode: 'Off',
-      language: 'English (US)',
+      displayName: "",
+      email: "",
+      photoURL: "",
+      uid: "",
+      idToken: "",
+      genderId: "",
+      darkMode: "Off",
+      language: "English (US)",
       showMe: [],
     },
     bookmarks: [123456, 456456],
   },
   reducers: {
     loginUser: (state, action) => {
+      console.log("loginUser", action.payload);
       state.user = action.payload;
       state.loggedIn = true;
     },
     logoutUser: (state) => {
       state.loggedIn = false;
       state.user = {
-        displayName: '',
-        email: '',
-        photoURL: '',
-        uid: '',
+        displayName: "",
+        email: "",
+        photoURL: "",
+        uid: "",
         bookmarks: [],
-        idToken: '' //this is for API calls
+        idToken: "", //this is for API calls
       };
     },
     setGender: (state, action) => {
@@ -40,15 +40,17 @@ const userSlice = createSlice({
     removeBookmark: (state, action) => {
       state = {
         ...state,
-        bookmarks: state.user.bookmarks.filter(bookmark => bookmark !== action.payload),
-      }
+        bookmarks: state.user.bookmarks.filter(
+          (bookmark) => bookmark !== action.payload
+        ),
+      };
     },
     addBookmark: (state, action) => {
-      console.log(state.user.bookmarks, 'bookmarks');
+      console.log(state.user.bookmarks, "bookmarks");
       state = {
         ...state,
         bookmarks: state.user.bookmarks.push(action.payload),
-      }
+      };
     },
     setDarkMode: (state, action) => {
       state.darkMode = action.payload;
@@ -57,7 +59,7 @@ const userSlice = createSlice({
       state.language = action.payload;
     },
     setShowMe: (state, action) => {
-      console.log('showme payload: ', action.payload);
+      console.log("showme payload: ", action.payload);
       state.showMe = action.payload;
     },
   },
@@ -69,7 +71,17 @@ const userSlice = createSlice({
   //     state.loggedIn = false;
   //   },
   // },
-})
+});
 
-export const { loginUser, logoutUser, setLoginStatus, setGender, addBookmark, removeBookmark, setDarkMode, setLanguage, setShowMe } = userSlice.actions
-export default userSlice.reducer
+export const {
+  loginUser,
+  logoutUser,
+  setLoginStatus,
+  setGender,
+  addBookmark,
+  removeBookmark,
+  setDarkMode,
+  setLanguage,
+  setShowMe,
+} = userSlice.actions;
+export default userSlice.reducer;

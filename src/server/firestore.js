@@ -2,18 +2,17 @@
 import { initializeApp } from "firebase/app";
 
 // import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore/lite";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import {API_KEY, APP_ID} from '@env';
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { API_KEY, APP_ID } from "@env";
 
-console.log(API_KEY);
 const firebaseConfig = {
   apiKey: API_KEY,
-  authDomain: 'artswipe-b2bc3.firebaseapp.com',
-  databaseURL: 'https://artswipe-b2bc3.firebaseio.com/',
-  projectId: 'artswipe-b2bc3',
-  storageBucket: 'artswipe-b2bc3.appspot.com',
-  messagingSenderId: 'sender-id',
+  authDomain: "artswipe-b2bc3.firebaseapp.com",
+  databaseURL: "https://artswipe-b2bc3.firebaseio.com/",
+  projectId: "artswipe-b2bc3",
+  storageBucket: "artswipe-b2bc3.appspot.com",
+  messagingSenderId: "sender-id",
   appId: APP_ID,
   measurementId: "G-48R5S5D0J1",
 };

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // import { store } from '/redux/store';
 import {
@@ -15,29 +16,35 @@ import {
 // import Colors from "constants/Colors.js";
 import Fonts from "constants/Fonts.js";
 import MessagesChatItem from "./MessagesChatItem.jsx";
+import { getRooms } from "server/fs-messages.js";
+
+import { groupData } from "../../../dummyData/dummyData.js";
 
 const MessagesChatList = ({ navigation }) => {
-  const dummyData = [
-    {
-      image: "",
-      name: "Background Character",
-      recentMessage:
-        "What do you think about my offer? I think it's quite fair.",
-    },
-  ];
-  const chatList = []
-    .concat(...Array(20).fill(dummyData))
-    .map((chat, index) => {
-      return (
-        <MessagesChatItem
-          key={index}
-          navigation={navigation}
-          image={chat.image}
-          name={chat.name}
-          recentMessage={chat.recentMessage}
-        />
-      );
-    });
+  const [groups, setGroups] = useState([]);
+  useEffect(() => {
+    const getGroupList = async () => {
+      const groupData = await getRooms();
+      // setGroups(groupData);
+    };
+    getGroupList();
+    setGroups(groupData);
+  }, []);
+
+  const chatList = groups.map((chat, index) => {
+    return (
+      <MessagesChatItem
+        key={index}
+        navigation={navigation}
+        chat_id={chat.chat_id}
+        image={chat.image}
+        name={chat.name}
+        recentMessage={
+          chat.messages.length > 0 ? chat.messages[0].message_body : ""
+        }
+      />
+    );
+  });
   return (
     <View style={styles.chatList}>
       <ScrollView>
