@@ -22,7 +22,6 @@ function Content ({ navigation }) {
         const sortedArtwork = sortArtwork(user, result);
         setStack(sortedArtwork);
         console.log('card loaded')
-        console.log(sortedArtwork.length)
       })
       .catch((err) => {console.log(err)})
   };
@@ -35,8 +34,8 @@ function Content ({ navigation }) {
   return (
     <Swiper style={{}}>
       {stack.length > 0 ? (<Display stack={stack} user={user} navigation={navigation} loadCards={loadCards}/>)
-        : (
-          <Loading />
+        : ( null
+          // <Loading /> //had to get rid of this because it was locking things up
         )
       }
     </Swiper>

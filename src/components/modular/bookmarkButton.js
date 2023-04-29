@@ -10,9 +10,10 @@ import { update } from '../../server/fs-generic';
 const BookmarkButton = ({ item }) => {
 
   const dispatch = useDispatch();
-  const userID = useSelector(state => state.user.user.uid)
   // console.log('userID', userID)
-  let bookmarks = useSelector( state => state.user.bookmarks)
+  const {user} = useSelector(state => state.user)
+  const userID = user._id
+  let bookmarks = user.bookmarks
   let initialState = bookmarks.includes(item._id);
   const [isLiked, setLiked] = useState(initialState);
 
