@@ -45,7 +45,8 @@ ArtSwipe is a mobile app concept that combines the swipe left/right feature of T
 - Events can be clicked on for further description
 - Can Create a new event or Edit an existing event for each user
 - Uses a date/time picker to set the event date
-![EventsDemo-20230429](https://user-images.githubusercontent.com/7811764/235326379-bec373de-87ff-4a14-80cc-a8e1118f1aed.gif)
+
+![ArtEventsDemo-20230429](https://user-images.githubusercontent.com/7811764/235326379-bec373de-87ff-4a14-80cc-a8e1118f1aed.gif)
   
 ## Profile
 
