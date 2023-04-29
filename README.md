@@ -1,11 +1,7 @@
 # ArtSwipe
 
-A modern mobile app that allows ease of access to local art auctions
+A modern mobile app where Tinder meets eBay. ArtSwipe brings local art auctions to your phone! It allows you to bid on a local artist’s work with an easy to use swiping mechanism.  
 
-# Documentation for current setup
+## Authors
 
-(delete this section in final version of app)
-
-- React Naitive start link: https://reactnative.dev/docs/environment-setup?guide=quickstart
-- Note that for the expo start you can scan the QR code on IOS as well as on android, and IOS permissions are a little finnicky.
--
+[Aidan Fisher](https://www.github.com/aidanFisher97) - [Swiper](#swiper)\
