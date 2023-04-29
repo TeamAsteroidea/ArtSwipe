@@ -28,6 +28,7 @@ ArtSwipe is a mobile app concept that combines the swipe left/right feature of T
 <image src="readmeImages/swiperImage.png" height="600">
 
 ## Artist Alley
+![EventsDemo-20230429](https://user-images.githubusercontent.com/7811764/235326379-bec373de-87ff-4a14-80cc-a8e1118f1aed.gif)
 
 ## Messaging
 - Real time listening for database updates for new messages
