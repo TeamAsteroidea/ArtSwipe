@@ -6,6 +6,7 @@ ArtSwipe is a mobile app concept that combines the swipe left/right feature of T
 
 [Aidan Fisher](https://www.github.com/aidanFisher97) - [Swipe Stack](#swipestack)\
 [Neil Xia](https://www.github.com/NeilLXia) - [Messaging](#messaging)\
+[Dennis Hsu](https://github.com/denniseh7) - Project Manager - [Art Event](#artevent)
 
 ## Built With
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)![React Navigation](https://img.shields.io/badge/React%20Navigation-46B5D1?style=for-the-badge&logo=react&logoColor=white)
@@ -28,7 +29,6 @@ ArtSwipe is a mobile app concept that combines the swipe left/right feature of T
 <image src="readmeImages/swiperImage.png" height="600">
 
 ## Artist Alley
-![EventsDemo-20230429](https://user-images.githubusercontent.com/7811764/235326379-bec373de-87ff-4a14-80cc-a8e1118f1aed.gif)
 
 ## Messaging
 - Real time listening for database updates for new messages
@@ -38,8 +38,15 @@ ArtSwipe is a mobile app concept that combines the swipe left/right feature of T
 - Keyboard responsive design
 <image of opening and closing keyboard>
 
+<a name="artevent"></a>
 ## Art Events
-
+### Features
+- Scrolling view of nearby art gallery events with lazy loading
+- Events can be clicked on for further description
+- Can Create a new event or Edit an existing event for each user
+- Uses a date/time picker to set the event date
+![EventsDemo-20230429](https://user-images.githubusercontent.com/7811764/235326379-bec373de-87ff-4a14-80cc-a8e1118f1aed.gif)
+  
 ## Profile
 
 ## Wireframe
