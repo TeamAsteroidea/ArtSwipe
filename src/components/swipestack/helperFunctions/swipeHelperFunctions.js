@@ -9,6 +9,9 @@ export const handleLeftSwipe = (art, user) => {
   generic.update('users', user._id, {rejected: arrayUnion(art._id)})
 };
 
+// change addDoc to setDoc to update a document in firebase
+// update the user and art document
+
 export const handleRightSwipe = (art, user) => {
   // art.bidders.push(user.username);
   // art.bidStartingPrice += art.bidIncrementPrice;

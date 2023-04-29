@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addReject, addActive } from "../../redux/userReducer.js";
 
 
+import { getOne } from '../../server/fs-generic.js';
+import BookMarkButton from '../modular/bookmarkButton.js';
 
 function Display ({ user, stack, navigation, loadCards }) {
   const dispatch = useDispatch();
@@ -41,7 +43,12 @@ function Display ({ user, stack, navigation, loadCards }) {
   }, [clock]);
 
   useEffect(() => {
-    setClock(timeRemaining(stack[currentIndex]))
+    // getOne('art', stack[currentIndex].name)
+    //   .then((result) => {
+    //     console.log(result)
+    //     stack[currentIndex] = result;
+    //   })
+      setClock(timeRemaining(stack[currentIndex]))
   }, [currentIndex])
 
   return (
@@ -55,6 +62,9 @@ function Display ({ user, stack, navigation, loadCards }) {
           </View>
         }
       </TimerContainer>
+      <BookMarkButtonContainer>
+        <BookMarkButton item={stack[currentIndex]}/>
+      </BookMarkButtonContainer>
       <ModalContainer>
         <OpenModal
           onPress={() => navigation.navigate('BiddingHistory')}>
@@ -64,14 +74,14 @@ function Display ({ user, stack, navigation, loadCards }) {
         </OpenModal>
       </ModalContainer>
       <CardContainer>
-        {dumpster && <Image source={require('../../../assets/dumpster.gif')} />}
+        {dumpster && <Dumpster source={require('../../../assets/dumpster.gif')} />}
         {money && <Money source={require('../../../assets/giphy.gif')} />}
         {!lastCardSwiped ? (
         <Swiper
           containerStyle={{ backgroundColor: 'transparent'}}
           stackSize={3}
           cardIndex={0}
-          showSecondCard={false}
+          // showSecondCard={false}
           verticalSwipe={false}
           animateCardOpacity
           horizontalThreshold={210}
@@ -317,4 +327,20 @@ const Money = styled.Image`
   flex: 1;
   position: absolute;
   height: 800px;
+`
+
+const Dumpster = styled.Image`
+  flex: 1;
+  position: absolute;
+  right: 0;
+  height: 800px;
+  width: 800px;
+`
+
+const BookMarkButtonContainer = styled.View`
+  flex: 1;
+  padding: 4px;
+  position: absolute;
+  right: 70px;
+  top: 10px;
 `

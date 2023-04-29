@@ -2,9 +2,10 @@
 export const timeRemaining = (art) => {
   // console.log(art)
   // console.log('in time remaining', art);
-  // console.log(art.dateAuctioned);
+  // console.log(art.dateAuctioned, 'date auctioned');
   // get today's date in UNIX format (seconds)
   const today = new Date().getTime();
+  // console.log('today', today)
   // subtract todays date from the dateAuctioned
   const timeSpent = today - art.dateAuctioned;
   // console.log('timespent', timeSpent);

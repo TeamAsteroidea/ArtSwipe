@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 // import { store } from '/redux/store';
 import {
@@ -15,13 +15,13 @@ import {
 import styled from 'styled-components/native';
 import data from '../../dummyData/artUrlArray.js'
 
-const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
   const paddingToBottom = 20;
   return layoutMeasurement.height + contentOffset.y >=
     contentSize.height - paddingToBottom;
 };
 
-const isCloseToTop = ({contentOffset}) => {
+const isCloseToTop = ({ contentOffset }) => {
   const paddingToTop = -100; //negative padding to only do it if overflowing
   return contentOffset.y <=
     paddingToTop;
@@ -80,6 +80,7 @@ const DetailView = ({ navigation, route }) => {
 
 DetailView.propTypes = {
   navigation: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 const PriceContainer = styled.View`
@@ -103,37 +104,45 @@ const Bid = styled.Text`
 `
 
 const SafeWrapper = styled.SafeAreaView`
-  flex: 1;
-`
+        flex: 1;
+        `
 
 const ScrollList = styled.ScrollView`
-  flex: 1;
-`
+        flex: 1;
+        `
+
+const DetailViewImageContainer = styled.View`
+        background-color: lightgrey;
+        width: ${Dimensions.get('window').width}px;
+        display: flex;
+        `;
 
 const DetailViewImage = styled.Image`
-  height:${Dimensions.get('window').height * 0.45}px;
-  width: ${Dimensions.get('window').width}px;
-`
+        height: ${Dimensions.get('window').width}px;
+        width: ${Dimensions.get('window').width}px;
+        resize-mode: contain;
+        `;
+
 const Info = styled.View`
-  padding-top: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-`
+        padding-top: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        `
 
 const Title = styled.Text`
-  font-weight: bold;
-  font-size: 20px;;
-`
+        font-weight: bold;
+        font-size: 20px;;
+        `
 
 const Artist = styled.Text`
-  font-style: italic;
-  font-size: 15px;
-`
+        font-style: italic;
+        font-size: 15px;
+        `
 
 const InfoSubtitle = styled.Text`
-  font-weight: bold;
-  font-size: 15px;
-`
+        font-weight: bold;
+        font-size: 15px;
+        `
 
 
 
