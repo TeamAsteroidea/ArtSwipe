@@ -25,7 +25,7 @@ ArtSwipe is a mobile app concept that combines the swipe left/right feature of T
 - Artwork can be bookmarked.
 - Active bids are displayed when a user clicks the gavel icon on the top right. 
 - Card stack is sorted by bookmarked, and the artwork the user bid on but is not the most recent bidder. Each group is sorted by duration left on auction. 
-<gif of swipestack>
+<image src="readmeImages/swiperImage.png">
 
 ## Artist Alley
 
