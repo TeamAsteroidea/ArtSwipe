@@ -53,7 +53,7 @@ const userSlice = createSlice({
         ...state,
         user: {
           ...state.user,
-          rejected: state.user.rejected.push(action.payload)
+          active: state.user.activeBids.push(action.payload)
         }
       }
     },
@@ -73,7 +73,7 @@ const userSlice = createSlice({
         ...state,
         user: {
           ...state.user,
-          activeBids: state.user.activeBids.push(action.payload)
+          rejected: state.user.rejected.push(action.payload)
         }
       }
     },
@@ -139,5 +139,7 @@ export const {
   setDarkMode,
   setLanguage,
   setShowMe,
+  addReject,
+  addActive,
 } = userSlice.actions;
 export default userSlice.reducer;

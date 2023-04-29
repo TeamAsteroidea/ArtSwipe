@@ -12,10 +12,12 @@ import styled from 'styled-components/native';
 import { handleLeftSwipe, handleRightSwipe } from './helperFunctions/swipeHelperFunctions.js';
 import { timeRemaining } from '../../scripts/helperFunctions/timeRemaining.js';
 import { useDispatch, useSelector } from 'react-redux';
+import { addReject, addActive } from "../../redux/userReducer.js";
+
+
 
 function Display ({ user, stack, navigation, loadCards }) {
-  // const {user}  = useSelector((state) => state.user); //this would be to make stuff stateful
-  // console.log(testUser)
+  const dispatch = useDispatch();
   const [dumpster, setDumpster] = useState(false);
   const [money, setMoney] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -112,10 +114,12 @@ function Display ({ user, stack, navigation, loadCards }) {
           onSwipedLeft={(index) => {
             setDumpster(false);
             handleLeftSwipe(stack[index], user);
+            dispatch(addReject(stack[index]._id))
           }}
           onSwipedRight={(index) => {
             setMoney(false);
             handleRightSwipe(stack[index], user);
+            dispatch(addActive(stack[index]._id))
           }}
           onSwiped={() => {
             const index = currentIndex + 1;

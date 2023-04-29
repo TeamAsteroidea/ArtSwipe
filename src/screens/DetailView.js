@@ -37,7 +37,6 @@ let USDollar = new Intl.NumberFormat('en-US', {
 
 const DetailView = ({ navigation, route }) => {
   var card = route.params.card;
-  console.log(card)
   return (
   <SafeWrapper>
     <ScrollList contentContainerStyle={{ flexGrow: 1}}
