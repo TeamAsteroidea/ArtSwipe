@@ -19,8 +19,6 @@ function Display ({ user, stack, navigation, loadCards }) {
   const [money, setMoney] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [clock, setClock] = useState(timeRemaining(stack[currentIndex]));
-  // Might be able to get rid of timeRemaining in the helper functions
-  // const [clock, setClock] = useState(stack[currentIndex].auctionTimeLeft);
   const [lastCardSwiped, setLastCardSwiped] = useState(false);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -38,11 +36,6 @@ function Display ({ user, stack, navigation, loadCards }) {
   }, [clock]);
 
   useEffect(() => {
-    // getOne('art', stack[currentIndex].name)
-    //   .then((result) => {
-    //     console.log(result)
-    //     stack[currentIndex] = result;
-    //   })
       setClock(timeRemaining(stack[currentIndex]))
   }, [currentIndex])
 
@@ -80,29 +73,6 @@ function Display ({ user, stack, navigation, loadCards }) {
           verticalSwipe={false}
           animateCardOpacity
           horizontalThreshold={210}
-          // overlayLabels={{
-          //   left: {
-          //     title: 'x',
-          //     style: {
-          //       label: {
-          //         textAlign: 'right',
-          //         color: '#c20a2e',
-          //         fontSize: 80,
-          //         marginTop: -20
-          //       },
-          //     },
-          //   },
-          //   right: {
-          //     title: '✓',
-          //     style: {
-          //       label: {
-          //         color: '#2EC20A',
-          //         fontSize: 65,
-          //         marginTop: -12
-          //       }
-          //     }
-          //   }
-          // }}
           onSwiping={(arg) => {
             if (arg < -25) {
               setMoney(false);
